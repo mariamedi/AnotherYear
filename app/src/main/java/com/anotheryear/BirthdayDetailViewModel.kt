@@ -16,7 +16,7 @@ class BirthdayDetailViewModel: ViewModel() {
 
     private val birthdayRepository = BirthdayRepository.get()
     private val birthdayIdLiveData = MutableLiveData<UUID>()
-    var gameLiveData: LiveData<Birthday?> = Transformations.switchMap(birthdayIdLiveData) {
+    var birthdayLiveData: LiveData<Birthday?> = Transformations.switchMap(birthdayIdLiveData) {
             birthdayId -> birthdayRepository.getBirthday(birthdayId)
     }
 
