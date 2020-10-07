@@ -1,5 +1,6 @@
 package com.anotheryear
 
+import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -7,11 +8,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import java.time.LocalDate
 import java.util.*
 
 private const val ARG_BIRTHDAY_ID = "birthdayId"
@@ -51,6 +50,13 @@ class BirthdayDetailFragment : Fragment() {
     private val birthdayDetailViewModel: BirthdayDetailViewModel by lazy {
         ViewModelProviders.of(this).get(BirthdayDetailViewModel::class.java)
     }
+
+    // Include callback for sending status message back to previous fragment
+    interface Callbacks {
+        fun detailAction(message: String)
+    }
+
+    private var callbacks: Callbacks? = null
 
     companion object {
 
@@ -165,14 +171,16 @@ class BirthdayDetailFragment : Fragment() {
 
         saveButton.setOnClickListener {
             birthdayDetailViewModel.saveBirthday(birthday)
+            callbacks?.detailAction("Birthday Saved!")
         }
 
         discardButton.setOnClickListener {
-
+            callbacks?.detailAction("Birthday Changes Discarded!")
         }
 
         deleteButton.setOnClickListener {
             birthdayDetailViewModel.deleteBirthday(birthday.id)
+            callbacks?.detailAction("Birthday Deleted!")
         }
 
         updateUI()
@@ -232,8 +240,16 @@ class BirthdayDetailFragment : Fragment() {
         val lastNameWatcher = nameWatcher("Last")
         firstNameEditText.addTextChangedListener(firstNameWatcher)
         lastNameEditText.addTextChangedListener(lastNameWatcher)
+    }
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        callbacks = context as Callbacks?
+    }
 
+    override fun onDetach() {
+        super.onDetach()
+        callbacks = null
     }
 
     /**
