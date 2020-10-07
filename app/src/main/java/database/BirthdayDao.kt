@@ -1,10 +1,7 @@
 package database
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.Query
-import androidx.room.Update
+import androidx.room.*
 import com.anotheryear.Birthday
 import java.util.*
 
@@ -37,4 +34,10 @@ interface BirthdayDao {
      */
     @Insert
     fun addBirthday(birthday: Birthday)
+
+    /**
+     * Delete a birthday in the db based on its UUID
+     */
+    @Query("DELETE FROM birthday WHERE id=(:id)")
+    fun deleteBirthday(id: UUID)
 }

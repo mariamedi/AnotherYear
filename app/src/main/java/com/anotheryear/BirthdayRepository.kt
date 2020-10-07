@@ -57,6 +57,16 @@ class BirthdayRepository private constructor(context: Context) {
         }
     }
 
+    /**
+     * Deletes a birthday from the database based on the given UUID
+     */
+    fun deleteBirthday(id: UUID) {
+        Log.d(TAG, "deleteBirthday() called")
+        executor.execute {
+            birthdayDao.deleteBirthday(id)
+        }
+    }
+
 
     /**
      * Companion object that creates the Singleton Instance and holds its getter function
