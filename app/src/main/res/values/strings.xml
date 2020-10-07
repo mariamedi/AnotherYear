@@ -1,3 +1,25 @@
 <resources>
     <string name="app_name">AnotherYear</string>
+    <string-array name="Months">
+        <item>January</item>
+        <item>February</item>
+        <item>March</item>
+        <item>April</item>
+        <item>May</item>
+        <item>June</item>
+        <item>July</item>
+        <item>August</item>
+        <item>September</item>
+        <item>October</item>
+        <item>November</item>
+        <item>December</item>
+    </string-array>
+    <string name="edit_birthday">Edit Birthday</string>
+    <string name="birthday_first_name">First Name</string>
+    <string name="birthday_last_name">Last Name</string>
+    <string name="birthday">Birthday</string>
+    <string name="save_button">Save Changes</string>
+    <string name="discard_button">Discard Changes</string>
+    <string name="delete_button">Delete Birthday</string>
+
 </resources>

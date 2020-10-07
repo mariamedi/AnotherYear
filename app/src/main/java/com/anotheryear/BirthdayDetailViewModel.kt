@@ -33,6 +33,18 @@ class BirthdayDetailViewModel: ViewModel() {
      */
     fun saveBirthday(birthday: Birthday) {
         Log.d(TAG, "saveBirthday() called")
-        birthdayRepository.updateBirthday(birthday)
+        if(birthdayLiveData.value == null){
+            birthdayRepository.addBirthday(birthday)
+        } else {
+            birthdayRepository.updateBirthday(birthday)
+        }
+    }
+
+    /**
+     * Function that deletes a birthday based on the inputted UUID
+     */
+    fun deleteBirthday(birthdayID: UUID) {
+        Log.d(TAG, "deleteBirthday() called")
+        birthdayRepository.deleteBirthday(birthdayID)
     }
 }
