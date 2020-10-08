@@ -10,4 +10,4 @@ import java.util.*
  */
 @Entity
 data class Birthday (@PrimaryKey val id: UUID = UUID.randomUUID(),
-                     var firstName: String = "", var lastName: String = "", var birthday: Date = Date()) : Serializable
+                     var firstName: String = "", var lastName: String = "", var birthdate: Date = Date()) : Serializable

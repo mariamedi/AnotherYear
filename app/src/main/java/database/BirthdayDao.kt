@@ -14,7 +14,7 @@ interface BirthdayDao {
     /**
      * Gets all the data from the db and sorts it by the latest birthday
      */
-    @Query("SELECT * FROM birthday ORDER BY birthday DESC")
+    @Query("SELECT * FROM birthday ORDER BY birthdate DESC")
     fun getBirthdays(): LiveData<List<Birthday>>
 
     /**

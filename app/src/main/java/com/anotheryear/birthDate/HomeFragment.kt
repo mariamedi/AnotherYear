@@ -1,4 +1,4 @@
-package com.anotheryear
+package com.anotheryear.birthDate
 
 import android.content.Context
 import android.os.Bundle
@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
+import com.anotheryear.R
 import java.util.*
 
 class HomeFragment: Fragment() {

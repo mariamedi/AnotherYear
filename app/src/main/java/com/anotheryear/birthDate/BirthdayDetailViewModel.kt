@@ -1,10 +1,12 @@
-package com.anotheryear
+package com.anotheryear.birthDate
 
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
+import com.anotheryear.Birthday
+import com.anotheryear.BirthdayRepository
 import java.util.*
 
 private const val TAG =  "BirthdayDetailVM"
