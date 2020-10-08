@@ -1,4 +1,4 @@
-package com.anotheryear
+package com.anotheryear.birthDate
 
 import android.content.Context
 import android.os.Bundle
@@ -11,6 +11,8 @@ import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import com.anotheryear.Birthday
+import com.anotheryear.R
 import java.util.*
 
 private const val ARG_BIRTHDAY_ID = "birthdayId"
@@ -94,7 +96,7 @@ class BirthdayDetailFragment : Fragment() {
 
         // If passed a date, initialize birthday object with the date
         if(date != null){
-            birthday.birthday = date
+            birthday.birthdate = date
         }
 
         // If passed an id, load birthday from db
@@ -142,11 +144,11 @@ class BirthdayDetailFragment : Fragment() {
 
                 // Since day is reset to 1, set selection for day drop down to original day unless
                 // it is more than the days in that month
-                if(birthday.birthday.date <= MONTH_DAYS[position].size){
-                    birthday.birthday = Date(birthday.birthday.year, position, birthday.birthday.date)
-                    dayDropDown.setSelection(birthday.birthday.date - 1)
+                if(birthday.birthdate.date <= MONTH_DAYS[position].size){
+                    birthday.birthdate = Date(birthday.birthdate.year, position, birthday.birthdate.date)
+                    dayDropDown.setSelection(birthday.birthdate.date - 1)
                 } else {
-                    birthday.birthday = Date(birthday.birthday.year, position, 1)
+                    birthday.birthdate = Date(birthday.birthdate.year, position, 1)
                 }
             }
 
@@ -155,13 +157,12 @@ class BirthdayDetailFragment : Fragment() {
             }
         }
 
-
         // Listener for day drop down
         dayDropDown.onItemSelectedListener = object :
             AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>,
                                         view: View, position: Int, id: Long) {
-                birthday.birthday = Date(birthday.birthday.year, birthday.birthday.month, position + 1)
+                birthday.birthdate = Date(birthday.birthdate.year, birthday.birthdate.month, position + 1)
             }
 
             override fun onNothingSelected(parent: AdapterView<*>) {
@@ -206,7 +207,7 @@ class BirthdayDetailFragment : Fragment() {
         super.onStart()
 
         // Inner class for listening on birthday edit text
-        class nameWatcher (val namePart: String) : TextWatcher {
+        class NameWatcher (val namePart: String) : TextWatcher {
 
             override fun beforeTextChanged(
                 sequence: CharSequence?,
@@ -236,8 +237,8 @@ class BirthdayDetailFragment : Fragment() {
             }
         }
 
-        val firstNameWatcher = nameWatcher("First")
-        val lastNameWatcher = nameWatcher("Last")
+        val firstNameWatcher = NameWatcher("First")
+        val lastNameWatcher = NameWatcher("Last")
         firstNameEditText.addTextChangedListener(firstNameWatcher)
         lastNameEditText.addTextChangedListener(lastNameWatcher)
     }
@@ -258,7 +259,7 @@ class BirthdayDetailFragment : Fragment() {
     private fun updateUI(){
         firstNameEditText.setText(birthday.firstName)
         lastNameEditText.setText(birthday.lastName)
-        monthDropDown.setSelection(birthday.birthday.month)
-        dayDropDown.setSelection(birthday.birthday.date - 1)
+        monthDropDown.setSelection(birthday.birthdate.month)
+        dayDropDown.setSelection(birthday.birthdate.date - 1)
     }
 }

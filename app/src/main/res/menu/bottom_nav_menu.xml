@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/nav_home"
+        android:icon="@drawable/ic_home"
+        app:showAsAction="always"
+        tools:ignore="AlwaysShowAction,MenuTitle" />
+
+    <item
+        android:id="@+id/nav_calendar"
+        android:icon="@drawable/ic_calendar"
+        app:showAsAction="always"
+        tools:ignore="AlwaysShowAction,MenuTitle"
+        />
+    <item
+        android:id="@+id/nav_wish"
+        android:icon="@drawable/ic_wish"
+        app:showAsAction="always"
+        tools:ignore="AlwaysShowAction,MenuTitle"
+        />
+    <item
+        android:id="@+id/nav_gift"
+        android:icon="@drawable/ic_gift"
+        app:showAsAction="always"
+        tools:ignore="AlwaysShowAction,MenuTitle"
+        />
+</menu>
