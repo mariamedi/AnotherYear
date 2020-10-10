@@ -8,12 +8,12 @@ private const val TAG = "AnotherYearApp"
 class AnotherYearApplication : Application() {
 
     /**
-     * Override for the onCreate method to initialize the BasketballGameRepository singleton
+     * Override for the onCreate method to initialize the BirthdayRepository singleton
      */
     override fun onCreate() {
         super.onCreate()
-        BirthdayRepository.initialize(this)
         Log.d(TAG, "onCreate() called")
+        BirthdayRepository.initialize(this)
         Log.d(TAG, "BirthdayRepository initialized")
     }
 }
