@@ -6,7 +6,7 @@ import java.io.Serializable
 import java.util.*
 
 /**
- * Data class for the Birthday object that holds the first and last name of the person, the date of their birthday game and a UUID
+ * Data class for the Birthday object that holds the first and last name of the person, the date of their birthday and a UUID
  */
 @Entity
 data class Birthday (@PrimaryKey val id: UUID = UUID.randomUUID(),

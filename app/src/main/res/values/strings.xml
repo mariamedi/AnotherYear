@@ -21,5 +21,6 @@
     <string name="save_button">Save Changes</string>
     <string name="discard_button">Discard Changes</string>
     <string name="delete_button">Delete Birthday</string>
+    <string name="name_concat">%1$s %2$s</string>
 
 </resources>

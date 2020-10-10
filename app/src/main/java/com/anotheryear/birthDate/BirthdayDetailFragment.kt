@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -34,6 +35,7 @@ private val MONTH_DAYS = listOf(
     (1..31).toMutableList()
 )
 
+@Suppress("DEPRECATION")
 class BirthdayDetailFragment : Fragment() {
 
     private lateinit var birthday: Birthday
