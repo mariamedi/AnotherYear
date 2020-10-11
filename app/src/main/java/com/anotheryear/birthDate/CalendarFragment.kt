@@ -165,6 +165,30 @@ class CalendarFragment : Fragment() {
     }
 
     /**
+     * Adding logs messages for onStart, onResume, onPause, onStop and onDestroy
+     */
+    override fun onStart() {
+        super.onStart()
+        Log.d(TAG, "onStart() called")
+    }
+    override fun onResume() {
+        super.onResume()
+        Log.d(TAG, "onResume() called")
+    }
+    override fun onPause() {
+        super.onPause()
+        Log.d(TAG, "onPause() called")
+    }
+    override fun onStop() {
+        super.onStop()
+        Log.d(TAG, "onStop() called")
+    }
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.d(TAG, "onDestroy() called")
+    }
+
+    /**
      * Inner class for the BirthdayHolder that populates individual birthday list entries
      */
     private inner class BirthdayHolder(view: View) : RecyclerView.ViewHolder(view), View.OnClickListener {

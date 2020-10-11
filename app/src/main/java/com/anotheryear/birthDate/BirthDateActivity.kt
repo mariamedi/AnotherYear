@@ -4,6 +4,8 @@ import android.content.Context
 import android.util.Log
 import android.content.Intent
 import android.os.Bundle
+import android.view.MenuItem
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -121,6 +123,7 @@ class BirthDateActivity : AppCompatActivity(), HomeFragment.Callbacks, BirthdayD
         bottomNavigationView.setOnNavigationItemSelectedListener { item ->
             if (created < 1) {
                 created++
+                enableDisableNavButtons(item)
                 when (item.itemId) {
                     R.id.nav_home -> {
                         supportFragmentManager
@@ -146,6 +149,7 @@ class BirthDateActivity : AppCompatActivity(), HomeFragment.Callbacks, BirthdayD
                 true
             }
             else {
+                enableDisableNavButtons(item)
                 when (item.itemId) {
                     R.id.nav_home -> {
                         supportFragmentManager
@@ -173,5 +177,62 @@ class BirthDateActivity : AppCompatActivity(), HomeFragment.Callbacks, BirthdayD
                 true
             }
         }
+    }
+
+    /**
+     * Function that ensure a nav button cannot be clicked if it is already selected
+     */
+    private fun enableDisableNavButtons(view: MenuItem){
+        val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigation)
+        when(view.itemId) {
+            R.id.nav_home -> {
+                view.isEnabled = false
+                bottomNavigationView.menu.getItem(1).isEnabled = true
+                bottomNavigationView.menu.getItem(2).isEnabled = true
+                bottomNavigationView.menu.getItem(3).isEnabled = true
+            }
+            R.id.nav_calendar -> {
+                view.isEnabled = false
+                bottomNavigationView.menu.getItem(0).isEnabled = true
+                bottomNavigationView.menu.getItem(2).isEnabled = true
+                bottomNavigationView.menu.getItem(3).isEnabled = true
+            }
+            R.id.nav_wish -> {
+                view.isEnabled = false
+                bottomNavigationView.menu.getItem(0).isEnabled = true
+                bottomNavigationView.menu.getItem(1).isEnabled = true
+                bottomNavigationView.menu.getItem(3).isEnabled = true
+            }
+            R.id.nav_gift -> {
+                view.isEnabled = false
+                bottomNavigationView.menu.getItem(0).isEnabled = true
+                bottomNavigationView.menu.getItem(1).isEnabled = true
+                bottomNavigationView.menu.getItem(2).isEnabled = true
+            }
+        }
+    }
+
+    /**
+     * Adding logs messages for onStart, onResume, onPause, onStop and onDestroy
+     */
+    override fun onStart() {
+        super.onStart()
+        Log.d(TAG, "onStart() called")
+    }
+    override fun onResume() {
+        super.onResume()
+        Log.d(TAG, "onResume() called")
+    }
+    override fun onPause() {
+        super.onPause()
+        Log.d(TAG, "onPause() called")
+    }
+    override fun onStop() {
+        super.onStop()
+        Log.d(TAG, "onStop() called")
+    }
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.d(TAG, "onDestroy() called")
     }
 }
