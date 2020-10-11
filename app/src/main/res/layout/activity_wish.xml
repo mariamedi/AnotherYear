@@ -23,4 +23,122 @@
         app:itemIconTint="@android:color/white"
         app:itemTextColor="@android:color/white"
         />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:layout_marginTop="50dp"
+            android:layout_marginBottom="50dp"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="70px"
+                    android:layout_marginBottom="40dp"
+                    android:text="@string/PW_title"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="50px"
+                    android:text="@string/PW_name_prompt"/>
+
+                <EditText
+                    android:id="@+id/PW_their_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="50px"
+                    android:text="@string/PW_enter_name" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:textSize="50px"
+                android:text="@string/PW_relationship"/>
+
+            <SeekBar
+                android:id="@+id/PW_simpleSeekBar"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:progress="50"
+                android:max="100"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="40px"
+                    android:text="@string/PW_not_close"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:text="@string/PW_very_close"
+                    android:textSize="40px" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/PW_your_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="50px"
+            android:layout_marginTop="50dp"
+            android:text="@string/PW_your_name" />
+
+        <CheckBox android:id="@+id/PW_no_signature"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/PW_no_signature"
+            android:onClick="onCheckboxClicked"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="50dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/PW_generate_wish_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="50px"
+            android:text="@string/PW_generate_wish_button" />
+    </LinearLayout>
+
+    </LinearLayout>
+
 </RelativeLayout>

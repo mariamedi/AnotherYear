@@ -23,4 +23,15 @@
     <string name="delete_button">Delete Birthday</string>
     <string name="name_concat">%1$s %2$s</string>
 
+    <!--Personalized wishes-->
+    <string name="PW_title">Personalized Wishes</string>
+    <string name="PW_name_prompt">Name of Birthday Person</string>
+    <string name="PW_enter_name">(This is how their name will appear in wish)</string>
+    <string name="PW_relationship">How close are you to this person?</string>
+    <string name="PW_your_name">Your signature for the wish</string>
+    <string name="PW_not_close">Not at all</string>
+    <string name="PW_very_close">Really close!</string>
+    <string name="PW_generate_wish_button">Generate Birthday Wish!</string>
+    <string name="PW_no_signature">No Signature</string>
+
 </resources>
