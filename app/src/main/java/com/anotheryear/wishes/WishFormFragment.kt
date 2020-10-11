@@ -41,7 +41,7 @@ class WishFormFragment : Fragment() {
         yourName = view.findViewById(R.id.PW_your_name) as EditText
         noSignature = view.findViewById(R.id.PW_no_signature) as CheckBox
         generateWishButton = view.findViewById(R.id.PW_generate_wish_button) as Button
-        
+
         return view
     }
 }
