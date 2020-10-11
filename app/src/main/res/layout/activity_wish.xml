@@ -54,14 +54,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="50px"
-                    android:text="@string/PW_name_prompt"/>
+                    android:text="@string/PW_enter_name"/>
 
                 <EditText
                     android:id="@+id/PW_their_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="50px"
-                    android:text="@string/PW_enter_name" />
+                    android:text="@string/PW_name_prompt" />
 
             </LinearLayout>
 

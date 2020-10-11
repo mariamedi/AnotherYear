@@ -2,6 +2,7 @@ package com.anotheryear.wishes
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
+import com.anotheryear.R
 
 private const val TAG =  "PersonalWishVM"
 
@@ -21,7 +22,7 @@ class WishesViewModel : ViewModel() {
     var theirName = ""
     var yourName = ""
     var noSignature = false
-    var relationship = 0
+    var relationship = 50
     var currentWish = ""
 
     /**
@@ -106,6 +107,20 @@ class WishesViewModel : ViewModel() {
         } else{ //90 - 100
             return 4
         }
+    }
+
+    /**
+     * Check if we are ready to fill out another wish
+     */
+    fun readyForWish(): Boolean{
+        if(theirName == "Name of Birthday Person" || theirName == ""){
+            return false
+        } else if (!noSignature){
+            if(yourName == "Your signature for the wish" || yourName == ""){
+                return false
+            }
+        }
+        return true
     }
 
 }
