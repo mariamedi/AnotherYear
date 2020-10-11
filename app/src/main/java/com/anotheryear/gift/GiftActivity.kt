@@ -4,15 +4,23 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.anotheryear.birthDate.BirthDateActivity
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProviders
 import com.anotheryear.R
+import com.anotheryear.birthDate.BirthDateActivity
 import com.anotheryear.wishes.WishesActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 /**
  * Activity for all Gift Suggestion functionality
  */
-class GiftActivity : AppCompatActivity() {
+class GiftActivity : AppCompatActivity(), SurveyFragment.Callbacks, GenderSurveyFragment.Callbacks, AgeSurveyFragment.Callbacks {
+
+    // Declare ViewModel for holding gift survey info across fragments
+    private val giftViewModel: GiftViewModel by lazy {
+        ViewModelProviders.of(this).get(GiftViewModel::class.java)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_gift)
@@ -66,5 +74,32 @@ class GiftActivity : AppCompatActivity() {
             }
             true
         }
+    }
+
+    override fun proceedToGender() {
+        val fragment: Fragment = GenderSurveyFragment.newInstance()
+        supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.gift_fragment_container, fragment)
+            .addToBackStack(null)
+            .commit()
+    }
+
+    override fun proceedToAgeGroup() {
+        val fragment: Fragment = AgeSurveyFragment.newInstance()
+        supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.gift_fragment_container, fragment)
+            .addToBackStack(null)
+            .commit()
+    }
+
+    override fun proceedToInterests() {
+        val fragment: Fragment = InterestsSurveyFragment.newInstance()
+        supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.gift_fragment_container, fragment)
+            .addToBackStack(null)
+            .commit()
     }
 }
