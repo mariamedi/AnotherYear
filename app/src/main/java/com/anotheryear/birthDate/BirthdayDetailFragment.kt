@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,6 +19,8 @@ import java.util.*
 private const val ARG_BIRTHDAY_ID = "birthdayId"
 private const val ARG_BIRTHDAY_DATE = "date"
 private const val ARG_FROM_FRAG = "whoCalledMe"
+
+private const val TAG = "BirthdayDetailFrag"
 
 // Days in each month
 private val MONTH_DAYS = listOf(
@@ -120,12 +123,9 @@ class BirthdayDetailFragment : Fragment() {
         fromFrag = arguments?.getSerializable(ARG_FROM_FRAG) as String?
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_birthday_detail, container, false)
+        Log.d(TAG, "onCreateView() called")
 
         // Initialize view objects
         firstNameEditText = view.findViewById(R.id.first_name_edit_text)
@@ -137,20 +137,15 @@ class BirthdayDetailFragment : Fragment() {
         deleteButton = view.findViewById(R.id.delete_button)
 
         // Create array adapter for month drop down
-        ArrayAdapter.createFromResource(
-            requireContext(),
-            R.array.Months,
-            android.R.layout.simple_spinner_item
-        ).also { adapter ->
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            monthDropDown.adapter = adapter
+        ArrayAdapter.createFromResource(requireContext(), R.array.Months, android.R.layout.simple_spinner_item)
+            .also { adapter ->
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                monthDropDown.adapter = adapter
         }
 
         // Month drop down listener
-        monthDropDown.onItemSelectedListener = object :
-            AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>,
-                                        view: View, position: Int, id: Long) {
+        monthDropDown.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
 
                 // Create new adapter to update day drop down with new day range
                 dayDropDown.adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item,
@@ -167,20 +162,16 @@ class BirthdayDetailFragment : Fragment() {
             }
 
             override fun onNothingSelected(parent: AdapterView<*>) {
-
             }
         }
 
         // Listener for day drop down
-        dayDropDown.onItemSelectedListener = object :
-            AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>,
-                                        view: View, position: Int, id: Long) {
+        dayDropDown.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
                 birthday.birthdate = Date(birthday.birthdate.year, birthday.birthdate.month, position + 1)
             }
 
             override fun onNothingSelected(parent: AdapterView<*>) {
-
             }
         }
 
@@ -205,6 +196,7 @@ class BirthdayDetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        Log.d(TAG, "onViewCreated() called")
 
         // Update birthday object with database record if it exists
         birthdayDetailViewModel.birthdayLiveData.observe(
@@ -219,26 +211,17 @@ class BirthdayDetailFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
+        Log.d(TAG, "onStart() called")
         callbacks?.selectNavIcon(fromFrag!!)
 
         // Inner class for listening on birthday edit text
         class NameWatcher (val namePart: String) : TextWatcher {
 
-            override fun beforeTextChanged(
-                sequence: CharSequence?,
-                start: Int,
-                count: Int,
-                after: Int
-            ) {
+            override fun beforeTextChanged(sequence: CharSequence?, start: Int, count: Int, after: Int) {
 
             }
 
-            override fun onTextChanged(
-                sequence: CharSequence?,
-                start: Int,
-                before: Int,
-                count: Int
-            ) {
+            override fun onTextChanged(sequence: CharSequence?, start: Int, before: Int, count: Int) {
 
                 if(namePart == "First"){
                     birthday.firstName = sequence.toString()
@@ -260,11 +243,13 @@ class BirthdayDetailFragment : Fragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
+        Log.d(TAG, "onAttach() called")
         callbacks = context as Callbacks?
     }
 
     override fun onDetach() {
         super.onDetach()
+        Log.d(TAG, "onDetach() called")
         callbacks = null
     }
 
@@ -276,5 +261,25 @@ class BirthdayDetailFragment : Fragment() {
         lastNameEditText.setText(birthday.lastName)
         monthDropDown.setSelection(birthday.birthdate.month)
         dayDropDown.setSelection(birthday.birthdate.date - 1)
+    }
+
+    /**
+     * Adding logs messages for onResume, onPause, onStop and onDestroy
+     */
+    override fun onResume() {
+        super.onResume()
+        Log.d(TAG, "onResume() called")
+    }
+    override fun onPause() {
+        super.onPause()
+        Log.d(TAG, "onPause() called")
+    }
+    override fun onStop() {
+        super.onStop()
+        Log.d(TAG, "onStop() called")
+    }
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.d(TAG, "onDestroy() called")
     }
 }
