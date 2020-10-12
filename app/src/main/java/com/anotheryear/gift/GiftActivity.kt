@@ -5,14 +5,16 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.os.StrictMode
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.anotheryear.birthDate.BirthDateActivity
 import com.anotheryear.R
-import com.anotheryear.birthDate.HomeFragment
+import com.anotheryear.birthDate.BirthDateActivity
 import com.anotheryear.wishes.WishesActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import org.json.JSONException
+
 
 /**
  * Activity for all Gift Suggestion functionality

@@ -1,21 +1,30 @@
 package com.anotheryear.gift
 
 import android.content.Context
+import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.ColorDrawable
+import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.anotheryear.R
-import com.anotheryear.etsyApi.Listing
+import com.anotheryear.etsyApi.*
 import java.util.*
+import kotlin.concurrent.thread
 
 private const val TAG = "GiftResultListFragment"
 private const val ARG_KEYWORDS = "keywords"
@@ -33,6 +42,7 @@ class GiftResultListFragment : Fragment() {
     private var callbacks: Callbacks? = null
     private lateinit var giftRecyclerView: RecyclerView
     private var adapter: GiftAdapter? = GiftAdapter(emptyList())
+    private lateinit var thumbnailDownloader: ThumbnailDownloader<GiftHolder>
 
     /**
      * Attaching callbacks
@@ -50,15 +60,26 @@ class GiftResultListFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Log.d(TAG, "onCreate(Bundle?) called")
+        retainInstance = true
 
         val keywords: Array<String>? = arguments?.getSerializable(ARG_KEYWORDS) as Array<String>?
         if(keywords != null){
             Log.d(TAG, "args bundle received keywords")
             giftResultListViewModel.loadKeywords(keywords)
         }
+        val responseHandler = Handler()
+        thumbnailDownloader =
+            ThumbnailDownloader(responseHandler) { giftHolder, bitmap ->
+                val drawable = BitmapDrawable(resources, bitmap)
+                giftHolder.bindDrawable(drawable)
+            }
+        lifecycle.addObserver(thumbnailDownloader.fragmentLifecycleObserver)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        viewLifecycleOwner.lifecycle.addObserver(
+            thumbnailDownloader.viewLifecycleObserver
+        )
         val view = inflater.inflate(R.layout.fragment_gift_result_list, container, false)
         Log.d(TAG, "onCreateView() called")
 
@@ -89,7 +110,7 @@ class GiftResultListFragment : Fragment() {
     companion object {
         fun newInstance(keywords: Array<String>): GiftResultListFragment {
             val args = Bundle().apply {
-                putSerializable(ARG_KEYWORDS, keywords)
+                putSerializable(ARG_KEYWORDS, keywords) // TODO these are gonna have to be used within the list view model to get the right listings
             }
             return GiftResultListFragment().apply {
                 arguments = args
@@ -101,7 +122,6 @@ class GiftResultListFragment : Fragment() {
 
         private lateinit var gift: Listing
 
-        // TODO init UI elements; for now just display the titles of the listings, then add the images
         private val giftImageView: ImageView = itemView.findViewById(R.id.gift_image)
         private val titleTextView: TextView = itemView.findViewById(R.id.gift_title_text)
         private val priceTextView: TextView = itemView.findViewById(R.id.gift_price_text)
@@ -112,15 +132,12 @@ class GiftResultListFragment : Fragment() {
 
         fun bind(gift: Listing) {
             this.gift = gift
-            // TODO set text of UI elements to be whatever is retreived from the model class
-//            giftImageView
             titleTextView.setText(this.gift.title)
             priceTextView.setText(this.gift.price)
-            // gameDateText.setText(this.gift.date.toString())
         }
+        val bindDrawable: (Drawable) -> Unit  = giftImageView::setImageDrawable
 
         override fun onClick(v: View) {
-            // probablt send all the relevant data
             Log.d(TAG, "Listing selected: ${this.gift.listing_id}")
             callbacks?.onGiftSelected(this.gift.listing_id)
         }
@@ -139,7 +156,25 @@ class GiftResultListFragment : Fragment() {
         override fun onBindViewHolder(holder: GiftHolder, position: Int) {
             Log.d(TAG, "onBindViewHolder() called")
             val gift = gifts[position]
-            holder.apply {holder.bind(gift)}
+            EtsyGetter().fetchImageListing(gift.listing_id, object : OnEtsyImageResponse {
+
+                override fun images(images: EtsyImageResponse?) {
+                    var listingItems: List<ListingImage> = images?.results
+                        ?: mutableListOf()
+                    listingItems = listingItems.filterNot {
+                        it.url_75x75.isBlank()
+                        it.url_170x135.isBlank()
+                    }
+                    if (listingItems.count() != 0)
+                        thumbnailDownloader.queueThumbnail(holder, listingItems[0]!!.url_170x135)
+                    else
+                        Toast.makeText(
+                            activity,
+                            "oopsie poopsie slow down there cowboy", Toast.LENGTH_SHORT
+                        ).show()
+                }
+            })
+            holder.apply { holder.bind(gift) }
         }
     }
 
@@ -169,5 +204,14 @@ class GiftResultListFragment : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         Log.d(TAG, "onDestroy() called")
+        lifecycle.removeObserver(
+            thumbnailDownloader.fragmentLifecycleObserver
+        )
+    }
+    override fun onDestroyView() {
+        super.onDestroyView()
+        viewLifecycleOwner.lifecycle.removeObserver(
+            thumbnailDownloader.viewLifecycleObserver
+        )
     }
 }
