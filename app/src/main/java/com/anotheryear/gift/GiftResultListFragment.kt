@@ -1,8 +1,8 @@
 package com.anotheryear.gift
 
 import android.content.Context
+import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
-import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.os.Handler
@@ -13,18 +13,13 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.anotheryear.R
 import com.anotheryear.etsyApi.*
-import java.util.*
-import kotlin.concurrent.thread
 
 private const val TAG = "GiftResultListFragment"
 private const val ARG_KEYWORDS = "keywords"
@@ -36,7 +31,7 @@ class GiftResultListFragment : Fragment() {
     }
 
     interface Callbacks {
-        fun onGiftSelected(giftID: Int)
+        fun onGiftSelected(giftID: Int, bitmap: Bitmap)
     }
 
     private var callbacks: Callbacks? = null
@@ -139,7 +134,8 @@ class GiftResultListFragment : Fragment() {
 
         override fun onClick(v: View) {
             Log.d(TAG, "Listing selected: ${this.gift.listing_id}")
-            callbacks?.onGiftSelected(this.gift.listing_id)
+            val bitmap: Bitmap = (giftImageView.getDrawable() as BitmapDrawable).bitmap
+            callbacks?.onGiftSelected(this.gift.listing_id, bitmap)
         }
     }
 

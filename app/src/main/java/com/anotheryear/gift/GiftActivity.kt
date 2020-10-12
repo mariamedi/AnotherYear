@@ -3,9 +3,9 @@ package com.anotheryear.gift
 import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
-import android.os.StrictMode
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -13,7 +13,6 @@ import com.anotheryear.R
 import com.anotheryear.birthDate.BirthDateActivity
 import com.anotheryear.wishes.WishesActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import org.json.JSONException
 
 
 /**
@@ -45,8 +44,8 @@ class GiftActivity : AppCompatActivity(), GiftDetailFragment.Callbacks, GiftResu
     /**
      * Callback from GiftResultListFragment to display a selected gift.
      */
-    override fun onGiftSelected(giftID: Int) {
-        val fragment = GiftDetailFragment.newInstance(giftID)
+    override fun onGiftSelected(giftID: Int, bitmap: Bitmap) {
+        val fragment = GiftDetailFragment.newInstance(giftID, bitmap)
         supportFragmentManager
             .beginTransaction()
             .replace(R.id.gift_fragment_container, fragment)

@@ -1,5 +1,6 @@
 package com.anotheryear.gift
 
+import android.graphics.Bitmap
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -16,6 +17,7 @@ private const val TAG =  "GiftDetailVM"
 class GiftDetailViewModel: ViewModel() {
 
     private val giftIdLiveData = MutableLiveData<Int>()
+    lateinit var bitmap:Bitmap
 
     val giftLiveData: LiveData<Listing> =
         Transformations.switchMap(giftIdLiveData) { giftId ->
@@ -25,5 +27,10 @@ class GiftDetailViewModel: ViewModel() {
     fun loadGift(giftId: Int) {
         Log.d(TAG, "loadGift() called")
         giftIdLiveData.value = giftId
+    }
+
+    fun loadImage(image: Bitmap) {
+        Log.d(TAG, "loadImage() called")
+        bitmap = image
     }
 }

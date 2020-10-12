@@ -1,6 +1,7 @@
 package com.anotheryear.gift
 
 import android.content.Context
+import android.graphics.Bitmap
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -19,6 +20,7 @@ import java.util.*
 
 private const val TAG =  "GiftDetailFragment"
 private const val ARG_LISTING_ID = "listingId"
+private const val ARG_BITMAP = "bitmap"
 
 class GiftDetailFragment : Fragment() {
 
@@ -50,9 +52,10 @@ class GiftDetailFragment : Fragment() {
         }
 
         // Fragment creation when listing selected
-        fun newInstance(listingId: Int): GiftDetailFragment {
+        fun newInstance(listingId: Int, bitmap: Bitmap): GiftDetailFragment {
             val args = Bundle().apply {
                 putSerializable(ARG_LISTING_ID, listingId)
+                putParcelable(ARG_BITMAP, bitmap)
             }
             return GiftDetailFragment().apply {
                 arguments = args
@@ -65,9 +68,11 @@ class GiftDetailFragment : Fragment() {
         gift = Listing(-1,"","","","")
 
         val listingId: Int? = arguments?.getSerializable(ARG_LISTING_ID) as Int?
+        val bitmap: Bitmap? = arguments?.getParcelable(ARG_BITMAP) as Bitmap?
 
-        if(listingId != null){
+        if(listingId != null && bitmap != null){
             giftDetailViewModel.loadGift(listingId)
+            giftDetailViewModel.loadImage(bitmap)
         }
     }
 
@@ -115,6 +120,7 @@ class GiftDetailFragment : Fragment() {
         giftImageView.setImageResource(R.drawable.ic_home)
         giftPriceTextView.setText(gift.price)
         giftDescriptionTextView.setText(gift.description)
+        giftImageView.setImageBitmap(giftDetailViewModel.bitmap)
     }
 
     override fun onStart() {
