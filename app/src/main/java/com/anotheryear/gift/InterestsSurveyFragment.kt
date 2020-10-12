@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,6 +15,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.anotheryear.R
 
+private const val TAG = "InterestsSurveyFrag"
 class InterestsSurveyFragment: Fragment() {
 
     // Declare view objects
@@ -35,6 +37,7 @@ class InterestsSurveyFragment: Fragment() {
     // Include callback for going to next fragment
     interface Callbacks {
         fun findGifts()
+        fun selectNavIcon(navIcon: String)
     }
 
     private var callbacks: Callbacks? = null
@@ -142,6 +145,8 @@ class InterestsSurveyFragment: Fragment() {
 
     override fun onStart() {
         super.onStart()
+        Log.d(TAG, "onStart() called")
+        callbacks?.selectNavIcon("Gift")
         // Inner class for listening on other edit text
         class OtherWatcher () : TextWatcher {
 
@@ -179,11 +184,31 @@ class InterestsSurveyFragment: Fragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-//        callbacks = context as Callbacks? TODO: Uncomment and add callback to GiftActivity when ready to connect to gift results
+        callbacks = context as Callbacks?
     }
 
     override fun onDetach() {
         super.onDetach()
         callbacks = null
+    }
+
+    /**
+     * Adding logs messages for onResume, onPause, onStop and onDestroy
+     */
+    override fun onResume() {
+        super.onResume()
+        Log.d(TAG, "onResume() called")
+    }
+    override fun onPause() {
+        super.onPause()
+        Log.d(TAG, "onPause() called")
+    }
+    override fun onStop() {
+        super.onStop()
+        Log.d(TAG, "onStop() called")
+    }
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.d(TAG, "onDestroy() called")
     }
 }

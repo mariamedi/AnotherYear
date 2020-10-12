@@ -15,7 +15,9 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 /**
  * Activity for all Gift Suggestion functionality
  */
-class GiftActivity : AppCompatActivity(), SurveyFragment.Callbacks, GenderSurveyFragment.Callbacks, AgeSurveyFragment.Callbacks {
+class GiftActivity : AppCompatActivity(), SurveyFragment.Callbacks, GenderSurveyFragment.Callbacks, AgeSurveyFragment.Callbacks, InterestsSurveyFragment.Callbacks {
+
+    private var executeNav: Boolean = true
 
     // Declare ViewModel for holding gift survey info across fragments
     private val giftViewModel: GiftViewModel by lazy {
@@ -47,6 +49,51 @@ class GiftActivity : AppCompatActivity(), SurveyFragment.Callbacks, GenderSurvey
         }
     }
 
+    override fun proceedToGender() {
+        val fragment: Fragment = GenderSurveyFragment.newInstance()
+        supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.gift_fragment_container, fragment)
+            .addToBackStack(null)
+            .commit()
+    }
+
+    override fun proceedToAgeGroup() {
+        val fragment: Fragment = AgeSurveyFragment.newInstance()
+        supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.gift_fragment_container, fragment)
+            .addToBackStack(null)
+            .commit()
+    }
+
+    override fun proceedToInterests() {
+        val fragment: Fragment = InterestsSurveyFragment.newInstance()
+        supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.gift_fragment_container, fragment)
+            .addToBackStack(null)
+            .commit()
+    }
+
+    override fun findGifts() {
+        TODO("Not yet implemented")
+    }
+
+    /**
+     * Function that takes in a string of a fragment and sets the nav bar icon selection accordingly
+     */
+    override fun selectNavIcon(navIcon: String) {
+        executeNav = false // make sure the screen switching functionality is disabled
+        val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigation)
+        when(navIcon){
+            "Gift" -> {
+                bottomNavigationView.selectedItemId = R.id.nav_gift
+            }
+        }
+        executeNav = true // turn on screen switching again
+    }
+
     /**
      * Function that adds specific listeners to the icons in the bottom nav bar for WishActivity
      */
@@ -54,24 +101,26 @@ class GiftActivity : AppCompatActivity(), SurveyFragment.Callbacks, GenderSurvey
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigation)
         bottomNavigationView.setOnNavigationItemSelectedListener { item ->
             enableDisableNavButtons(item)
-            when (item.itemId) {
-                R.id.nav_home -> {
-                    val intent = BirthDateActivity.newIntent(this, "home")
-                    startActivity(intent)
-                }
-                R.id.nav_calendar -> {
-                    val intent = BirthDateActivity.newIntent(this, "calendar")
-                    startActivity(intent)
-                }
-                R.id.nav_wish -> {
-                    val intent = WishesActivity.newIntent(this)
-                    startActivity(intent)
-                }
-                R.id.nav_gift ->{
-                    supportFragmentManager
-                        .beginTransaction()
-                        .replace(R.id.gift_fragment_container, SurveyFragment.newInstance())
-                        .commit()
+            if (executeNav) {
+                when (item.itemId) {
+                    R.id.nav_home -> {
+                        val intent = BirthDateActivity.newIntent(this, "home")
+                        startActivity(intent)
+                    }
+                    R.id.nav_calendar -> {
+                        val intent = BirthDateActivity.newIntent(this, "calendar")
+                        startActivity(intent)
+                    }
+                    R.id.nav_wish -> {
+                        val intent = WishesActivity.newIntent(this)
+                        startActivity(intent)
+                    }
+                    R.id.nav_gift -> {
+                        supportFragmentManager
+                            .beginTransaction()
+                            .replace(R.id.gift_fragment_container, SurveyFragment.newInstance())
+                            .commit()
+                    }
                 }
             }
             true
@@ -109,32 +158,5 @@ class GiftActivity : AppCompatActivity(), SurveyFragment.Callbacks, GenderSurvey
                 bottomNavigationView.menu.getItem(2).isEnabled = true
             }
         }
-    }
-
-    override fun proceedToGender() {
-        val fragment: Fragment = GenderSurveyFragment.newInstance()
-        supportFragmentManager
-            .beginTransaction()
-            .replace(R.id.gift_fragment_container, fragment)
-            .addToBackStack(null)
-            .commit()
-    }
-
-    override fun proceedToAgeGroup() {
-        val fragment: Fragment = AgeSurveyFragment.newInstance()
-        supportFragmentManager
-            .beginTransaction()
-            .replace(R.id.gift_fragment_container, fragment)
-            .addToBackStack(null)
-            .commit()
-    }
-
-    override fun proceedToInterests() {
-        val fragment: Fragment = InterestsSurveyFragment.newInstance()
-        supportFragmentManager
-            .beginTransaction()
-            .replace(R.id.gift_fragment_container, fragment)
-            .addToBackStack(null)
-            .commit()
     }
 }

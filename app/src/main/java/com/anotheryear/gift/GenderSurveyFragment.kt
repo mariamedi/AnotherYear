@@ -2,6 +2,7 @@ package com.anotheryear.gift
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,7 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.anotheryear.R
 
-
+private const val TAG = "GenderSurveyFrag"
 class GenderSurveyFragment : Fragment() {
 
     // Declare view objects
@@ -26,6 +27,7 @@ class GenderSurveyFragment : Fragment() {
     // Include callback for going to next fragment
     interface Callbacks {
         fun proceedToAgeGroup()
+        fun selectNavIcon(navIcon: String)
     }
 
     private var callbacks: Callbacks? = null
@@ -75,5 +77,31 @@ class GenderSurveyFragment : Fragment() {
     override fun onDetach() {
         super.onDetach()
         callbacks = null
+    }
+
+    /**
+     * Adding logs messages for onStart, onResume, onPause, onStop and onDestroy
+     */
+    override fun onStart() {
+        super.onStart()
+        // set the proper nav icon selection when this fragment starts
+        callbacks?.selectNavIcon("Gift")
+        Log.d(TAG, "onStart() called")
+    }
+    override fun onResume() {
+        super.onResume()
+        Log.d(TAG, "onResume() called")
+    }
+    override fun onPause() {
+        super.onPause()
+        Log.d(TAG, "onPause() called")
+    }
+    override fun onStop() {
+        super.onStop()
+        Log.d(TAG, "onStop() called")
+    }
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.d(TAG, "onDestroy() called")
     }
 }

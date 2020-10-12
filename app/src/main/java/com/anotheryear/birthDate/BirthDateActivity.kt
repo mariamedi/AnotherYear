@@ -5,7 +5,6 @@ import android.util.Log
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
-import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -25,6 +24,7 @@ private const val TAG = "BirthDateActi"
 class BirthDateActivity : AppCompatActivity(), HomeFragment.Callbacks, BirthdayDetailFragment.Callbacks, CalendarFragment.Callbacks {
 
     private var created: Int = 0
+    private var executeNav = true
 
     private val birthdayListViewModel: BirthdayListViewModel by lazy {
         ViewModelProviders.of(this).get(BirthdayListViewModel::class.java)
@@ -70,17 +70,17 @@ class BirthDateActivity : AppCompatActivity(), HomeFragment.Callbacks, BirthdayD
     /**
      * Function that switches from HomeFragment to BirthdayDetailFragment, given the ID or date of the birthday
      */
-    override fun viewDetailFragment(id: UUID?, date: Date?) {
+    override fun viewDetailFragment(id: UUID?, date: Date?, frag: String) {
         val fragment: Fragment =
             when {
                 id != null -> {
-                    BirthdayDetailFragment.newInstance(id)
+                    BirthdayDetailFragment.newInstance(id, frag)
                 }
                 date != null -> {
-                    BirthdayDetailFragment.newInstance(date)
+                    BirthdayDetailFragment.newInstance(date, frag)
                 }
                 else -> {
-                    BirthdayDetailFragment.newInstance()
+                    BirthdayDetailFragment.newInstance(frag)
                 }
             }
         supportFragmentManager
@@ -95,6 +95,23 @@ class BirthDateActivity : AppCompatActivity(), HomeFragment.Callbacks, BirthdayD
      */
     override val getBirthdayListViewModel: BirthdayListViewModel
         get() = birthdayListViewModel
+
+    /**
+     * Function that takes in a string of a fragment and sets the nav bar icon selection accordingly
+     */
+    override fun selectNavIcon(navIcon: String) {
+        executeNav = false // make sure the screen switching functionality is disabled
+        val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigation)
+        when(navIcon){
+            "Home" -> {
+                bottomNavigationView.selectedItemId = R.id.nav_home
+            }
+            "Calendar" -> {
+                bottomNavigationView.selectedItemId = R.id.nav_calendar
+            }
+        }
+        executeNav = true // turn on screen switching again
+    }
 
     /**
      * Function that returns to the last screen and shows a Toast message based on action taken
@@ -121,61 +138,72 @@ class BirthDateActivity : AppCompatActivity(), HomeFragment.Callbacks, BirthdayD
     private fun initializeBottomNavBar() {
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigation)
         bottomNavigationView.setOnNavigationItemSelectedListener { item ->
-            if (created < 1) {
-                created++
-                enableDisableNavButtons(item)
-                when (item.itemId) {
-                    R.id.nav_home -> {
-                        supportFragmentManager
-                            .beginTransaction()
-                            .replace(R.id.birth_date_fragment_container, HomeFragment.newInstance())
-                            .commit()
+            enableDisableNavButtons(item)
+            if(executeNav) {
+                if (created < 1) {
+                    created++
+                    when (item.itemId) {
+                        R.id.nav_home -> {
+                            supportFragmentManager
+                                .beginTransaction()
+                                .replace(
+                                    R.id.birth_date_fragment_container,
+                                    HomeFragment.newInstance()
+                                )
+                                .commit()
+                        }
+                        R.id.nav_calendar -> {
+                            supportFragmentManager
+                                .beginTransaction()
+                                .replace(
+                                    R.id.birth_date_fragment_container,
+                                    CalendarFragment.newInstance()
+                                )
+                                .commit()
+                        }
+                        R.id.nav_wish -> {
+                            val intent = WishesActivity.newIntent(this)
+                            startActivity(intent)
+                        }
+                        R.id.nav_gift -> {
+                            val intent = GiftActivity.newIntent(this)
+                            startActivity(intent)
+                        }
                     }
-                    R.id.nav_calendar -> {
-                        supportFragmentManager
-                            .beginTransaction()
-                            .replace(R.id.birth_date_fragment_container, CalendarFragment.newInstance())
-                            .commit()
-                    }
-                    R.id.nav_wish -> {
-                        val intent = WishesActivity.newIntent(this)
-                        startActivity(intent)
-                    }
-                    R.id.nav_gift -> {
-                        val intent = GiftActivity.newIntent(this)
-                        startActivity(intent)
+                } else {
+                    when (item.itemId) {
+                        R.id.nav_home -> {
+                            supportFragmentManager
+                                .beginTransaction()
+                                .replace(
+                                    R.id.birth_date_fragment_container,
+                                    HomeFragment.newInstance()
+                                )
+                                .addToBackStack(null)
+                                .commit()
+                        }
+                        R.id.nav_calendar -> {
+                            supportFragmentManager
+                                .beginTransaction()
+                                .replace(
+                                    R.id.birth_date_fragment_container,
+                                    CalendarFragment.newInstance()
+                                )
+                                .addToBackStack(null)
+                                .commit()
+                        }
+                        R.id.nav_wish -> {
+                            val intent = WishesActivity.newIntent(this)
+                            startActivity(intent)
+                        }
+                        R.id.nav_gift -> {
+                            val intent = GiftActivity.newIntent(this)
+                            startActivity(intent)
+                        }
                     }
                 }
-                true
             }
-            else {
-                enableDisableNavButtons(item)
-                when (item.itemId) {
-                    R.id.nav_home -> {
-                        supportFragmentManager
-                            .beginTransaction()
-                            .replace(R.id.birth_date_fragment_container, HomeFragment.newInstance())
-                            .addToBackStack(null)
-                            .commit()
-                    }
-                    R.id.nav_calendar -> {
-                        supportFragmentManager
-                            .beginTransaction()
-                            .replace(R.id.birth_date_fragment_container, CalendarFragment.newInstance())
-                            .addToBackStack(null)
-                            .commit()
-                    }
-                    R.id.nav_wish -> {
-                        val intent = WishesActivity.newIntent(this)
-                        startActivity(intent)
-                    }
-                    R.id.nav_gift -> {
-                        val intent = GiftActivity.newIntent(this)
-                        startActivity(intent)
-                    }
-                }
-                true
-            }
+            true
         }
     }
 

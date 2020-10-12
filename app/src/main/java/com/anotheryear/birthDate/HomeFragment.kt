@@ -35,8 +35,9 @@ class HomeFragment: Fragment() {
      * Callback interface to access and send data to the BirthDateActivity
      */
     interface Callbacks {
-        fun viewDetailFragment(id: UUID?, date: Date?)
+        fun viewDetailFragment(id: UUID?, date: Date?, frag: String)
         val getBirthdayListViewModel : BirthdayListViewModel
+        fun selectNavIcon(navIcon: String)
     }
 
     private var callbacks: Callbacks? = null
@@ -53,7 +54,7 @@ class HomeFragment: Fragment() {
 
         // Initialization for UI elements to be manipulated
         addBtn = view.findViewById(R.id.home_add_btn)
-        addBtn.setOnClickListener { callbacks?.viewDetailFragment(null, null) }
+        addBtn.setOnClickListener { callbacks?.viewDetailFragment(null, null, "Home") }
 
         // Initialization for RecyclerView elements
         birthdayRecyclerView = view.findViewById(R.id.home_recycler_view) as RecyclerView
@@ -121,6 +122,8 @@ class HomeFragment: Fragment() {
      */
     override fun onStart() {
         super.onStart()
+        // set the proper nav icon selection when this fragment starts
+        callbacks?.selectNavIcon("Home")
         Log.d(TAG, "onStart() called")
     }
     override fun onResume() {
@@ -168,7 +171,7 @@ class HomeFragment: Fragment() {
         // onClick functionality for the BirthdayListItems that switches to the BirthdayDetailFragment and passes the UUID
         override fun onClick(v: View?) {
             Log.d(TAG, "itemView.onClick() called")
-            callbacks?.viewDetailFragment(birthday.id, null)
+            callbacks?.viewDetailFragment(birthday.id, null, "Home")
         }
     }
 
