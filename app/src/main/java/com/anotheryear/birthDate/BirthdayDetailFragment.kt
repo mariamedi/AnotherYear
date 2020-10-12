@@ -4,7 +4,6 @@ import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,6 +17,7 @@ import java.util.*
 
 private const val ARG_BIRTHDAY_ID = "birthdayId"
 private const val ARG_BIRTHDAY_DATE = "date"
+private const val ARG_FROM_FRAG = "whoCalledMe"
 
 // Days in each month
 private val MONTH_DAYS = listOf(
@@ -49,6 +49,8 @@ class BirthdayDetailFragment : Fragment() {
     private lateinit var dayDropDown: Spinner
     private lateinit var monthDropDown: Spinner
 
+    private var fromFrag: String? = ""
+
 
     // Declare ViewModel for accessing and saving birthday
     private val birthdayDetailViewModel: BirthdayDetailViewModel by lazy {
@@ -58,21 +60,28 @@ class BirthdayDetailFragment : Fragment() {
     // Include callback for sending status message back to previous fragment
     interface Callbacks {
         fun detailAction(message: String)
+        fun selectNavIcon(navIcon: String)
     }
 
     private var callbacks: Callbacks? = null
 
     companion object {
 
-        // Default fragment creation for testing purposes
-        fun newInstance(): BirthdayDetailFragment {
-            return BirthdayDetailFragment()
+        // Default fragment creation
+        fun newInstance(frag: String): BirthdayDetailFragment {
+            val args = Bundle().apply {
+                putSerializable(ARG_FROM_FRAG, frag)
+            }
+            return BirthdayDetailFragment().apply {
+                arguments = args
+            }
         }
 
         // Fragment creation when the birthday exists
-        fun newInstance(birthdayId: UUID): BirthdayDetailFragment {
+        fun newInstance(birthdayId: UUID, frag: String): BirthdayDetailFragment {
             val args = Bundle().apply {
                 putSerializable(ARG_BIRTHDAY_ID, birthdayId)
+                putSerializable(ARG_FROM_FRAG, frag)
             }
             return BirthdayDetailFragment().apply {
                 arguments = args
@@ -80,9 +89,10 @@ class BirthdayDetailFragment : Fragment() {
         }
 
         // Fragment creation when user selects date for a new birthday
-        fun newInstance(birthdayDate: Date): BirthdayDetailFragment {
+        fun newInstance(birthdayDate: Date, frag: String): BirthdayDetailFragment {
             val args = Bundle().apply {
                 putSerializable(ARG_BIRTHDAY_DATE, birthdayDate)
+                putSerializable(ARG_FROM_FRAG, frag)
             }
             return BirthdayDetailFragment().apply {
                 arguments = args
@@ -106,6 +116,8 @@ class BirthdayDetailFragment : Fragment() {
         if(id != null){
             birthdayDetailViewModel.loadBirthday(id)
         }
+
+        fromFrag = arguments?.getSerializable(ARG_FROM_FRAG) as String?
     }
 
     override fun onCreateView(
@@ -207,6 +219,7 @@ class BirthdayDetailFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
+        callbacks?.selectNavIcon(fromFrag!!)
 
         // Inner class for listening on birthday edit text
         class NameWatcher (val namePart: String) : TextWatcher {

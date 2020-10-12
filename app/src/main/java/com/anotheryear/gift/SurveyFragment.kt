@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,6 +15,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.anotheryear.R
 
+private const val TAG = "SurveyFragment"
 class SurveyFragment : Fragment() {
 
     // Declare view objects
@@ -30,6 +32,7 @@ class SurveyFragment : Fragment() {
     // Include callback for going to next fragment
     interface Callbacks {
         fun proceedToGender()
+        fun selectNavIcon(navIcon: String)
     }
 
     private var callbacks: Callbacks? = null
@@ -71,6 +74,9 @@ class SurveyFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
+        Log.d(TAG, "onStart() called")
+        callbacks?.selectNavIcon("Gift")
+
         // Inner class for listening on budget edit text
         class BudgetWatcher (val budgetPart: String) : TextWatcher {
 
@@ -123,5 +129,23 @@ class SurveyFragment : Fragment() {
         callbacks = null
     }
 
-
+    /**
+     * Adding logs messages for onResume, onPause, onStop and onDestroy
+     */
+    override fun onResume() {
+        super.onResume()
+        Log.d(TAG, "onResume() called")
+    }
+    override fun onPause() {
+        super.onPause()
+        Log.d(TAG, "onPause() called")
+    }
+    override fun onStop() {
+        super.onStop()
+        Log.d(TAG, "onStop() called")
+    }
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.d(TAG, "onDestroy() called")
+    }
 }
