@@ -42,8 +42,9 @@ class CalendarFragment : Fragment() {
      * Callback interface to access and send data to the BirthDateActivity
      */
     interface Callbacks {
-        fun viewDetailFragment(id: UUID?, date: Date?)
+        fun viewDetailFragment(id: UUID?, date: Date?, frag: String)
         val getBirthdayListViewModel : BirthdayListViewModel
+        fun selectNavIcon(navIcon: String)
     }
 
     private var callbacks: Callbacks? = null
@@ -73,10 +74,10 @@ class CalendarFragment : Fragment() {
         // Switch to the BirthdayDetailFragment with the selected date if there is one
         addBtn.setOnClickListener {
             if(calendarView.selectedDate != null){
-                callbacks?.viewDetailFragment(null, (calendarView.selectedDate.calendar.time))
+                callbacks?.viewDetailFragment(null, (calendarView.selectedDate.calendar.time), "Calendar")
             }
             else {
-                callbacks?.viewDetailFragment(null, null)
+                callbacks?.viewDetailFragment(null, null, "Calendar")
             }
         }
 
@@ -165,6 +166,31 @@ class CalendarFragment : Fragment() {
     }
 
     /**
+     * Adding logs messages for onStart, onResume, onPause, onStop and onDestroy
+     */
+    override fun onStart() {
+        super.onStart()
+        callbacks?.selectNavIcon("Calendar")
+        Log.d(TAG, "onStart() called")
+    }
+    override fun onResume() {
+        super.onResume()
+        Log.d(TAG, "onResume() called")
+    }
+    override fun onPause() {
+        super.onPause()
+        Log.d(TAG, "onPause() called")
+    }
+    override fun onStop() {
+        super.onStop()
+        Log.d(TAG, "onStop() called")
+    }
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.d(TAG, "onDestroy() called")
+    }
+
+    /**
      * Inner class for the BirthdayHolder that populates individual birthday list entries
      */
     private inner class BirthdayHolder(view: View) : RecyclerView.ViewHolder(view), View.OnClickListener {
@@ -196,7 +222,7 @@ class CalendarFragment : Fragment() {
         // onClick functionality for the BirthdayListItems that switches to the BirthdayDetailFragment and passes the UUID
         override fun onClick(v: View?) {
             Log.d(TAG, "itemView.onClick() called")
-            callbacks?.viewDetailFragment(birthday.id, null)
+            callbacks?.viewDetailFragment(birthday.id, null, "Calendar")
         }
     }
 
