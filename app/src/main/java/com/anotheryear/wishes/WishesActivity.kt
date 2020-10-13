@@ -90,10 +90,23 @@ class WishesActivity : AppCompatActivity(), WishFormFragment.Callbacks, Generate
     }
 
     /**
-     * Function that switches from WishFormFragment to WishesActivity, given the ID or date of the birthday
+     * Function that switches from WishFormFragment to WishesActivity
      */
     override fun generateWish() {
         val fragment: Fragment = GeneratedWishFragment.newInstance()
+
+        supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.wish_fragment_container, fragment)
+            .addToBackStack(null)
+            .commit()
+    }
+
+    /**
+     * Function that switches from GenerateWishFragment to WishesActivity
+     */
+    override fun changeSettings() {
+        val fragment: Fragment = WishFormFragment.newInstance()
 
         supportFragmentManager
             .beginTransaction()

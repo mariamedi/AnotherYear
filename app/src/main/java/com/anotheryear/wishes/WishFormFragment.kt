@@ -65,6 +65,19 @@ class WishFormFragment : Fragment() {
         noSignature = view.findViewById(R.id.PW_no_signature) as CheckBox
         generateWishButton = view.findViewById(R.id.PW_generate_wish_button) as Button
 
+        // Set everything to its original values (if applicable)
+        if(wishViewModel?.theirName != ""){
+            birthPersonName.setText(wishViewModel?.theirName)
+        }
+        if(!wishViewModel?.noSignature!!){
+            if(wishViewModel?.yourName != ""){
+                yourName.setText(wishViewModel?.yourName)
+            }
+        } else {
+            noSignature.isChecked = true
+            yourName.isEnabled = false
+        }
+
         //listener for SeekBar
         relationshipBar?.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener{
             override fun onProgressChanged(

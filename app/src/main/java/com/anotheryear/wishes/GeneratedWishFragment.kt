@@ -35,7 +35,7 @@ class GeneratedWishFragment : Fragment() {
      * Callback interface to access and send data to the WishesActivity
      */
     interface Callbacks {
-        // fun changeSettings()
+        fun changeSettings()
         val getWishViewModel : WishesViewModel
     }
     private var callbacks: Callbacks? = null
@@ -69,7 +69,10 @@ class GeneratedWishFragment : Fragment() {
         }
 
         // go back to settings page
-
+         changeSettButton.setOnClickListener{view: View ->
+             // go back to settings page
+             callbacks?.changeSettings()
+         }
         return view
     }
 
