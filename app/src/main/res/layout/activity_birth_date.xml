@@ -9,6 +9,7 @@
         android:id="@+id/birth_date_fragment_container"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:background="#676570"
         app:layout_constraintBottom_toTopOf="@id/bottom_navigation"
         app:layout_constraintTop_toTopOf="parent" />
 
