@@ -8,7 +8,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginLeft="10dp"
+        android:layout_marginLeft="15dp"
         android:background="#676570"
         android:orientation="vertical">
 
@@ -28,14 +28,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="#EEEEEE"
-                    android:textSize="70px"
+                    android:textSize="25sp"
                     android:layout_marginBottom="40dp"
                     android:text="@string/PW_title"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="50px"
+                    android:textSize="17sp"
                     android:textColor="#EEEEEE"
                     android:layout_marginBottom="20dp"
                     android:text="@string/PW_ready"/>
@@ -44,12 +44,14 @@
                     android:id="@+id/PW_birthday_wish"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="50px"
+                    android:textSize="17sp"
                     android:layout_marginRight="15dp"
+                    android:layout_marginBottom="10dp"
                     android:paddingBottom="20dp"
                     android:paddingRight="10dp"
                     android:paddingLeft="10dp"
-                    android:background="#DFDAF2"
+                    android:paddingTop="20dp"
+                    android:background="@drawable/rounded_button_lightpurple"
                     android:text="nothing"/>
 
                 <LinearLayout
@@ -62,7 +64,7 @@
                         android:id="@+id/PW_add_image"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
-                        android:background="#DFDAF2"
+                        android:background="@drawable/rounded_button_lightpurple"
                         android:src="@drawable/ic_photo_camera" />
 
                     <ImageView
@@ -87,14 +89,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:layout_marginTop="20dp"
             android:orientation="vertical">
 
             <Button
                 android:id="@+id/PW_generate_new_wish_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="50px"
+                android:textSize="17sp"
                 android:layout_marginBottom="20dp"
                 android:paddingRight="20dp"
                 android:paddingLeft="20dp"
@@ -106,7 +107,7 @@
                 android:id="@+id/PW_change_settings_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="50px"
+                android:textSize="17sp"
                 android:paddingRight="20dp"
                 android:paddingLeft="20dp"
                 android:textColor="#fff"
@@ -123,18 +124,23 @@
                 <EditText
                     android:id="@+id/PW_their_email"
                     android:layout_width="wrap_content"
-                    android:layout_height="40dp"
-                    android:textSize="60px"
+                    android:layout_height="45dp"
+                    android:textSize="17sp"
                     android:paddingLeft="10dp"
                     android:paddingRight="15dp"
                     android:background="@drawable/rounded_edittext"
-                    android:hint="Birthday Person's Email" />
+                    android:hint="Birthday Person's Email"
+                    android:paddingStart="10dp" />
                 <Button
                     android:id="@+id/PW_send_wish_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="50px"
+                    android:textSize="17sp"
                     android:layout_marginLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingLeft="10dp"
+                    android:textColor="#fff"
+                    android:background="@drawable/rounded_button_darkpurple"
                     android:text="Send Wish!" />
 
             </LinearLayout>
