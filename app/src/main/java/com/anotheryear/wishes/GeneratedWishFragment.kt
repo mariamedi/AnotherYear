@@ -2,16 +2,12 @@ package com.anotheryear.wishes
 
 import android.content.Context
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProviders
 import com.anotheryear.R
 
 private const val TAG = "GeneratedWishFragment"
@@ -25,26 +21,17 @@ class GeneratedWishFragment : Fragment() {
     private lateinit var changeSettButton: Button
     private var wishViewModel: WishesViewModel? = null
 
-    companion object {
-        fun newInstance(): GeneratedWishFragment {
-            return GeneratedWishFragment()
-        }
-    }
-
     /**
      * Callback interface to access and send data to the WishesActivity
      */
     interface Callbacks {
         fun changeSettings()
         val getWishViewModel : WishesViewModel
+        fun selectNavIcon(navIcon: String)
     }
     private var callbacks: Callbacks? = null
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_generated_wish, container, false)
 
         // Initialization of UI Elements
@@ -59,7 +46,7 @@ class GeneratedWishFragment : Fragment() {
         birthdayWish.text = wishViewModel?.currentWish
 
         // listener for Generate New Wish Button
-        newWishButton.setOnClickListener{view: View ->
+        newWishButton.setOnClickListener{
             // generate new wish
             wishViewModel?.generateWish()
 
@@ -69,11 +56,17 @@ class GeneratedWishFragment : Fragment() {
         }
 
         // go back to settings page
-         changeSettButton.setOnClickListener{view: View ->
+         changeSettButton.setOnClickListener{
              // go back to settings page
              callbacks?.changeSettings()
          }
         return view
+    }
+
+    companion object {
+        fun newInstance(): GeneratedWishFragment {
+            return GeneratedWishFragment()
+        }
     }
 
     /**
@@ -92,5 +85,31 @@ class GeneratedWishFragment : Fragment() {
         super.onDetach()
         Log.d(TAG, "onDetach() called")
         callbacks = null
+    }
+
+    /**
+     * Adding logs messages for onResume, onPause, onStop and onDestroy
+     */
+    override fun onStart() {
+        super.onStart()
+        Log.d(TAG, "onStart() called")
+        // set the proper nav icon selection when this fragment starts
+        callbacks?.selectNavIcon("Wish")
+    }
+    override fun onResume() {
+        super.onResume()
+        Log.d(TAG, "onResume() called")
+    }
+    override fun onPause() {
+        super.onPause()
+        Log.d(TAG, "onPause() called")
+    }
+    override fun onStop() {
+        super.onStop()
+        Log.d(TAG, "onStop() called")
+    }
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.d(TAG, "onDestroy() called")
     }
 }
