@@ -7,7 +7,6 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.content.pm.ResolveInfo
 import android.net.Uri
-import android.media.Image
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
