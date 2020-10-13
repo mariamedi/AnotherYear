@@ -46,10 +46,12 @@
                     android:layout_height="wrap_content"
                     android:textSize="50px"
                     android:layout_marginRight="15dp"
+                    android:layout_marginBottom="10dp"
                     android:paddingBottom="20dp"
                     android:paddingRight="10dp"
                     android:paddingLeft="10dp"
-                    android:background="#DFDAF2"
+                    android:paddingTop="20dp"
+                    android:background="@drawable/rounded_button_lightpurple"
                     android:text="nothing"/>
 
                 <LinearLayout
@@ -62,7 +64,7 @@
                         android:id="@+id/PW_add_image"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
-                        android:background="#DFDAF2"
+                        android:background="@drawable/rounded_button_lightpurple"
                         android:src="@drawable/ic_photo_camera" />
 
                     <ImageView
@@ -123,7 +125,7 @@
                 <EditText
                     android:id="@+id/PW_their_email"
                     android:layout_width="wrap_content"
-                    android:layout_height="40dp"
+                    android:layout_height="45dp"
                     android:textSize="60px"
                     android:paddingLeft="10dp"
                     android:paddingRight="15dp"
@@ -135,6 +137,10 @@
                     android:layout_height="wrap_content"
                     android:textSize="50px"
                     android:layout_marginLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingLeft="10dp"
+                    android:textColor="#fff"
+                    android:background="@drawable/rounded_button_darkpurple"
                     android:text="Send Wish!" />
 
             </LinearLayout>
