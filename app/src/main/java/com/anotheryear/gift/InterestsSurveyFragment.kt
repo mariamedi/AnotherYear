@@ -148,30 +148,18 @@ class InterestsSurveyFragment: Fragment() {
         Log.d(TAG, "onStart() called")
         callbacks?.selectNavIcon("Gift")
         // Inner class for listening on other edit text
-        class OtherWatcher () : TextWatcher {
+        class OtherWatcher: TextWatcher {
 
-            override fun beforeTextChanged(
-                sequence: CharSequence?,
-                start: Int,
-                count: Int,
-                after: Int
-            ) {
-
+            override fun beforeTextChanged(sequence: CharSequence?, start: Int, count: Int, after: Int) {
             }
 
-            override fun onTextChanged(
-                sequence: CharSequence?,
-                start: Int,
-                before: Int,
-                count: Int
-            ) {
+            override fun onTextChanged(sequence: CharSequence?, start: Int, before: Int, count: Int) {
 
                 val text = sequence.toString()
 
                 if(otherCheckBox.isChecked){
                     giftViewModel.keywords["Other"] = text
                 }
-
             }
 
             override fun afterTextChanged(sequence: Editable?) {

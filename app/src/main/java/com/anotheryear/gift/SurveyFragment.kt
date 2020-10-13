@@ -43,11 +43,7 @@ class SurveyFragment : Fragment() {
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_survey, container, false)
 
         minBudgetEditText = view.findViewById(R.id.budget_min_edit_text)
@@ -59,7 +55,6 @@ class SurveyFragment : Fragment() {
         maxBudgetEditText.setText(giftViewModel.budgetMax.toString())
 
         noBudgetCheckBox.isChecked = giftViewModel.noBudget
-
 
         noBudgetCheckBox.setOnCheckedChangeListener { _, isChecked ->
             giftViewModel.noBudget = isChecked
@@ -80,21 +75,10 @@ class SurveyFragment : Fragment() {
         // Inner class for listening on budget edit text
         class BudgetWatcher (val budgetPart: String) : TextWatcher {
 
-            override fun beforeTextChanged(
-                sequence: CharSequence?,
-                start: Int,
-                count: Int,
-                after: Int
-            ) {
-
+            override fun beforeTextChanged(sequence: CharSequence?, start: Int, count: Int, after: Int) {
             }
 
-            override fun onTextChanged(
-                sequence: CharSequence?,
-                start: Int,
-                before: Int,
-                count: Int
-            ) {
+            override fun onTextChanged(sequence: CharSequence?, start: Int, before: Int, count: Int) {
 
                 var text = sequence.toString()
 
