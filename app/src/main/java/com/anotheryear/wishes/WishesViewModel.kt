@@ -2,6 +2,7 @@ package com.anotheryear.wishes
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
+import com.anotheryear.BirthdayRepository
 import com.anotheryear.R
 
 private const val TAG =  "PersonalWishVM"
@@ -24,6 +25,7 @@ class WishesViewModel : ViewModel() {
     var noSignature = false
     var relationship = 50
     var currentWish = ""
+    var currentIndex = -1
 
     /**
      * Lists of wishes (based on relationship)
@@ -67,14 +69,19 @@ class WishesViewModel : ViewModel() {
     /**
      * Generate wish based on range
      */
-    fun generateWish(progress: Int){
-        val range = getRange(progress)
+    fun generateWish(){
+
+        // reset current wish
+        currentWish = ""
+
+        // identify range
+        val range = getRange(relationship)
 
         //add birthday person's name
-        currentWish = "Dear $theirName\n"
+        currentWish = "Dear $theirName,\n\n"
 
         //get random list index
-        val index = (0..5).random()
+        val index = validIndex()
 
         //choose from appropriate list
         when(range){
@@ -89,8 +96,25 @@ class WishesViewModel : ViewModel() {
 
         //add signature if apprpriate
         if(!noSignature){
-            currentWish += "\nBest,\n$yourName"
+            currentWish += "\n\nBest,\n$yourName"
         }
+    }
+
+    /**
+     *  Make sure we are not getting the same wish as last time
+     */
+    fun validIndex(): Int{
+        // get random index
+        var index = (0..4).random()
+
+        while(index == currentIndex){
+            index = (0..4).random()
+        }
+
+        // update currentIndex
+        currentIndex = index
+
+        return index
     }
 
     /**

@@ -34,5 +34,8 @@
     <string name="PW_generate_wish_button">Generate Birthday Wish!</string>
     <string name="PW_no_signature">No Signature</string>
     <string name="PW_error">Please fill out all fields</string>
+    <string name="PW_ready">Your birthday wish is ready!</string>
+    <string name="PW_generate_new_wish_button">Generate New Birthday Wish</string>
+    <string name="PW_change_settings_button">Change Settings</string>
 
 </resources>
