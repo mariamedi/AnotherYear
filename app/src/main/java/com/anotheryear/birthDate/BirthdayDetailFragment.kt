@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -107,9 +108,9 @@ class BirthdayDetailFragment : Fragment() {
         super.onCreate(savedInstanceState)
         birthday = Birthday()
 
-        val date: Date? = arguments?.getSerializable(ARG_BIRTHDAY_DATE) as Date?
 
         // If passed a date, initialize birthday object with the date
+        val date: Date? = arguments?.getSerializable(ARG_BIRTHDAY_DATE) as Date?
         if(date != null){
             birthday.birthdate = date
         }
@@ -135,6 +136,12 @@ class BirthdayDetailFragment : Fragment() {
         saveButton = view.findViewById(R.id.save_button)
         discardButton = view.findViewById(R.id.discard_button)
         deleteButton = view.findViewById(R.id.delete_button)
+
+        // If a new birthday is being added, do not show delete button
+        val id: UUID? = arguments?.getSerializable(ARG_BIRTHDAY_ID) as UUID?
+        if(id == null){
+           deleteButton.visibility = View.INVISIBLE
+        }
 
         // Create array adapter for month drop down
         ArrayAdapter.createFromResource(requireContext(), R.array.Months, android.R.layout.simple_spinner_item)
