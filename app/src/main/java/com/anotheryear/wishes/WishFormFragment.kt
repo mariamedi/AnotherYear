@@ -1,8 +1,6 @@
 package com.anotheryear.wishes
 
-import android.app.Activity
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -12,12 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProviders
 import com.anotheryear.R
-import com.anotheryear.birthDate.BirthdayListViewModel
-import com.anotheryear.birthDate.CalendarFragment
-import com.anotheryear.birthDate.HomeFragment
-import java.util.*
 
 private const val TAG = "WishFormFragment"
 
@@ -30,29 +23,20 @@ class WishFormFragment : Fragment() {
     private lateinit var generateWishButton: Button
     private var wishViewModel: WishesViewModel? = null
 
-    companion object {
-        fun newInstance(): WishFormFragment {
-            return WishFormFragment()
-        }
-    }
-
     /**
      * Callback interface to access and send data to the WishesActivity
      */
     interface Callbacks {
         fun generateWish()
         val getWishViewModel : WishesViewModel
+        fun selectNavIcon(navIcon: String)
     }
     private var callbacks: Callbacks? = null
 
     /**
      * Override for the onCreateView method that initializes elements that need to be manipulated
      */
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_wish_form, container, false)
 
         // Get the wishViewModel from the WishesActivity via the callback val
@@ -79,7 +63,7 @@ class WishFormFragment : Fragment() {
         }
 
         //listener for SeekBar
-        relationshipBar?.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener{
+        relationshipBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener{
             override fun onProgressChanged(
                 seek: SeekBar,
                 progress: Int, fromUser: Boolean
@@ -98,7 +82,7 @@ class WishFormFragment : Fragment() {
         })
 
         //listener for GenerateWish Button
-        generateWishButton.setOnClickListener{view: View->
+        generateWishButton.setOnClickListener{
             //check that all field have been filled out
             if(wishViewModel?.readyForWish()!!){
                 wishViewModel?.generateWish()
@@ -141,9 +125,7 @@ class WishFormFragment : Fragment() {
         })
 
         // checking if the user does not want a Signature
-        noSignature.setOnClickListener{view: View->
-            onCheckboxClicked(view)
-        }
+        noSignature.setOnClickListener(this@WishFormFragment::onCheckboxClicked)
 
         return view
     }
@@ -153,30 +135,20 @@ class WishFormFragment : Fragment() {
      */
     override fun onStart() {
         super.onStart()
+        Log.d(TAG, "onStart() called")
+        callbacks?.selectNavIcon("Wish")
 
         //EditText listeners
         val nameWatcher = object : TextWatcher {
 
-            override fun beforeTextChanged(
-                sequence: CharSequence?,
-                start: Int,
-                count: Int,
-                after: Int
-            ) {
+            override fun beforeTextChanged(sequence: CharSequence?, start: Int, count: Int, after: Int) {
                 // This space intentionally left blank
             }
 
-            override fun onTextChanged(
-                sequence: CharSequence?,
-                start: Int,
-                before: Int,
-                count: Int
-            ) {
-                val name = sequence.toString()
+            override fun onTextChanged(sequence: CharSequence?, start: Int, before: Int, count: Int) {
             }
 
             override fun afterTextChanged(sequence: Editable?) {
-                // This one too
             }
         }
 
@@ -192,7 +164,7 @@ class WishFormFragment : Fragment() {
     /**
      * Identify if No Signature checkbox was selected
      */
-    fun onCheckboxClicked(view: View){
+    private fun onCheckboxClicked(view: View){
         if(view is CheckBox){
             val checked: Boolean = view.isChecked
 
@@ -203,6 +175,12 @@ class WishFormFragment : Fragment() {
                     wishViewModel?.noSignature = checked
                 }
             }
+        }
+    }
+
+    companion object {
+        fun newInstance(): WishFormFragment {
+            return WishFormFragment()
         }
     }
 
@@ -222,6 +200,26 @@ class WishFormFragment : Fragment() {
         super.onDetach()
         Log.d(TAG, "onDetach() called")
         callbacks = null
+    }
+
+    /**
+     * Adding logs messages for onResume, onPause, onStop and onDestroy
+     */
+    override fun onResume() {
+        super.onResume()
+        Log.d(TAG, "onResume() called")
+    }
+    override fun onPause() {
+        super.onPause()
+        Log.d(TAG, "onPause() called")
+    }
+    override fun onStop() {
+        super.onStop()
+        Log.d(TAG, "onStop() called")
+    }
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.d(TAG, "onDestroy() called")
     }
 }
 
