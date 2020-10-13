@@ -54,7 +54,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:text="Add"
-        android:background="@drawable/rounded_button_darkpurple"
+        android:background="@drawable/rounded_button_purple"
         android:textColor="#EEE"
         android:textSize="17sp"
         app:layout_constraintBottom_toBottomOf="parent"
