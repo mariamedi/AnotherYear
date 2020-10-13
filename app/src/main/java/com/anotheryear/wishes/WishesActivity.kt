@@ -3,17 +3,32 @@ package com.anotheryear.wishes
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
+import android.view.View
+import android.widget.*
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProviders
 import com.anotheryear.birthDate.BirthDateActivity
 import com.anotheryear.gift.GiftActivity
 import com.anotheryear.R
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import android.widget.SeekBar
+import androidx.fragment.app.Fragment
+import com.anotheryear.birthDate.BirthdayDetailFragment
+import com.anotheryear.birthDate.BirthdayListViewModel
+import java.util.*
 
 /**
  * Activity for all Birthday Wishes functionality
  */
-class WishesActivity : AppCompatActivity() {
+class WishesActivity : AppCompatActivity(), WishFormFragment.Callbacks, GeneratedWishFragment.Callbacks {
+
+    private val wishViewModel: WishesViewModel by lazy {
+        ViewModelProviders.of(this).get(WishesViewModel::class.java)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_wish)
@@ -37,6 +52,38 @@ class WishesActivity : AppCompatActivity() {
             return Intent(packageContext, WishesActivity::class.java).apply {
             }
         }
+    }
+
+    /**
+     * Val the gets the list of birthdays in the db from BirthdayListViewModel
+     */
+    override val getWishViewModel: WishesViewModel
+        get() = wishViewModel
+
+    /**
+     * Function that switches from WishFormFragment to WishesActivity
+     */
+    override fun generateWish() {
+        val fragment: Fragment = GeneratedWishFragment.newInstance()
+
+        supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.wish_fragment_container, fragment)
+            .addToBackStack(null)
+            .commit()
+    }
+
+    /**
+     * Function that switches from GenerateWishFragment to WishesActivity
+     */
+    override fun changeSettings() {
+        val fragment: Fragment = WishFormFragment.newInstance()
+
+        supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.wish_fragment_container, fragment)
+            .addToBackStack(null)
+            .commit()
     }
 
     /**
