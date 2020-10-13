@@ -5,11 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginLeft="10dp"
+        android:background="#676570"
         android:orientation="vertical">
 
         <LinearLayout
@@ -29,21 +29,35 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="70px"
+                    android:textColor="#EEEEEE"
                     android:layout_marginBottom="40dp"
                     android:text="@string/PW_title"/>
+
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="50px"
+                    android:textColor="#EEEEEE"
                     android:text="@string/PW_enter_name"/>
 
                 <EditText
                     android:id="@+id/PW_their_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:background="@drawable/rounded_edittext"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
                     android:textSize="50px"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:layout_marginTop="10dp"
                     android:hint="@string/PW_name_prompt" />
+
+                </LinearLayout>
 
             </LinearLayout>
 
@@ -62,6 +76,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp"
                 android:textSize="50px"
+                android:textColor="#EEEEEE"
                 android:text="@string/PW_relationship"/>
 
             <SeekBar
@@ -80,12 +95,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="40px"
+                    android:textColor="#EEEEEE"
                     android:text="@string/PW_not_close"/>
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="right"
+                    android:textColor="#EEEEEE"
                     android:text="@string/PW_very_close"
                     android:textSize="40px" />
 
@@ -94,16 +111,21 @@
 
         <EditText
             android:id="@+id/PW_your_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="50px"
+            android:layout_width="300dp"
+            android:layout_height="40dp"
             android:layout_marginTop="50dp"
+            android:textSize="50px"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:background="@drawable/rounded_edittext"
             android:hint="@string/PW_your_name" />
 
         <CheckBox android:id="@+id/PW_no_signature"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/PW_no_signature"
+            android:textColor="#EEEEEE"
+            android:buttonTint="#fff"
             android:onClick="onCheckboxClicked"/>
 
         <LinearLayout
@@ -118,6 +140,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="50px"
+                android:paddingRight="20dp"
+                android:paddingLeft="20dp"
+                android:textColor="#fff"
+                android:background="@drawable/rounded_button_purple"
                 android:text="@string/PW_generate_wish_button" />
         </LinearLayout>
 

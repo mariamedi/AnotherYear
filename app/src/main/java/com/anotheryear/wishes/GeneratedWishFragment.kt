@@ -7,6 +7,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.content.pm.ResolveInfo
 import android.net.Uri
+import android.media.Image
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
@@ -32,6 +33,8 @@ class GeneratedWishFragment : Fragment() {
     private lateinit var birthdayWish: TextView
     private lateinit var newWishButton: Button
     private lateinit var changeSettButton: Button
+    private lateinit var birthEmail: EditText
+    private lateinit var sendWish: Button
     private lateinit var addImageButton: ImageButton
     private lateinit var imageView: ImageView
     private var wishViewModel: WishesViewModel? = null
@@ -62,6 +65,8 @@ class GeneratedWishFragment : Fragment() {
         birthdayWish = view.findViewById(R.id.PW_birthday_wish) as TextView
         newWishButton = view.findViewById(R.id.PW_generate_new_wish_button) as Button
         changeSettButton = view.findViewById(R.id.PW_change_settings_button) as Button
+        birthEmail = view.findViewById(R.id.PW_their_email) as EditText
+        sendWish = view.findViewById(R.id.PW_send_wish_button) as Button
         addImageButton = view.findViewById(R.id.PW_add_image) as ImageButton
         imageView = view.findViewById(R.id.PW_show_image) as ImageView
 
@@ -110,6 +115,11 @@ class GeneratedWishFragment : Fragment() {
              // go back to settings page
              callbacks?.changeSettings(photoFile!!)
          }
+
+        // listener for send wish button
+        sendWish.setOnClickListener{
+            // do something
+        }
 
         return view
     }
