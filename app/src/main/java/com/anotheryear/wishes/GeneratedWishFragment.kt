@@ -1,17 +1,29 @@
 package com.anotheryear.wishes
 
+import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Context
-import android.media.Image
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.content.pm.ResolveInfo
+import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import com.anotheryear.R
+import java.io.File
+import java.lang.Exception
+import java.util.*
 
 private const val TAG = "GeneratedWishFragment"
+private const val REQUEST_PHOTO = 0
+private const val ARG_IMAGE_FILE = "ImageFile"
 
 /**
  * Generated Wish Fragment
@@ -22,22 +34,31 @@ class GeneratedWishFragment : Fragment() {
     private lateinit var changeSettButton: Button
     private lateinit var birthEmail: EditText
     private lateinit var sendWish: Button
-    private lateinit var imageButton: ImageButton
-    private lateinit var showImage: ImageView
+    private lateinit var addImageButton: ImageButton
+    private lateinit var imageView: ImageView
     private var wishViewModel: WishesViewModel? = null
+
+    // vars needed for camera intent
+    private var photoUri: Uri? = null
+    private var photoFile: File? = null
 
     /**
      * Callback interface to access and send data to the WishesActivity
      */
     interface Callbacks {
-        fun changeSettings()
+        fun changeSettings(photoFile: File)
         val getWishViewModel : WishesViewModel
         fun selectNavIcon(navIcon: String)
     }
     private var callbacks: Callbacks? = null
 
+    /**
+     * Override for the onCreateView method that initializes elements that need to be manipulated
+     */
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_generated_wish, container, false)
+
+        var updateImage = true // used to track if the imageView needs to be updated on load
 
         // Initialization of UI Elements
         birthdayWish = view.findViewById(R.id.PW_birthday_wish) as TextView
@@ -45,8 +66,32 @@ class GeneratedWishFragment : Fragment() {
         changeSettButton = view.findViewById(R.id.PW_change_settings_button) as Button
         birthEmail = view.findViewById(R.id.PW_their_email) as EditText
         sendWish = view.findViewById(R.id.PW_send_wish_button) as Button
-        imageButton = view.findViewById(R.id.PW_add_image) as ImageButton
-        showImage = view.findViewById(R.id.PW_show_image) as ImageView
+        addImageButton = view.findViewById(R.id.PW_add_image) as ImageButton
+        imageView = view.findViewById(R.id.PW_show_image) as ImageView
+
+        // get a passed in photoFile if there is one
+        photoFile = arguments?.getSerializable(ARG_IMAGE_FILE) as File?
+
+        // set the photoFile if it is null and set updateImage to false since this is a new photofile being made
+        if(photoFile == null) {
+            updateImage = false
+            photoFile = File(context!!.applicationContext.filesDir, "wishPic"+ UUID.randomUUID())
+        }
+        // create the URI if there isn't one
+        if(photoUri == null) {
+            photoUri = FileProvider.getUriForFile(requireActivity(), "com.anotheryear.fileprovider", photoFile!!)
+        }
+
+        // if we are trying to update an image from an existing file, do it
+        if(updateImage) {
+            try {
+                val bitmap = getScaledBitmap(photoFile!!.path, requireActivity())
+                imageView.setImageBitmap(rotateImage(bitmap, photoFile))
+                imageView.visibility = View.VISIBLE
+            } catch (e: Exception){
+
+            }
+        }
 
         // Get the wishViewModel from the WishesActivity via the callback val
         wishViewModel = callbacks!!.getWishViewModel
@@ -67,7 +112,7 @@ class GeneratedWishFragment : Fragment() {
         // go back to settings page
          changeSettButton.setOnClickListener{
              // go back to settings page
-             callbacks?.changeSettings()
+             callbacks?.changeSettings(photoFile!!)
          }
 
         // listener for send wish button
@@ -78,9 +123,22 @@ class GeneratedWishFragment : Fragment() {
         return view
     }
 
+    /**
+     * Companion object to creates new instances of GeneratedWishFragment
+     */
     companion object {
         fun newInstance(): GeneratedWishFragment {
             return GeneratedWishFragment()
+        }
+
+        // get an existing photo file on creation
+        fun newInstance(photoFile: File): GeneratedWishFragment {
+            val args = Bundle().apply {
+                putSerializable(ARG_IMAGE_FILE, photoFile)
+            }
+            return GeneratedWishFragment().apply {
+                arguments = args
+            }
         }
     }
 
@@ -103,14 +161,56 @@ class GeneratedWishFragment : Fragment() {
     }
 
     /**
-     * Adding logs messages for onResume, onPause, onStop and onDestroy
+     * Override for the onStart() method that sets the nav bar selection and image button functionality
      */
+    @SuppressLint("QueryPermissionsNeeded")
     override fun onStart() {
         super.onStart()
         Log.d(TAG, "onStart() called")
         // set the proper nav icon selection when this fragment starts
         callbacks?.selectNavIcon("Wish")
+
+        addImageButton.apply {
+            val packageManager: PackageManager = requireActivity().packageManager
+            val captureImage = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+            val resolvedActivity: ResolveInfo? = packageManager.resolveActivity(captureImage, PackageManager.MATCH_DEFAULT_ONLY)
+
+            if (resolvedActivity == null) {
+                isEnabled = false
+            }
+            setOnClickListener {
+                captureImage.putExtra(MediaStore.EXTRA_OUTPUT, photoUri)
+                val cameraActivities: List<ResolveInfo> = packageManager.queryIntentActivities(captureImage, PackageManager.MATCH_DEFAULT_ONLY)
+
+                for (cameraActivity in cameraActivities) {
+                    requireActivity().grantUriPermission(cameraActivity.activityInfo.packageName, photoUri, Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
+                }
+                startActivityForResult(captureImage, REQUEST_PHOTO)
+            }
+        }
     }
+
+    /**
+     * Overrides the onActivityResult method in order to updates the ImageView
+     * once the user returns from the camera app
+     */
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        Log.d(TAG, "onActivityResult() called")
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode != Activity.RESULT_OK) {
+            return
+        }
+        if (requestCode == REQUEST_PHOTO) {
+            requireActivity().revokeUriPermission(photoUri, Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
+            val bitmap = getScaledBitmap(photoFile!!.path, requireActivity())
+            imageView.setImageBitmap(rotateImage(bitmap, photoFile))
+            imageView.visibility = View.VISIBLE
+        }
+    }
+
+    /**
+     * Adding logs messages for onResume, onPause, onStop and onDestroy
+     */
     override fun onResume() {
         super.onResume()
         Log.d(TAG, "onResume() called")
