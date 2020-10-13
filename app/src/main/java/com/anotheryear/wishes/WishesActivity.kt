@@ -3,10 +3,6 @@ package com.anotheryear.wishes
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
-import android.view.View
-import android.widget.*
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProviders
@@ -14,11 +10,8 @@ import com.anotheryear.birthDate.BirthDateActivity
 import com.anotheryear.gift.GiftActivity
 import com.anotheryear.R
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import android.widget.SeekBar
 import androidx.fragment.app.Fragment
-import com.anotheryear.birthDate.BirthdayDetailFragment
-import com.anotheryear.birthDate.BirthdayListViewModel
-import java.util.*
+import java.io.File
 
 /**
  * Activity for all Birthday Wishes functionality
@@ -31,14 +24,16 @@ class WishesActivity : AppCompatActivity(), WishFormFragment.Callbacks, Generate
         ViewModelProviders.of(this).get(WishesViewModel::class.java)
     }
 
+    /**
+     * Override for the onCreate method which initializes the bottom nav bar and sets the correct fragment to be displayed
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_wish)
 
         initializeBottomNavBar()
 
-        val currentFragment =
-            supportFragmentManager.findFragmentById(R.id.wish_fragment_container)
+        val currentFragment = supportFragmentManager.findFragmentById(R.id.wish_fragment_container)
 
         if (currentFragment == null) {
             val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigation)
@@ -63,10 +58,15 @@ class WishesActivity : AppCompatActivity(), WishFormFragment.Callbacks, Generate
         get() = wishViewModel
 
     /**
-     * Function that switches from WishFormFragment to WishesActivity
+     * Function that switches to the WishFormFragment
      */
-    override fun generateWish() {
-        val fragment: Fragment = GeneratedWishFragment.newInstance()
+    override fun generateWish(passedFile: File?) {
+        val fragment: Fragment =
+            if (passedFile == null) {
+                GeneratedWishFragment.newInstance()
+            } else {
+                GeneratedWishFragment.newInstance(passedFile)
+            }
 
         supportFragmentManager
             .beginTransaction()
@@ -76,10 +76,10 @@ class WishesActivity : AppCompatActivity(), WishFormFragment.Callbacks, Generate
     }
 
     /**
-     * Function that switches from GenerateWishFragment to WishesActivity
+     * Function that switches to the WishesActivity
      */
-    override fun changeSettings() {
-        val fragment: Fragment = WishFormFragment.newInstance()
+    override fun changeSettings(photoFile: File) {
+        val fragment: Fragment = WishFormFragment.newInstance(photoFile)
 
         supportFragmentManager
             .beginTransaction()

@@ -11,8 +11,10 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.Fragment
 import com.anotheryear.R
+import java.io.File
 
 private const val TAG = "WishFormFragment"
+private const val ARG_IMAGE_FILE = "ImageFile"
 
 class WishFormFragment : Fragment() {
 
@@ -27,11 +29,14 @@ class WishFormFragment : Fragment() {
      * Callback interface to access and send data to the WishesActivity
      */
     interface Callbacks {
-        fun generateWish()
+        fun generateWish(passedFile: File?)
         val getWishViewModel : WishesViewModel
         fun selectNavIcon(navIcon: String)
     }
     private var callbacks: Callbacks? = null
+
+    // var for a photoFile passed in from the previous fragment
+    private var passedFile: File? = null
 
     /**
      * Override for the onCreateView method that initializes elements that need to be manipulated
@@ -64,19 +69,13 @@ class WishFormFragment : Fragment() {
 
         //listener for SeekBar
         relationshipBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener{
-            override fun onProgressChanged(
-                seek: SeekBar,
-                progress: Int, fromUser: Boolean
-            ) {
-                // write custom code for progress is changed
+            override fun onProgressChanged(seek: SeekBar, progress: Int, fromUser: Boolean) {
             }
 
             override fun onStartTrackingTouch(seek: SeekBar) {
-                // write custom code for progress is started
             }
 
             override fun onStopTrackingTouch(seek: SeekBar) {
-                // write custom code for progress is stopped
                 wishViewModel?.relationship = relationshipBar.progress
             }
         })
@@ -86,7 +85,7 @@ class WishFormFragment : Fragment() {
             //check that all field have been filled out
             if(wishViewModel?.readyForWish()!!){
                 wishViewModel?.generateWish()
-                callbacks?.generateWish()
+                callbacks?.generateWish(passedFile)
             } else {
                 //tell user to fill out all fields
                 Toast.makeText(
@@ -99,13 +98,13 @@ class WishFormFragment : Fragment() {
         // listener for birthday person name
         birthPersonName.addTextChangedListener(object : TextWatcher {
 
-            override fun afterTextChanged(s: Editable) {}
-
-            override fun beforeTextChanged(s: CharSequence, start: Int,
-                                           count: Int, after: Int) {
+            override fun afterTextChanged(s: Editable) {
             }
-            override fun onTextChanged(s: CharSequence, start: Int,
-                                       before: Int, count: Int) {
+
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
                 wishViewModel?.theirName = s.toString()
             }
         })
@@ -113,19 +112,22 @@ class WishFormFragment : Fragment() {
         //listener for birthday person name
         yourName.addTextChangedListener(object : TextWatcher {
 
-            override fun afterTextChanged(s: Editable) {}
-
-            override fun beforeTextChanged(s: CharSequence, start: Int,
-                                           count: Int, after: Int) {
+            override fun afterTextChanged(s: Editable) {
             }
-            override fun onTextChanged(s: CharSequence, start: Int,
-                                       before: Int, count: Int) {
+
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
                 wishViewModel?.yourName = s.toString()
             }
         })
 
         // checking if the user does not want a Signature
         noSignature.setOnClickListener(this@WishFormFragment::onCheckboxClicked)
+
+        // if there is a passed in photoFile, set the var
+        passedFile = arguments?.getSerializable(ARG_IMAGE_FILE) as File?
 
         return view
     }
@@ -142,7 +144,6 @@ class WishFormFragment : Fragment() {
         val nameWatcher = object : TextWatcher {
 
             override fun beforeTextChanged(sequence: CharSequence?, start: Int, count: Int, after: Int) {
-                // This space intentionally left blank
             }
 
             override fun onTextChanged(sequence: CharSequence?, start: Int, before: Int, count: Int) {
@@ -178,9 +179,21 @@ class WishFormFragment : Fragment() {
         }
     }
 
+    /**
+     * Companion object to create new instances of WishFormFragment
+     */
     companion object {
         fun newInstance(): WishFormFragment {
             return WishFormFragment()
+        }
+
+        fun newInstance(photoFile: File): WishFormFragment {
+            val args = Bundle().apply {
+                putSerializable(ARG_IMAGE_FILE, photoFile)
+            }
+            return WishFormFragment().apply {
+                arguments = args
+            }
         }
     }
 
