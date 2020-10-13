@@ -15,6 +15,7 @@
         <item>December</item>
     </string-array>
     <string name="edit_birthday">Edit Birthday</string>
+    <string name="add_birthday">Add Birthday</string>
     <string name="birthday_first_name">First Name</string>
     <string name="birthday_last_name">Last Name</string>
     <string name="birthday">Birthday</string>
