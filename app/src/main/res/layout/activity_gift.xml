@@ -2,9 +2,10 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#676570">
+    android:background="#676570">>
 
     <FrameLayout
         android:id="@+id/gift_fragment_container"
@@ -12,8 +13,21 @@
         android:layout_height="0dp"
         android:background="#676570"
         app:layout_constraintBottom_toTopOf="@id/bottom_navigation"
-        app:layout_constraintTop_toTopOf="parent"
-        />
+        app:layout_constraintTop_toTopOf="parent" >
+
+        <ProgressBar
+            android:id="@+id/progress_Bar"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            android:visibility="gone"
+            android:max="100"
+            android:minWidth="200dp"
+            android:minHeight="50dp"
+            android:layout_gravity="center"
+            android:progress="0" />
+    </FrameLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         app:layout_constraintTop_toBottomOf="@id/gift_fragment_container"

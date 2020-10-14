@@ -52,4 +52,9 @@
     <string name="NB_Wishes">Wishes</string>
     <string name="NB_Gifts">Gifts</string>
     <string name="enter_recipient_s_email">Enter recipient\'s email</string>
+    <string name="gift_title">Gift Title</string>
+    <string name="gift_price">Gift Price</string>
+    <string name="gift_description">Gift Description</string>
+    <string name="gift_site">Go to Site</string>
+
 </resources>
