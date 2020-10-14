@@ -16,27 +16,33 @@
     </string-array>
     <string name="edit_birthday">Edit Birthday</string>
     <string name="add_birthday">Add Birthday</string>
-    <string name="birthday_first_name">First Name</string>
-    <string name="birthday_last_name">Last Name</string>
-    <string name="birthday">Birthday</string>
+    <string name="birthday_first_name">First name</string>
+    <string name="birthday_last_name">Last name</string>
+    <string name="birthday">Their birthday</string>
     <string name="save_button">Save Changes</string>
     <string name="discard_button">Discard Changes</string>
     <string name="delete_button">Delete Birthday</string>
     <string name="name_concat">%1$s %2$s</string>
+    <string name="calendar_title">Calendar</string>
+    <string name="add_btn">Add</string>
+    <string name="cal_birth_month">Birthdays this month</string>
+    <string name="home_title">Upcoming Birthdays</string>
+    <string name="email_hint">Birthday person\u0027s email</string>
+    <string name="send_wish_btn">Send Wish!</string>
 
     <!--Personalized wishes-->
     <string name="PW_title">Personalized Wishes</string>
-    <string name="PW_name_prompt">Name of Birthday Person</string>
-    <string name="PW_enter_name">This is how their name will appear in wish</string>
+    <string name="PW_name_prompt">Name of birthday person</string>
+    <string name="PW_enter_name">Who is receiving this wish?</string>
     <string name="PW_relationship">How close are you to this person?</string>
     <string name="PW_your_name">Your signature for the wish</string>
-    <string name="PW_not_close">Not at all</string>
+    <string name="PW_not_close">Not at all.</string>
     <string name="PW_very_close">Really close!</string>
-    <string name="PW_generate_wish_button">Generate Birthday Wish!</string>
+    <string name="PW_generate_wish_button">Generate New Birthday Wish!</string>
     <string name="PW_no_signature">No Signature</string>
     <string name="PW_error">Please fill out all fields</string>
     <string name="PW_ready">Your birthday wish is ready!</string>
-    <string name="PW_generate_new_wish_button">Generate New Birthday Wish</string>
+    <string name="PW_generate_new_wish_button">Generate Different Wish</string>
     <string name="PW_change_settings_button">Change Settings</string>
 
     <!--Nav Bar-->
