@@ -24,7 +24,8 @@
             android:textColor="#EEEEEE"
             android:textSize="30sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            />
 
         <TextView
             android:id="@+id/ready_text"
@@ -38,7 +39,8 @@
             android:textColor="#EEEEEE"
             android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/gen_title" />
+            app:layout_constraintTop_toBottomOf="@id/gen_title"
+            />
 
         <TextView
             android:id="@+id/PW_birthday_wish"
@@ -55,16 +57,17 @@
             android:paddingRight="10dp"
             android:paddingBottom="15dp"
             android:textSize="18sp"
+            android:textColor="#4D4370"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/ready_text"
-            tools:text="nothing" />
+            tools:text="nothing"
+            />
 
         <ImageButton
             android:id="@+id/PW_add_image"
             android:layout_width="200dp"
             android:layout_height="50dp"
             android:layout_marginTop="10dp"
-            android:tint="#ffffff"
             android:background="@drawable/rounded_button_purple"
             android:src="@drawable/ic_photo_camera"
             app:layout_constraintEnd_toEndOf="parent"
@@ -72,15 +75,16 @@
             app:layout_constraintTop_toBottomOf="@id/PW_show_image"
             tools:ignore="ContentDescription"
             android:scaleType="fitCenter"
-            android:padding="0dp"
-            android:adjustViewBounds="true"/>
+            android:padding="2dp"
+            android:adjustViewBounds="true"
+            />
 
         <ImageView
             android:id="@+id/PW_show_image"
             android:layout_width="1dp"
             android:layout_height="1dp"
-            android:layout_marginTop="10dp"
-            android:background="@android:color/darker_gray"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/rounded_edittext"
             android:cropToPadding="true"
             android:scaleType="centerInside"
             android:visibility="invisible"
@@ -104,7 +108,8 @@
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/PW_birthday_wish" />
+            app:layout_constraintTop_toBottomOf="@id/PW_birthday_wish"
+            />
 
         <TextView
             android:id="@+id/picture_text"
@@ -118,7 +123,8 @@
             android:textColor="#EEEEEE"
             android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/PW_change_settings_button" />
+            app:layout_constraintTop_toBottomOf="@id/PW_change_settings_button"
+            />
 
         <Button
             android:id="@+id/PW_change_settings_button"
@@ -133,7 +139,8 @@
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/PW_generate_new_wish_button" />
+            app:layout_constraintTop_toBottomOf="@id/PW_generate_new_wish_button"
+            />
 
         <TextView
             android:id="@+id/email_title_text"
@@ -147,7 +154,8 @@
             android:textColor="#EEEEEE"
             android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/PW_add_image" />
+            app:layout_constraintTop_toBottomOf="@id/PW_add_image"
+            />
 
         <EditText
             android:id="@+id/PW_their_email"
@@ -169,7 +177,10 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/email_title_text"
-            tools:ignore="Autofill" />
+            android:textColor="#4D4370"
+            android:textCursorDrawable="@null"
+            tools:ignore="Autofill"
+            />
 
         <Button
             android:id="@+id/PW_send_wish_button"
@@ -186,6 +197,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/PW_their_email" />
+            app:layout_constraintTop_toBottomOf="@id/PW_their_email"
+            />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

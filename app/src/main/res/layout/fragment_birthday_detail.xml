@@ -20,13 +20,27 @@
         app:layout_constraintTop_toTopOf="parent"
         />
 
+    <TextView
+        android:id="@+id/birth_name_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/their_name"
+        android:textColor="#EEEEEE"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/detail_title_text_view"
+        />
+
     <EditText
         android:id="@+id/first_name_edit_text"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginStart="20dp"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="20dp"
         android:layout_marginRight="70dp"
         android:background="@drawable/rounded_edittext"
@@ -36,11 +50,13 @@
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/detail_title_text_view"
+        app:layout_constraintTop_toBottomOf="@+id/birth_name_text_view"
         android:paddingStart="10dp"
         android:paddingEnd="15dp"
         tools:ignore="Autofill"
         android:inputType="text|textNoSuggestions"
+        android:textColor="#4D4370"
+        android:textCursorDrawable="@null"
         />
 
     <EditText
@@ -49,7 +65,7 @@
         android:layout_height="50dp"
         android:layout_marginStart="20dp"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="15dp"
         android:layout_marginEnd="20dp"
         android:layout_marginRight="20dp"
         android:background="@drawable/rounded_edittext"
@@ -64,6 +80,8 @@
         android:paddingStart="10dp"
         tools:ignore="Autofill"
         android:inputType="text|textNoSuggestions"
+        android:textColor="#4D4370"
+        android:textCursorDrawable="@null"
         />
 
     <TextView
@@ -72,7 +90,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="30dp"
         android:text="@string/birthday"
         android:textColor="#EEEEEE"
         android:textSize="18sp"
@@ -94,9 +112,11 @@
         android:id="@+id/day_spinner"
         android:paddingStart="5dp"
         android:paddingLeft="5dp"
-        android:layout_width="92dp"
+        android:layout_width="95dp"
         android:layout_height="40dp"
         tools:ignore="RtlSymmetry,UnusedAttribute"
+        android:foregroundTint="#4D4370"
+        android:backgroundTint="#4D4370"
         />
     </RelativeLayout>
 
@@ -112,11 +132,13 @@
         app:layout_constraintStart_toEndOf="@id/spin_lay">
     <Spinner
         android:id="@+id/month_spinner"
-        android:layout_width="135dp"
+        android:layout_width="150dp"
         android:layout_height="40dp"
         android:paddingStart="5dp"
         android:paddingLeft="5dp"
-        tools:ignore="RtlSymmetry" />
+        tools:ignore="RtlSymmetry,UnusedAttribute"
+        android:foregroundTint="#4D4370"
+        android:backgroundTint="#4D4370"/>
     </RelativeLayout>
 
     <Button
