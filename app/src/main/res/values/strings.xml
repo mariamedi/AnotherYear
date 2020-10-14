@@ -39,4 +39,13 @@
     <string name="PW_generate_new_wish_button">Generate New Birthday Wish</string>
     <string name="PW_change_settings_button">Change Settings</string>
 
+    <!--Nav Bar-->
+    <string name="NB_Home">Home</string>
+    <string name="NB_Calendar">Calendar</string>
+    <string name="NB_Wishes">Wishes</string>
+    <string name="NB_Gifts">Gifts</string>
+
+
+
+
 </resources>
