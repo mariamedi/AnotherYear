@@ -5,35 +5,58 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    >
+    android:id="@+id/gift_detail_scroll">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
+        android:layout_height="wrap_content"
+        android:background="#676570"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/gift_details"
+            android:textColor="#EEEEEE"
+            android:textSize="30sp"
+            android:layout_marginTop="30dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginStart="15dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:id="@+id/gift_details_text"
+            />
 
         <TextView
             android:id="@+id/gift_title_text"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:textAlignment="center"
-            tools:text="Gift Title"
+            android:layout_marginStart="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginRight="20dp"
+            android:gravity="center"
             android:text="@string/gift_title"
-            android:gravity="center_horizontal"
-            app:layout_constraintTop_toTopOf="parent"
+            android:textAlignment="center"
+            android:textColor="#EEEEEE"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/gift_details_text"
+            tools:text="Gift Title"
             />
-
 
         <ImageView
+            android:id="@+id/gift_image"
             android:layout_width="200dp"
             android:layout_height="200dp"
-            android:id="@+id/gift_image"
-            android:layout_marginTop="5dp"
-            app:layout_constraintTop_toBottomOf="@id/gift_title_text"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="15dp"
             android:scaleType="centerCrop"
-            />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/gift_title_text"
+            tools:ignore="ContentDescription" />
 
         <TextView
             android:id="@+id/gift_price_text"
@@ -42,32 +65,49 @@
             android:padding="24dp"
             android:text="@string/gift_price"
             tools:text="$1000.00"
+            android:textSize="18sp"
             app:layout_constraintTop_toBottomOf="@id/gift_image"
+            android:textColor="#EEEEEE"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
-
+            app:layout_constraintEnd_toEndOf="parent"
+            />
 
         <TextView
             android:id="@+id/gift_description_text"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:textAlignment="center"
-            tools:text="Gift Description"
-            android:text="@string/gift_description"
+            android:layout_marginStart="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginRight="20dp"
             android:gravity="center_horizontal"
-            app:layout_constraintTop_toBottomOf="@id/gift_price_text"
+            android:text="@string/gift_description"
+            android:textAlignment="center"
+            android:textColor="#EEEEEE"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintTop_toBottomOf="@id/gift_price_text"
+            tools:text="Gift Description"
+            />
 
         <Button
             android:id="@+id/site_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="30dp"
+            android:background="@drawable/rounded_button_purple"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
             android:text="@string/gift_site"
-            app:layout_constraintTop_toBottomOf="@id/gift_description_text"
+            android:textColor="#EEE"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
-
+            app:layout_constraintTop_toBottomOf="@id/gift_description_text"
+            />
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </ScrollView>
