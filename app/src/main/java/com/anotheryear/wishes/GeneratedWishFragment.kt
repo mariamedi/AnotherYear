@@ -2,13 +2,18 @@ package com.anotheryear.wishes
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.content.pm.ResolveInfo
+import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
+import android.os.Environment
 import android.provider.MediaStore
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -18,7 +23,7 @@ import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import com.anotheryear.R
 import java.io.File
-import java.lang.Exception
+import java.io.FileOutputStream
 import java.util.*
 
 private const val TAG = "GeneratedWishFragment"
@@ -55,7 +60,11 @@ class GeneratedWishFragment : Fragment() {
     /**
      * Override for the onCreateView method that initializes elements that need to be manipulated
      */
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         val view = inflater.inflate(R.layout.fragment_generated_wish, container, false)
 
         var updateImage = true // used to track if the imageView needs to be updated on load
@@ -72,14 +81,19 @@ class GeneratedWishFragment : Fragment() {
         // get a passed in photoFile if there is one
         photoFile = arguments?.getSerializable(ARG_IMAGE_FILE) as File?
 
+
         // set the photoFile if it is null and set updateImage to false since this is a new photofile being made
         if(photoFile == null) {
             updateImage = false
-            photoFile = File(context!!.applicationContext.filesDir, "wishPic"+ UUID.randomUUID())
+            photoFile = File(context!!.applicationContext.filesDir, "wishPic" + UUID.randomUUID())
         }
         // create the URI if there isn't one
         if(photoUri == null) {
-            photoUri = FileProvider.getUriForFile(requireActivity(), "com.anotheryear.fileprovider", photoFile!!)
+            photoUri = FileProvider.getUriForFile(
+                requireActivity(),
+                "com.anotheryear.fileprovider",
+                photoFile!!
+            )
         }
 
         // if we are trying to update an image from an existing file, do it
@@ -92,6 +106,19 @@ class GeneratedWishFragment : Fragment() {
 
             }
         }
+
+        // listener for birthday person's email
+        birthEmail.addTextChangedListener(object : TextWatcher {
+
+            override fun afterTextChanged(s: Editable) {
+            }
+
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+            }
+        })
 
         // Get the wishViewModel from the WishesActivity via the callback val
         wishViewModel = callbacks!!.getWishViewModel
@@ -117,10 +144,48 @@ class GeneratedWishFragment : Fragment() {
 
         // listener for send wish button
         sendWish.setOnClickListener{
-            // do something
+          requireActivity().revokeUriPermission(photoUri, Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
+           val bitmap = getScaledBitmap(photoFile!!.path, requireActivity())
         }
 
         return view
+    }
+
+    private fun sendEmail(wish: String?, uri: Uri) {
+
+
+        if (!birthEmail.text.toString().isEmpty()) {
+            val msg = wish
+            Log.i("Email", "Sending email")
+
+            val TO = arrayOf(birthEmail.getText().toString())
+            val emailIntent = Intent(Intent.ACTION_SEND)
+            emailIntent.data = Uri.parse("mailto:")
+            emailIntent.type = "text/plain"
+
+            emailIntent.putExtra(Intent.EXTRA_EMAIL, TO)
+            emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Happy Birthday!")
+            emailIntent.putExtra(Intent.EXTRA_TEXT, msg)
+            emailIntent.putExtra(Intent.EXTRA_STREAM, uri)
+            emailIntent.setType("image/png");
+
+            try {
+                startActivity(Intent.createChooser(emailIntent, "Send mail..."))
+                activity?.finish()
+                Log.i("Email.", "Sending email")
+            } catch (ex: ActivityNotFoundException) {
+                Toast.makeText(
+                    activity,
+                    "There is no email client installed.", Toast.LENGTH_SHORT
+                ).show()
+            }
+        }
+        else{
+            Toast.makeText(
+                activity,
+                "Enter email.", Toast.LENGTH_SHORT
+            ).show()
+        }
     }
 
     /**
@@ -173,17 +238,27 @@ class GeneratedWishFragment : Fragment() {
         addImageButton.apply {
             val packageManager: PackageManager = requireActivity().packageManager
             val captureImage = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-            val resolvedActivity: ResolveInfo? = packageManager.resolveActivity(captureImage, PackageManager.MATCH_DEFAULT_ONLY)
+            val resolvedActivity: ResolveInfo? = packageManager.resolveActivity(
+                captureImage,
+                PackageManager.MATCH_DEFAULT_ONLY
+            )
 
             if (resolvedActivity == null) {
                 isEnabled = false
             }
             setOnClickListener {
                 captureImage.putExtra(MediaStore.EXTRA_OUTPUT, photoUri)
-                val cameraActivities: List<ResolveInfo> = packageManager.queryIntentActivities(captureImage, PackageManager.MATCH_DEFAULT_ONLY)
+                val cameraActivities: List<ResolveInfo> = packageManager.queryIntentActivities(
+                    captureImage,
+                    PackageManager.MATCH_DEFAULT_ONLY
+                )
 
                 for (cameraActivity in cameraActivities) {
-                    requireActivity().grantUriPermission(cameraActivity.activityInfo.packageName, photoUri, Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
+                    requireActivity().grantUriPermission(
+                        cameraActivity.activityInfo.packageName,
+                        photoUri,
+                        Intent.FLAG_GRANT_WRITE_URI_PERMISSION
+                    )
                 }
                 startActivityForResult(captureImage, REQUEST_PHOTO)
             }
