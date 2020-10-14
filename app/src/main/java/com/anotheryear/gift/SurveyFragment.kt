@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.CheckBox
 import android.widget.EditText
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.anotheryear.R
@@ -70,7 +71,11 @@ class SurveyFragment : Fragment() {
         }
 
         nextButton.setOnClickListener {
-            callbacks?.proceedToGender()
+            if (!noBudgetCheckBox.isChecked && (minBudgetEditText.text.toString().toFloat() > maxBudgetEditText.text.toString().toFloat())) {
+                Toast.makeText(requireContext(), "The left value must be less than the right value", Toast.LENGTH_LONG).show()
+            } else {
+                callbacks?.proceedToGender()
+            }
         }
 
         return view
