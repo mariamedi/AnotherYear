@@ -3,93 +3,155 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
+    android:background="#676570"
     android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/interests_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Check all interests that apply to this person"/>
-
-    <CheckBox
-        android:id="@+id/sports_checkbox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Sports"
+        android:layout_marginStart="50dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="70dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginRight="50dp"
+        android:gravity="center"
+        android:text="Check all interests that apply to this person"
+        android:textColor="#EEEEEE"
+        android:textSize="23sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/interests_text_view" />
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <CheckBox
-        android:id="@+id/art_checkbox"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Art"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="25dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="50dp"
+        android:orientation="vertical"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sports_checkbox" />
+        app:layout_constraintTop_toBottomOf="@+id/interests_text_view">
 
-    <CheckBox
-        android:id="@+id/cooking_checkbox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Cooking"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/art_checkbox" />
+        <CheckBox
+            android:id="@+id/sports_checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:buttonTint="#fff"
+            android:text="Sports"
+            android:textColor="#EEEEEE"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/interests_text_view" />
 
-    <CheckBox
-        android:id="@+id/toys_checkbox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Toys"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cooking_checkbox" />
+        <CheckBox
+            android:id="@+id/art_checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:buttonTint="#fff"
+            android:text="Art"
+            android:textColor="#EEEEEE"
+            android:textSize="20sp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/sports_checkbox" />
 
-    <CheckBox
-        android:id="@+id/electronics_checkbox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Electronics"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toys_checkbox" />
+        <CheckBox
+            android:id="@+id/cooking_checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:buttonTint="#fff"
+            android:text="Cooking"
+            android:textColor="#EEEEEE"
+            android:textSize="20sp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/art_checkbox" />
 
-    <CheckBox
-        android:id="@+id/fashion_checkbox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Fashion"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/electronics_checkbox" />
+        <CheckBox
+            android:id="@+id/toys_checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:buttonTint="#fff"
+            android:text="Toys"
+            android:textColor="#EEEEEE"
+            android:textSize="20sp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cooking_checkbox" />
 
-    <CheckBox
-        android:id="@+id/other_checkbox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Other"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fashion_checkbox" />
+        <CheckBox
+            android:id="@+id/electronics_checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:buttonTint="#fff"
+            android:text="Electronics"
+            android:textColor="#EEEEEE"
+            android:textSize="20sp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toys_checkbox" />
 
-    <EditText
-        android:id="@+id/other_edit_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text=""
-        app:layout_constraintStart_toEndOf="@+id/other_checkbox"
-        app:layout_constraintTop_toBottomOf="@+id/fashion_checkbox" />
+        <CheckBox
+            android:id="@+id/fashion_checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:buttonTint="#fff"
+            android:text="Fashion"
+            android:textColor="#EEEEEE"
+            android:textSize="20sp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/electronics_checkbox" />
+
+        <CheckBox
+            android:id="@+id/other_checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:buttonTint="#fff"
+            android:text="Other"
+            android:textColor="#EEEEEE"
+            android:textSize="20sp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/fashion_checkbox" />
+
+        <EditText
+            android:id="@+id/other_edit_text"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded_edittext"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text=""
+            android:textSize="20sp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintStart_toEndOf="@+id/other_checkbox"
+            app:layout_constraintTop_toBottomOf="@+id/fashion_checkbox" />
+    </LinearLayout>
+
 
     <Button
         android:id="@+id/find_gifts_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
         android:text="Find Gifts"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:textSize="17sp"
+        android:paddingRight="20dp"
+        android:paddingLeft="20dp"
+        android:textColor="#fff"
+        android:background="@drawable/rounded_button_purple"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/other_checkbox" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
