@@ -18,14 +18,14 @@
     <string name="add_birthday">Add Birthday</string>
     <string name="birthday_first_name">First Name</string>
     <string name="birthday_last_name">Last Name</string>
-    <string name="birthday">Birthday</string>
+    <string name="birthday">Their birthday</string>
     <string name="save_button">Save Changes</string>
     <string name="discard_button">Discard Changes</string>
     <string name="delete_button">Delete Birthday</string>
     <string name="name_concat">%1$s %2$s</string>
     <string name="calendar_title">Calendar</string>
     <string name="add_btn">Add</string>
-    <string name="cal_birth_month">Birthdays This Month</string>
+    <string name="cal_birth_month">Birthdays this month</string>
     <string name="home_title">Upcoming Birthdays</string>
     <string name="email_hint">Birthday person\u0027s email</string>
     <string name="send_wish_btn">Send Wish!</string>

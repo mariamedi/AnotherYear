@@ -2,15 +2,12 @@ package com.anotheryear.gift
 
 import android.content.Context
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.CheckBox
-import android.widget.EditText
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.anotheryear.R
@@ -25,8 +22,6 @@ class InterestsSurveyFragment: Fragment() {
     private lateinit var toysCheckBox: CheckBox
     private lateinit var electronicsCheckBox: CheckBox
     private lateinit var fashionCheckBox: CheckBox
-    private lateinit var otherCheckBox: CheckBox
-    private lateinit var otherEditText: EditText
     private lateinit var findGiftButton: Button
 
     // Declare local version of ViewModel for holding gift survey info across fragments
@@ -62,12 +57,7 @@ class InterestsSurveyFragment: Fragment() {
         toysCheckBox = view.findViewById(R.id.toys_checkbox)
         electronicsCheckBox = view.findViewById(R.id.electronics_checkbox)
         fashionCheckBox = view.findViewById(R.id.fashion_checkbox)
-        otherCheckBox = view.findViewById(R.id.other_checkbox)
-        otherEditText = view.findViewById(R.id.other_edit_text)
         findGiftButton = view.findViewById(R.id.find_gifts_button)
-
-        // Set value of edit text based on view model
-        otherEditText.setText(giftViewModel.keywords["Other"]?: "")
 
         // Set check boxes to be checked based on view model
         sportsCheckBox.isChecked = giftViewModel.keywords.containsKey("Sports")
@@ -76,8 +66,6 @@ class InterestsSurveyFragment: Fragment() {
         toysCheckBox.isChecked = giftViewModel.keywords.containsKey("Toys")
         electronicsCheckBox.isChecked = giftViewModel.keywords.containsKey("Electronics")
         fashionCheckBox.isChecked = giftViewModel.keywords.containsKey("Fashion")
-        otherCheckBox.isChecked = giftViewModel.keywords.containsKey("Other")
-
 
         sportsCheckBox.setOnCheckedChangeListener { _, isChecked ->
             if(isChecked){
@@ -128,14 +116,6 @@ class InterestsSurveyFragment: Fragment() {
             }
         }
 
-        otherCheckBox.setOnCheckedChangeListener { _, isChecked ->
-            if(isChecked){
-                giftViewModel.keywords["Other"] = otherEditText.text.toString()
-            } else {
-                giftViewModel.keywords.remove("Other")
-            }
-        }
-
         findGiftButton.setOnClickListener {
             callbacks?.findGifts()
         }
@@ -147,27 +127,6 @@ class InterestsSurveyFragment: Fragment() {
         super.onStart()
         Log.d(TAG, "onStart() called")
         callbacks?.selectNavIcon("Gift")
-        // Inner class for listening on other edit text
-        class OtherWatcher: TextWatcher {
-
-            override fun beforeTextChanged(sequence: CharSequence?, start: Int, count: Int, after: Int) {
-            }
-
-            override fun onTextChanged(sequence: CharSequence?, start: Int, before: Int, count: Int) {
-
-                val text = sequence.toString()
-
-                if(otherCheckBox.isChecked){
-                    giftViewModel.keywords["Other"] = text
-                }
-            }
-
-            override fun afterTextChanged(sequence: Editable?) {
-            }
-        }
-
-        val otherWatcher = OtherWatcher()
-        otherEditText.addTextChangedListener(otherWatcher)
     }
 
     override fun onAttach(context: Context) {

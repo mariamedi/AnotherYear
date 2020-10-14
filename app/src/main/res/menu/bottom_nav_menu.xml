@@ -8,7 +8,8 @@
         android:icon="@drawable/ic_home"
         app:showAsAction="always"
         tools:ignore="AlwaysShowAction"
-        android:title="@string/NB_Home" />
+        android:title="@string/NB_Home"
+        />
 
     <item
         android:id="@+id/nav_calendar"
@@ -17,6 +18,7 @@
         tools:ignore="AlwaysShowAction"
         android:title="@string/NB_Calendar"
         />
+
     <item
         android:id="@+id/nav_wish"
         android:icon="@drawable/ic_wish"
@@ -24,6 +26,7 @@
         tools:ignore="AlwaysShowAction"
         android:title="@string/NB_Wishes"
         />
+
     <item
         android:id="@+id/nav_gift"
         android:icon="@drawable/ic_gift"
