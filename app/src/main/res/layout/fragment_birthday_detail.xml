@@ -12,13 +12,12 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
         android:layout_marginLeft="15dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="24dp"
+        android:text="@string/edit_birthday"
         android:textColor="#EEEEEE"
         android:textSize="30sp"
-        android:text="@string/edit_birthday"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/birth_name_text_view"
@@ -88,13 +87,12 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="24dp"
         android:text="@string/birthday"
         android:textColor="#EEEEEE"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/last_name_edit_text"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/last_name_edit_text" />
 
     <RelativeLayout
         android:id="@+id/spin_lay"
