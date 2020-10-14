@@ -18,7 +18,7 @@
         <ProgressBar
             android:id="@+id/progress_Bar"
             style="?android:attr/progressBarStyleLarge"
-            android:indeterminateTint="#8271BD"
+            android:indeterminateTint="#A590F0"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:indeterminate="true"
@@ -28,8 +28,8 @@
             android:minHeight="50dp"
             android:layout_gravity="center"
             android:progress="0"
-            tools:ignore="UnusedAttribute" />
-
+            tools:ignore="UnusedAttribute"
+            />
     </FrameLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -45,5 +45,4 @@
         app:itemTextColor="@android:color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

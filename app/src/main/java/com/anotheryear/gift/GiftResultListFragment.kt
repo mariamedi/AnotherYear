@@ -160,7 +160,7 @@ class GiftResultListFragment : Fragment() {
         fun bind(gift: Listing) {
             this.gift = gift
             titleTextView.text = this.gift.title
-            priceTextView.text = "$" + this.gift.price
+            priceTextView.text = getString(R.string.price, this.gift.price)
         }
         val bindDrawable: (Drawable) -> Unit  = giftImageView::setImageDrawable
 

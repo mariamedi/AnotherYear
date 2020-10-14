@@ -28,10 +28,10 @@ class GiftViewModel: ViewModel() {
     fun getKeywordsArray(): ArrayList<Keyword> {
         keywords["Recipient"] = getRecipient()
 
-        var keywordArray = ArrayList<Keyword>()
+        val keywordArray = ArrayList<Keyword>()
 
         for(k in keywords.values){
-            var kw = Keyword(k)
+            val kw = Keyword(k)
             keywordArray.add(kw)
         }
         return keywordArray
@@ -129,13 +129,13 @@ class GiftViewModel: ViewModel() {
     fun updateKeywords(keywordsArray: ArrayList<Keyword>) {
 
         // Create HashMap copy
-        var keywordsCopy: HashMap<String, String> = keywords.clone() as HashMap<String, String>
+        val keywordsCopy: HashMap<String, String> = keywords.clone() as HashMap<String, String>
 
         // Remove all the passed in keys
         for(key in keywordsArray)
             keywordsCopy.remove(key.keyword)
 
-        var keys = keywordsCopy.keys
+        val keys = keywordsCopy.keys
 
         // Remove the keys of copy from original HashMap
         // These are the keys that have been permanently removed

@@ -115,7 +115,7 @@ class GiftDetailFragment : Fragment() {
     private fun updateUI(){
         titleTextView.text = gift.title
         giftImageView.setImageResource(R.drawable.ic_gift)
-        giftPriceTextView.text = gift.price
+        giftPriceTextView.text = getString(R.string.price, gift.price)
         giftDescriptionTextView.text = gift.description
         giftImageView.setImageBitmap(giftDetailViewModel.bitmap)
     }

@@ -53,7 +53,6 @@
         tools:ignore="Autofill"
         android:inputType="text|textNoSuggestions"
         android:textColor="#4D4370"
-        android:textCursorDrawable="@null"
         />
 
     <TextView
@@ -146,7 +145,6 @@
         android:inputType="text|textNoSuggestions"
         tools:ignore="Autofill"
         android:textColor="#4D4370"
-        android:textCursorDrawable="@null"
         />
 
     <CheckBox
@@ -179,5 +177,4 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/PW_no_signature"
         />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

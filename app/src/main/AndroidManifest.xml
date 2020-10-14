@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.anotheryear">
+
     <uses-permission android:name="android.permission.INTERNET" />
 
     <uses-feature
@@ -18,20 +19,27 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="AllowBackup,UnusedAttribute">
-        <activity android:name=".birthDate.BirthDateActivity" android:windowSoftInputMode="adjustPan">
+        <activity
+            android:name=".birthDate.BirthDateActivity"
+            android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
 
                 <action android:name="android.intent.action.VIEW" />
-                <data android:scheme="http"/>
+                <data android:scheme="http" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
             </intent-filter>
         </activity>
-        <activity android:name=".wishes.WishesActivity" android:windowSoftInputMode="adjustPan"/>
-        <activity android:name=".gift.GiftActivity" android:windowSoftInputMode="adjustPan"/>
+        <activity
+            android:name=".wishes.WishesActivity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".gift.GiftActivity"
+            android:windowSoftInputMode="adjustPan" />
 
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -42,7 +50,5 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/files" />
         </provider>
-
     </application>
-
 </manifest>
