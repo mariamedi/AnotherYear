@@ -68,6 +68,9 @@ class EtsyGetter {
         return responseLiveData
     }
 
+    /**
+     * Fetches active listings given budget.
+     */
     fun fetchBudgetActiveListings(max_price: Float, min_price: Float,callback: OnEtsyResponse): MutableLiveData<List<Listing>> {
         val responseLiveData: MutableLiveData<List<Listing>> = MutableLiveData()
         val etsyRequest: Call<EtsyResponse> =

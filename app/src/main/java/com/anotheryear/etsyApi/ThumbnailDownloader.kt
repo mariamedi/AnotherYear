@@ -14,6 +14,7 @@ import java.util.concurrent.ConcurrentHashMap
 private const val TAG = "ThumbnailDownloader"
 private const val MESSAGE_DOWNLOAD = 0
 
+@Suppress("DEPRECATION")
 class ThumbnailDownloader<in T>(private val responseHandler: Handler,
                                 private val onThumbnailDownloaded: (T, Bitmap) -> Unit)
     : HandlerThread(TAG) {

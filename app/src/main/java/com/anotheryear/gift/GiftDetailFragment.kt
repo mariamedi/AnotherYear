@@ -3,8 +3,6 @@ package com.anotheryear.gift
 import android.content.Context
 import android.graphics.Bitmap
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -13,10 +11,8 @@ import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import com.anotheryear.Birthday
 import com.anotheryear.R
 import com.anotheryear.etsyApi.Listing
-import java.util.*
 
 private const val TAG =  "GiftDetailFragment"
 private const val ARG_LISTING_ID = "listingId"
@@ -116,10 +112,10 @@ class GiftDetailFragment : Fragment() {
     }
 
     private fun updateUI(){
-        titleTextView.setText(gift.title)
-        giftImageView.setImageResource(R.drawable.ic_home)
-        giftPriceTextView.setText(gift.price)
-        giftDescriptionTextView.setText(gift.description)
+        titleTextView.text = gift.title
+        giftImageView.setImageResource(R.drawable.ic_gift)
+        giftPriceTextView.text = gift.price
+        giftDescriptionTextView.text = gift.description
         giftImageView.setImageBitmap(giftDetailViewModel.bitmap)
     }
 

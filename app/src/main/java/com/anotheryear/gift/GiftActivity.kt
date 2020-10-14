@@ -52,10 +52,10 @@ class GiftActivity : AppCompatActivity(), GiftDetailFragment.Callbacks,
     }
 
     /**
-     * Callback from GiftResultListFragment to display a selected gift.
+     * Callback from GiftResultListFragment to display a selected gift
      */
     override fun onGiftSelected(giftID: Int, bitmap: Bitmap) {
-        progressBar.setVisibility(View.VISIBLE)
+        progressBar.visibility = View.VISIBLE
         val fragment = GiftDetailFragment.newInstance(giftID, bitmap)
         supportFragmentManager
             .beginTransaction()
@@ -65,7 +65,8 @@ class GiftActivity : AppCompatActivity(), GiftDetailFragment.Callbacks,
     }
 
     /**
-     * Callback from GiftResultListFragment to restart the fragment.
+     * Callback from GiftResultListFragment to restart the fragment
+     * when no results are found with the input tag combinations
      */
     override fun restartFragment(
         keywordToRemove: String,
@@ -80,20 +81,29 @@ class GiftActivity : AppCompatActivity(), GiftDetailFragment.Callbacks,
             .commit()
     }
 
+    /**
+     * Removes keyword from shared GiftViewModel
+     */
     override fun removeKeyword(key: String){
         giftViewModel.keywords.remove(key)
     }
 
+    /**
+     * Updates shared GiftViewModel to the trimmed list of input keywords
+     */
     override fun updateKeywords(keywords: ArrayList<Keyword>) {
         giftViewModel.updateKeywords(keywords)
     }
 
+    /**
+     * Changes visibility of the progress bar once loading is finished
+     */
     override fun finishedLoading() {
-        progressBar.setVisibility(View.GONE)
+        progressBar.visibility = View.GONE
     }
 
     /**
-     * Callback from GiftDetailFragment to go the site linked to the siteButton.
+     * Callback from GiftDetailFragment to go the site linked to the siteButton
      */
     override fun onSiteSelected(url: String) {
         val webpage: Uri = Uri.parse(url)
@@ -111,7 +121,7 @@ class GiftActivity : AppCompatActivity(), GiftDetailFragment.Callbacks,
     }
 
     /**
-     * Companion object that creates a new intent to start this activity.
+     * Companion object that creates a new intent to start this activity
      */
     companion object {
         fun newIntent(packageContext: Context): Intent {
@@ -148,7 +158,7 @@ class GiftActivity : AppCompatActivity(), GiftDetailFragment.Callbacks,
     }
 
     override fun findGifts() {
-        progressBar.setVisibility(View.VISIBLE)
+        progressBar.visibility = View.VISIBLE
         val fragment = GiftResultListFragment()
         supportFragmentManager
             .beginTransaction()

@@ -25,6 +25,7 @@ private const val TAG = "GiftResultListFragment"
 private const val ARG_KEYWORDS = "keywords"
 private const val ARG_KEYWORD = "keyword"
 
+@Suppress("DEPRECATION")
 class GiftResultListFragment : Fragment() {
 
     private val giftResultListViewModel: GiftResultListViewModel by lazy {
@@ -112,7 +113,7 @@ class GiftResultListFragment : Fragment() {
             Observer { listingItems ->
                 if(listingItems.isEmpty())
                 {
-                    var kwToRemove = giftResultListViewModel.getKeywords()[0]
+                    val kwToRemove = giftResultListViewModel.getKeywords()[0]
                     Log.d(TAG, kwToRemove)
 
                     callbacks?.removeKeyword(kwToRemove)
@@ -157,14 +158,14 @@ class GiftResultListFragment : Fragment() {
 
         fun bind(gift: Listing) {
             this.gift = gift
-            titleTextView.setText(this.gift.title)
-            priceTextView.setText(this.gift.price)
+            titleTextView.text = this.gift.title
+            priceTextView.text = this.gift.price
         }
         val bindDrawable: (Drawable) -> Unit  = giftImageView::setImageDrawable
 
         override fun onClick(v: View) {
             Log.d(TAG, "Listing selected: ${this.gift.listing_id}")
-            val bitmap: Bitmap = (giftImageView.getDrawable() as BitmapDrawable).bitmap
+            val bitmap: Bitmap = (giftImageView.drawable as BitmapDrawable).bitmap
             callbacks?.onGiftSelected(this.gift.listing_id, bitmap)
         }
     }
