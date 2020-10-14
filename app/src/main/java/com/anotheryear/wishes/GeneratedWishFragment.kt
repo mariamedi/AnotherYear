@@ -190,11 +190,11 @@ class GeneratedWishFragment : Fragment() {
                 Log.d("Email.", "Sending email")
             }
             catch (ex: ActivityNotFoundException) {
-                Toast.makeText(activity, "There is no email client installed.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(activity, "There is no email client installed.", Toast.LENGTH_LONG).show()
             }
         }
         else {
-            Toast.makeText(activity, "Enter an email address.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(activity, "Enter an email address.", Toast.LENGTH_LONG).show()
         }
     }
 

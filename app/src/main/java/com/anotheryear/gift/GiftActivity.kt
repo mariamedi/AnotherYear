@@ -116,7 +116,7 @@ class GiftActivity : AppCompatActivity(), GiftDetailFragment.Callbacks,
         } catch (ex: ActivityNotFoundException) {
             Toast.makeText(
                 this@GiftActivity,
-                "There is no web client installed.", Toast.LENGTH_SHORT
+                "There is no web client installed.", Toast.LENGTH_LONG
             ).show()
         }
     }
