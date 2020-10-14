@@ -55,7 +55,6 @@
         android:paddingEnd="15dp"
         tools:ignore="Autofill,LabelFor"
         android:textColor="#4D4370"
-        android:textCursorDrawable="@null"
         />
 
     <TextView
@@ -95,7 +94,6 @@
         android:paddingEnd="15dp"
         tools:ignore="Autofill,LabelFor"
         android:textColor="#4D4370"
-        android:textCursorDrawable="@null"
         />
 
     <CheckBox

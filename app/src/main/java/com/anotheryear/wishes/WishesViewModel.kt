@@ -120,14 +120,19 @@ class WishesViewModel : ViewModel() {
      */
     fun getRange(progress: Int) : Int{
         // range 0 - 10
-        if(progress < 11){
-            return 1
-        } else if (progress in 11..50){ //range 11 - 50
-            return 2
-        } else if (progress in 51..89) {//range 51 - 89
-            return 3
-        } else{ //90 - 100
-            return 4
+        return when {
+            progress < 11 -> {
+                1
+            }
+            progress in 11..50 -> { //range 11 - 50
+                2
+            }
+            progress in 51..89 -> {//range 51 - 89
+                3
+            }
+            else -> { //90 - 100
+                4
+            }
         }
     }
 

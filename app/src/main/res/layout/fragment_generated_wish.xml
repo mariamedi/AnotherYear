@@ -10,8 +10,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        >
+        android:layout_marginBottom="20dp">
 
         <TextView
             android:id="@+id/gen_title"
@@ -178,7 +177,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/email_title_text"
             android:textColor="#4D4370"
-            android:textCursorDrawable="@null"
             tools:ignore="Autofill"
             />
 

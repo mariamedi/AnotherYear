@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package com.anotheryear.wishes
 
 import android.app.Activity
