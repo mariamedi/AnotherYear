@@ -18,7 +18,7 @@
     <string name="add_birthday">Add Birthday</string>
     <string name="birthday_first_name">First name</string>
     <string name="birthday_last_name">Last name</string>
-    <string name="birthday">Their birthday</string>
+    <string name="birthday">Their birthday <font color='red'>*</font></string>
     <string name="save_button">Save Changes</string>
     <string name="discard_button">Discard Changes</string>
     <string name="delete_button">Delete Birthday</string>
@@ -31,31 +31,32 @@
     <string name="send_wish_btn">Send Wish!</string>
     <string name="PW_title">Personalized Wishes</string>
     <string name="PW_name_prompt">Name of birthday person</string>
-    <string name="PW_enter_name">Who is receiving this wish?</string>
+    <string name="PW_enter_name">Who is receiving this wish? <font color='red'>*</font></string>
     <string name="PW_relationship">How close are you to this person?</string>
     <string name="PW_your_name">Your signature</string>
     <string name="PW_not_close">Not at all.</string>
     <string name="PW_very_close">Really close!</string>
     <string name="PW_generate_wish_button">Generate Birthday Wish!</string>
     <string name="PW_no_signature">No Signature</string>
-    <string name="PW_error">Please fill out all fields</string>
+    <string name="PW_error">Please fill out all required fields</string>
     <string name="PW_ready">Generated wish message</string>
     <string name="PW_generate_new_wish_button">Generate Different Wish</string>
     <string name="PW_change_settings_button">Change Settings</string>
-    <string name="add_a_picture">Add a picture (optional)</string>
+    <string name="add_a_picture">Add a picture</string>
     <string name="NB_Home">Home</string>
     <string name="NB_Calendar">Calendar</string>
     <string name="NB_Wishes">Wishes</string>
     <string name="NB_Gifts">Gifts</string>
-    <string name="enter_recipient_s_email">Enter recipient\'s email</string>
+    <string name="enter_recipient_s_email">Enter recipient\'s email <font color='red'>*</font></string>
     <string name="gift_title">Gift Title</string>
     <string name="gift_price">Gift Price</string>
     <string name="price">$%1$s</string>
     <string name="gift_description">Gift Description</string>
     <string name="gift_site">Go To Site</string>
-    <string name="let_them_know_it_s_from_you">Let them know it\'s from you!</string>
+    <string name="let_them_know_it_s_from_you">Let them know it\'s from you! <font color='red'>*</font></string>
     <string name="gift_results">Gift Results</string>
     <string name="gift_details">Gift Details</string>
-    <string name="their_name">Their name</string>
+    <string name="their_name">Their name <font color='red'>*</font></string>
     <string name="gift_detail_description">Gift description</string>
+    <string name="budget_range">Budget Range <font color='red'>*</font></string>
 </resources>
