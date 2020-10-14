@@ -1,9 +1,16 @@
 package com.anotheryear.gift
 
+import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
+import android.net.Uri
 import android.os.Bundle
+import android.util.Log
+import android.widget.Toast
 import android.view.MenuItem
+import android.view.View
+import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
@@ -12,12 +19,16 @@ import com.anotheryear.birthDate.BirthDateActivity
 import com.anotheryear.wishes.WishesActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
+
 /**
  * Activity for all Gift Suggestion functionality
  */
-class GiftActivity : AppCompatActivity(), SurveyFragment.Callbacks, GenderSurveyFragment.Callbacks, AgeSurveyFragment.Callbacks, InterestsSurveyFragment.Callbacks {
+class GiftActivity : AppCompatActivity(), GiftDetailFragment.Callbacks,
+    GiftResultListFragment.Callbacks, SurveyFragment.Callbacks, GenderSurveyFragment.Callbacks,
+    AgeSurveyFragment.Callbacks, InterestsSurveyFragment.Callbacks {
 
     private var executeNav: Boolean = true
+    private lateinit var progressBar: ProgressBar
 
     // Declare ViewModel for holding gift survey info across fragments
     private val giftViewModel: GiftViewModel by lazy {
@@ -28,6 +39,7 @@ class GiftActivity : AppCompatActivity(), SurveyFragment.Callbacks, GenderSurvey
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_gift)
 
+        progressBar = findViewById(R.id.progress_Bar)
         initializeBottomNavBar()
 
         val currentFragment =
@@ -40,7 +52,76 @@ class GiftActivity : AppCompatActivity(), SurveyFragment.Callbacks, GenderSurvey
     }
 
     /**
-     * Companion object that creates a new intent to start this activity.
+     * Callback from GiftResultListFragment to display a selected gift
+     */
+    override fun onGiftSelected(giftID: Int, bitmap: Bitmap) {
+        progressBar.visibility = View.VISIBLE
+        val fragment = GiftDetailFragment.newInstance(giftID, bitmap)
+        supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.gift_fragment_container, fragment)
+            .addToBackStack(null)
+            .commit()
+    }
+
+    /**
+     * Callback from GiftResultListFragment to restart the fragment
+     * when no results are found with the input tag combinations
+     */
+    override fun restartFragment(
+        keywordToRemove: String,
+        keywords: ArrayList<Keyword>
+    ) {
+        supportFragmentManager.popBackStack()
+        val fragment = GiftResultListFragment.newInstance(keywordToRemove, keywords)
+        supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.gift_fragment_container, fragment)
+            .addToBackStack(null)
+            .commit()
+    }
+
+    /**
+     * Removes keyword from shared GiftViewModel
+     */
+    override fun removeKeyword(key: String){
+        giftViewModel.keywords.remove(key)
+    }
+
+    /**
+     * Updates shared GiftViewModel to the trimmed list of input keywords
+     */
+    override fun updateKeywords(keywords: ArrayList<Keyword>) {
+        giftViewModel.updateKeywords(keywords)
+    }
+
+    /**
+     * Changes visibility of the progress bar once loading is finished
+     */
+    override fun finishedLoading() {
+        progressBar.visibility = View.GONE
+    }
+
+    /**
+     * Callback from GiftDetailFragment to go the site linked to the siteButton
+     */
+    override fun onSiteSelected(url: String) {
+        val webpage: Uri = Uri.parse(url)
+        val intent = Intent(Intent.ACTION_VIEW, webpage)
+
+        try {
+            startActivity(Intent.createChooser(intent, "Launch site"))
+            Log.i("Web.", "Launching site")
+        } catch (ex: ActivityNotFoundException) {
+            Toast.makeText(
+                this@GiftActivity,
+                "There is no web client installed.", Toast.LENGTH_SHORT
+            ).show()
+        }
+    }
+
+    /**
+     * Companion object that creates a new intent to start this activity
      */
     companion object {
         fun newIntent(packageContext: Context): Intent {
@@ -77,7 +158,13 @@ class GiftActivity : AppCompatActivity(), SurveyFragment.Callbacks, GenderSurvey
     }
 
     override fun findGifts() {
-        TODO("Not yet implemented")
+        progressBar.visibility = View.VISIBLE
+        val fragment = GiftResultListFragment()
+        supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.gift_fragment_container, fragment)
+            .addToBackStack(null)
+            .commit()
     }
 
     /**
@@ -86,7 +173,7 @@ class GiftActivity : AppCompatActivity(), SurveyFragment.Callbacks, GenderSurvey
     override fun selectNavIcon(navIcon: String) {
         executeNav = false // make sure the screen switching functionality is disabled
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigation)
-        when(navIcon){
+        when (navIcon) {
             "Gift" -> {
                 bottomNavigationView.selectedItemId = R.id.nav_gift
             }
@@ -130,9 +217,9 @@ class GiftActivity : AppCompatActivity(), SurveyFragment.Callbacks, GenderSurvey
     /**
      * Function that ensure a nav button cannot be clicked if it is already selected
      */
-    private fun enableDisableNavButtons(view: MenuItem){
+    private fun enableDisableNavButtons(view: MenuItem) {
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigation)
-        when(view.itemId) {
+        when (view.itemId) {
             R.id.nav_home -> {
                 view.isEnabled = false
                 bottomNavigationView.menu.getItem(1).isEnabled = true

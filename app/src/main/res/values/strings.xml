@@ -54,4 +54,9 @@
 
 
 
+    <string name="gift_title">Gift Title</string>
+    <string name="gift_price">Gift Price</string>
+    <string name="gift_description">Gift Description</string>
+    <string name="gift_site">Go to Site</string>
+
 </resources>
