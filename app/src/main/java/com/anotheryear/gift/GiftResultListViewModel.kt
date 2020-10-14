@@ -62,7 +62,7 @@ class GiftResultListViewModel : ViewModel() {
                         var listingItems: List<Listing> = results?.results
                             ?: mutableListOf()
                         listingItems = listingItems.filterNot {
-                            it.url.isBlank()
+                            it.url?.isBlank()
                         }
                         Log.d(TAG, "Response received - to getListings 1 ")
                         return listingItems
@@ -76,7 +76,7 @@ class GiftResultListViewModel : ViewModel() {
                         var listingItems: List<Listing> = results?.results
                             ?: mutableListOf()
                         listingItems = listingItems.filterNot {
-                            it.url.isBlank()
+                            it.url?.isBlank()
                         }
                         Log.d(TAG, "Response received - to getListings 2 ")
                         return listingItems
@@ -92,7 +92,7 @@ class GiftResultListViewModel : ViewModel() {
                         var listingItems: List<Listing> = results?.results
                             ?: mutableListOf()
                         listingItems = listingItems.filterNot {
-                            it.url.isBlank()
+                            it.url?.isBlank()
                         }
                         Log.d(TAG, "Response received - to getListings 3 ")
                         return listingItems
@@ -106,7 +106,7 @@ class GiftResultListViewModel : ViewModel() {
                         var listingItems: List<Listing> = results?.results
                             ?: mutableListOf()
                         listingItems = listingItems.filterNot {
-                            it.url.isBlank()
+                            it.url?.isBlank()
                         }
                         Log.d(TAG, "Response received - to getListings 4 ")
                         return listingItems
