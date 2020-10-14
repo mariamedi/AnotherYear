@@ -4,12 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/birthday_item_constraint_layout"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="8dp"
-    android:layout_marginStart="10dp"
-    android:layout_marginEnd="10dp"
-    android:layout_marginBottom="8dp">
-
+    android:layout_height="40dp"
+    android:layout_marginTop="5dp"
+    android:paddingLeft="10dp"
+    android:background="@drawable/rounded_button_lightpurple"
+    android:layout_marginBottom="5dp"
+    android:paddingStart="10dp"
+    tools:ignore="RtlSymmetry">
 
     <TextView
         android:id="@+id/list_date"
@@ -18,7 +19,9 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="BirthDate" />
+        android:textColor="#4D4370"
+        tools:text="BirthDate"
+        />
 
     <TextView
         android:id="@+id/list_name"
@@ -29,6 +32,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@id/list_date"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="Name" />
-
+        tools:text="Name"
+        />
 </androidx.constraintlayout.widget.ConstraintLayout>

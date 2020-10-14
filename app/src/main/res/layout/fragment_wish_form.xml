@@ -1,14 +1,165 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:background="#676570">
+
+    <TextView
+        android:id="@+id/PW_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="30dp"
+        android:text="@string/PW_title"
+        android:textColor="#EEEEEE"
+        android:textSize="30sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+    <TextView
+        android:id="@+id/PW_name_desc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/PW_enter_name"
+        android:textColor="#EEEEEE"
+        android:textSize="18sp"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/PW_title"
+        />
+
+    <EditText
+        android:id="@+id/PW_their_name"
+        android:layout_width="fill_parent"
+        android:layout_height="40dp"
+        android:background="@drawable/rounded_edittext"
+        android:hint="@string/PW_name_prompt"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:textSize="18sp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/PW_name_desc"
+        tools:ignore="Autofill"
+        android:inputType="text"
+        />
+
+    <TextView
+        android:id="@+id/PW_seek_desc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:text="@string/PW_relationship"
+        android:textColor="#EEEEEE"
+        android:textSize="18sp"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="35dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/PW_their_name"
+        />
+
+    <SeekBar
+        android:id="@+id/PW_simpleSeekBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:max="100"
+        android:progress="50"
+        android:layout_marginEnd="5dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/PW_seek_desc"
+        />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="WishFormFrag"
-        tools:layout_editor_absoluteX="162dp"
-        tools:layout_editor_absoluteY="99dp" />
+        android:text="@string/PW_not_close"
+        android:textColor="#EEEEEE"
+        android:textSize="15sp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/PW_simpleSeekBar"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/PW_very_close"
+        android:textColor="#EEEEEE"
+        android:textSize="15sp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/PW_simpleSeekBar"
+        />
+
+    <EditText
+        android:id="@+id/PW_your_name"
+        android:layout_width="fill_parent"
+        android:layout_height="40dp"
+        android:background="@drawable/rounded_edittext"
+        android:hint="@string/PW_your_name"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:textSize="18sp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="55dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/PW_simpleSeekBar"
+        android:inputType="text"
+        tools:ignore="Autofill"
+        />
+
+    <CheckBox
+        android:id="@+id/PW_no_signature"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:buttonTint="#fff"
+        android:layout_marginTop="10dp"
+        android:textSize="18sp"
+        android:text="@string/PW_no_signature"
+        android:textColor="#EEEEEE"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/PW_your_name"
+        tools:ignore="UnusedAttribute"
+        />
+
+    <Button
+        android:id="@+id/PW_generate_wish_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rounded_button_purple"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:text="@string/PW_generate_wish_button"
+        android:textColor="#fff"
+        android:textSize="18sp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="50dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/PW_no_signature"
+        />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

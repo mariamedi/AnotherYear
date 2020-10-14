@@ -44,6 +44,7 @@ class BirthdayDetailFragment : Fragment() {
     private lateinit var birthday: Birthday
 
     // Declare view objects
+    private lateinit var titleTextView: TextView
     private lateinit var firstNameEditText:EditText
     private lateinit var lastNameEditText: EditText
     private lateinit var saveButton: Button
@@ -107,16 +108,16 @@ class BirthdayDetailFragment : Fragment() {
         super.onCreate(savedInstanceState)
         birthday = Birthday()
 
-        val date: Date? = arguments?.getSerializable(ARG_BIRTHDAY_DATE) as Date?
 
         // If passed a date, initialize birthday object with the date
+        val date: Date? = arguments?.getSerializable(ARG_BIRTHDAY_DATE) as Date?
         if(date != null){
             birthday.birthdate = date
         }
 
         // If passed an id, load birthday from db
         val id: UUID? = arguments?.getSerializable(ARG_BIRTHDAY_ID) as UUID?
-        if(id != null){
+        if(id != null) {
             birthdayDetailViewModel.loadBirthday(id)
         }
 
@@ -128,6 +129,7 @@ class BirthdayDetailFragment : Fragment() {
         Log.d(TAG, "onCreateView() called")
 
         // Initialize view objects
+        titleTextView = view.findViewById(R.id.detail_title_text_view)
         firstNameEditText = view.findViewById(R.id.first_name_edit_text)
         lastNameEditText = view.findViewById(R.id.last_name_edit_text)
         dayDropDown = view.findViewById(R.id.day_spinner)
@@ -135,6 +137,13 @@ class BirthdayDetailFragment : Fragment() {
         saveButton = view.findViewById(R.id.save_button)
         discardButton = view.findViewById(R.id.discard_button)
         deleteButton = view.findViewById(R.id.delete_button)
+
+        // If a new birthday is being added, do not show delete button and update the title test
+        val id: UUID? = arguments?.getSerializable(ARG_BIRTHDAY_ID) as UUID?
+        if(id == null) {
+            deleteButton.visibility = View.INVISIBLE
+            titleTextView.setText(R.string.add_birthday)
+        }
 
         // Create array adapter for month drop down
         ArrayAdapter.createFromResource(requireContext(), R.array.Months, android.R.layout.simple_spinner_item)

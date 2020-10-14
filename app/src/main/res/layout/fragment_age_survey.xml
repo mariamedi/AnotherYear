@@ -2,58 +2,119 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:background="#676570"
+    android:layout_height="match_parent"
+    tools:ignore="HardcodedText">
+
+    <TextView
+        android:id="@+id/survey_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="30dp"
+        android:text="Gift Idea Survey"
+        android:textColor="#EEEEEE"
+        android:textSize="30sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
 
     <TextView
         android:id="@+id/age_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="What is their general age group?"/>
+        android:layout_marginLeft="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="30dp"
+        android:text="What is their general age group?"
+        android:textColor="#EEEEEE"
+        android:textSize="20sp"
+        android:gravity="center"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/survey_text_view"
+        />
 
     <Button
         android:id="@+id/baby_button"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/rounded_button_purple"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
         android:text="Baby"
+        android:textColor="#fff"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/age_text_view" />
+        app:layout_constraintTop_toBottomOf="@+id/age_text_view"
+        />
 
     <Button
         android:id="@+id/child_button"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/rounded_button_purple"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
         android:text="Child"
+        android:textColor="#fff"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/baby_button" />
+        app:layout_constraintTop_toBottomOf="@+id/baby_button"
+        />
 
     <Button
         android:id="@+id/teen_button"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/rounded_button_purple"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
         android:text="Teen"
+        android:textColor="#fff"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/child_button" />
+        app:layout_constraintTop_toBottomOf="@+id/child_button"
+        />
 
     <Button
         android:id="@+id/adult_button"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/rounded_button_purple"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
         android:text="Adult"
+        android:textColor="#fff"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/teen_button" />
+        app:layout_constraintTop_toBottomOf="@+id/teen_button"
+        />
 
     <Button
         android:id="@+id/skip_button"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/rounded_button_darkpurple"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
         android:text="Skip"
+        android:textColor="#fff"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/adult_button" />
+        app:layout_constraintTop_toBottomOf="@+id/adult_button"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

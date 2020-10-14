@@ -5,23 +5,35 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProviders
 import com.anotheryear.birthDate.BirthDateActivity
 import com.anotheryear.gift.GiftActivity
 import com.anotheryear.R
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import androidx.fragment.app.Fragment
+import java.io.File
 
 /**
  * Activity for all Birthday Wishes functionality
  */
-class WishesActivity : AppCompatActivity() {
+class WishesActivity : AppCompatActivity(), WishFormFragment.Callbacks, GeneratedWishFragment.Callbacks {
+
+    private var executeNav = true
+
+    private val wishViewModel: WishesViewModel by lazy {
+        ViewModelProviders.of(this).get(WishesViewModel::class.java)
+    }
+
+    /**
+     * Override for the onCreate method which initializes the bottom nav bar and sets the correct fragment to be displayed
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_wish)
 
         initializeBottomNavBar()
 
-        val currentFragment =
-            supportFragmentManager.findFragmentById(R.id.wish_fragment_container)
+        val currentFragment = supportFragmentManager.findFragmentById(R.id.wish_fragment_container)
 
         if (currentFragment == null) {
             val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigation)
@@ -40,30 +52,83 @@ class WishesActivity : AppCompatActivity() {
     }
 
     /**
+     * Val the gets the list of birthdays in the db from BirthdayListViewModel
+     */
+    override val getWishViewModel: WishesViewModel
+        get() = wishViewModel
+
+    /**
+     * Function that switches to the WishFormFragment
+     */
+    override fun generateWish(passedFile: File?) {
+        val fragment: Fragment =
+            if (passedFile == null) {
+                GeneratedWishFragment.newInstance()
+            } else {
+                GeneratedWishFragment.newInstance(passedFile)
+            }
+
+        supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.wish_fragment_container, fragment)
+            .addToBackStack(null)
+            .commit()
+    }
+
+    /**
+     * Function that switches to the WishesActivity
+     */
+    override fun changeSettings(photoFile: File) {
+        val fragment: Fragment = WishFormFragment.newInstance(photoFile)
+
+        supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.wish_fragment_container, fragment)
+            .addToBackStack(null)
+            .commit()
+    }
+
+    /**
+     * Function that takes in a string of a fragment and sets the nav bar icon selection accordingly
+     */
+    override fun selectNavIcon(navIcon: String) {
+        executeNav = false // make sure the screen switching functionality is disabled
+        val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigation)
+        when(navIcon){
+            "Wish" -> {
+                bottomNavigationView.selectedItemId = R.id.nav_wish
+            }
+        }
+        executeNav = true // turn on screen switching again
+    }
+
+    /**
      * Function that adds specific listeners to the icons in the bottom nav bar for WishActivity
      */
     private fun initializeBottomNavBar() {
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigation)
         bottomNavigationView.setOnNavigationItemSelectedListener { item ->
             enableDisableNavButtons(item)
-            when (item.itemId) {
-                R.id.nav_home -> {
-                    val intent = BirthDateActivity.newIntent(this, "home")
-                    startActivity(intent)
-                }
-                R.id.nav_calendar -> {
-                    val intent = BirthDateActivity.newIntent(this, "calendar")
-                    startActivity(intent)
-                }
-                R.id.nav_wish -> {
-                    supportFragmentManager
-                        .beginTransaction()
-                        .replace(R.id.wish_fragment_container, WishFormFragment.newInstance())
-                        .commit()
-                }
-                R.id.nav_gift ->{
-                    val intent = GiftActivity.newIntent(this)
-                    startActivity(intent)
+            if(executeNav) {
+                when (item.itemId) {
+                    R.id.nav_home -> {
+                        val intent = BirthDateActivity.newIntent(this, "home")
+                        startActivity(intent)
+                    }
+                    R.id.nav_calendar -> {
+                        val intent = BirthDateActivity.newIntent(this, "calendar")
+                        startActivity(intent)
+                    }
+                    R.id.nav_wish -> {
+                        supportFragmentManager
+                            .beginTransaction()
+                            .replace(R.id.wish_fragment_container, WishFormFragment.newInstance())
+                            .commit()
+                    }
+                    R.id.nav_gift -> {
+                        val intent = GiftActivity.newIntent(this)
+                        startActivity(intent)
+                    }
                 }
             }
             true

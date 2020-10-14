@@ -1,7 +1,6 @@
 package com.anotheryear.gift
 
 import androidx.lifecycle.ViewModel
-import java.security.Key
 
 /**
  * View model to hold gift survey information across multiple fragments to be used when searching for a gift
@@ -54,50 +53,71 @@ class GiftViewModel: ViewModel() {
      * Return string for type of recipient based on age and gender
      */
     fun getRecipient(): String {
-        if(age == "Baby"){
-            if(gender == "M"){
-                return "baby_boys"
-            } else if(gender == "F"){
-                return "baby_girls"
+        when (age) {
+            "Baby" -> {
+                return when (gender) {
+                    "M" -> {
+                        "baby_boys"
+                    }
+                    "F" -> {
+                        "baby_girls"
+                    }
+                    else -> {
+                        "babies"
+                    }
+                }
             }
-            else{
-                return "babies"
+            "Child" -> {
+                return when (gender) {
+                    "M" -> {
+                        "boys"
+                    }
+                    "F" -> {
+                        "girls"
+                    }
+                    else -> {
+                        "children"
+                    }
+                }
             }
-        } else if(age == "Child"){
-            if(gender == "M"){
-                return "boys"
-            } else if(gender == "F"){
-                return "girls"
+            "Teen" -> {
+                return when (gender) {
+                    "M" -> {
+                        "teen_boys"
+                    }
+                    "F" -> {
+                        "teen_girls"
+                    }
+                    else -> {
+                        "teens"
+                    }
+                }
             }
-            else{
-                return "children"
+            "Adult" -> {
+                return when (gender) {
+                    "M" -> {
+                        "men"
+                    }
+                    "F" -> {
+                        "women"
+                    }
+                    else -> {
+                        "unisex_adults"
+                    }
+                }
             }
-        } else if(age == "Teen"){
-            if(gender == "M"){
-                return "teen_boys"
-            } else if(gender == "F"){
-                return "teen_girls"
-            }
-            else{
-                return "teens"
-            }
-        } else if(age == "Adult"){
-            if(gender == "M"){
-                return "men"
-            } else if(gender == "F"){
-                return "women"
-            }
-            else{
-                return "unisex_adults"
-            }
-        } else {
-            if(gender == "M"){
-                return "men"
-            } else if(gender == "F"){
-                return "women"
-            }
-            else{
-                return "unisex"
+            else -> {
+                return when (gender) {
+                    "M" -> {
+                        "men"
+                    }
+                    "F" -> {
+                        "women"
+                    }
+                    else -> {
+                        "unisex"
+                    }
+                }
             }
         }
     }
@@ -122,5 +142,4 @@ class GiftViewModel: ViewModel() {
         for(k in keys)
             keywords.remove(k)
     }
-
 }

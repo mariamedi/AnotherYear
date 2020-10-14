@@ -3,89 +3,125 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:background="#676570"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:ignore="HardcodedText,UnusedAttribute">
 
     <TextView
         android:id="@+id/survey_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="24dp"
-        android:padding="24sp"
-        android:text="Gift Suggestions"
-        android:textSize="20sp"
+        android:layout_marginStart="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="30dp"
+        android:text="Gift Idea Survey"
+        android:textColor="#EEEEEE"
+        android:textSize="30sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        />
 
     <TextView
         android:id="@+id/budget_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="30dp"
         android:text="Budget"
+        android:textColor="#EEEEEE"
+        android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/survey_text_view" />
+        app:layout_constraintTop_toBottomOf="@+id/survey_text_view"
+        />
 
     <EditText
         android:id="@+id/budget_min_edit_text"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="45dp"
         android:layout_marginStart="32dp"
         android:layout_marginLeft="32dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="15dp"
         android:inputType="numberDecimal"
         android:text="0.00"
+        android:textSize="20sp"
+        android:paddingLeft="10dp"
+        android:paddingRight="15dp"
+        android:background="@drawable/rounded_edittext"
         app:layout_constraintEnd_toStartOf="@+id/separator_text_view"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/budget_text_view" />
+        app:layout_constraintTop_toBottomOf="@+id/budget_text_view"
+        android:paddingStart="10dp"
+        android:paddingEnd="15dp"
+        tools:ignore="Autofill,LabelFor"
+        />
 
     <TextView
         android:id="@+id/separator_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginRight="5dp"
+        android:textColor="#EEEEEE"
         android:text=":"
         android:textSize="30sp"
         app:layout_constraintEnd_toStartOf="@+id/budget_max_edit_text"
         app:layout_constraintStart_toEndOf="@+id/budget_min_edit_text"
-        app:layout_constraintTop_toBottomOf="@+id/budget_text_view" />
+        app:layout_constraintTop_toBottomOf="@+id/budget_text_view"
+        />
 
     <EditText
         android:id="@+id/budget_max_edit_text"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="15dp"
         android:layout_marginEnd="32dp"
         android:layout_marginRight="32dp"
+        android:background="@drawable/rounded_edittext"
         android:inputType="numberDecimal"
+        android:paddingLeft="10dp"
+        android:paddingRight="15dp"
         android:text="100.00"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/separator_text_view"
-        app:layout_constraintTop_toBottomOf="@+id/budget_text_view" />
+        app:layout_constraintTop_toBottomOf="@+id/budget_text_view"
+        android:paddingStart="10dp"
+        android:paddingEnd="15dp"
+        tools:ignore="Autofill,LabelFor"
+        />
 
     <CheckBox
         android:id="@+id/no_budget_checkbox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="67dp"
+        android:layout_marginTop="40dp"
+        android:buttonTint="#fff"
         android:text="No Budget"
+        android:textSize="20sp"
+        android:textColor="#EEEEEE"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.51"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/budget_min_edit_text" />
-
+        app:layout_constraintTop_toBottomOf="@+id/budget_min_edit_text"
+        />
 
     <Button
         android:id="@+id/next_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
         android:text="Next"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:textSize="18sp"
+        android:paddingRight="20dp"
+        android:paddingLeft="20dp"
+        android:textColor="#fff"
+        android:background="@drawable/rounded_button_purple"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/no_budget_checkbox" />
-
+        app:layout_constraintTop_toBottomOf="@+id/no_budget_checkbox"
+        />
 </androidx.constraintlayout.widget.ConstraintLayout>
