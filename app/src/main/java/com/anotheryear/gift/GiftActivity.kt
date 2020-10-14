@@ -9,6 +9,8 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import android.view.MenuItem
+import android.view.View
+import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
@@ -26,6 +28,7 @@ class GiftActivity : AppCompatActivity(), GiftDetailFragment.Callbacks,
     AgeSurveyFragment.Callbacks, InterestsSurveyFragment.Callbacks {
 
     private var executeNav: Boolean = true
+    private lateinit var progressBar: ProgressBar
 
     // Declare ViewModel for holding gift survey info across fragments
     private val giftViewModel: GiftViewModel by lazy {
@@ -36,6 +39,7 @@ class GiftActivity : AppCompatActivity(), GiftDetailFragment.Callbacks,
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_gift)
 
+        progressBar = findViewById(R.id.progress_Bar)
         initializeBottomNavBar()
 
         val currentFragment =
@@ -51,6 +55,7 @@ class GiftActivity : AppCompatActivity(), GiftDetailFragment.Callbacks,
      * Callback from GiftResultListFragment to display a selected gift.
      */
     override fun onGiftSelected(giftID: Int, bitmap: Bitmap) {
+        progressBar.setVisibility(View.VISIBLE)
         val fragment = GiftDetailFragment.newInstance(giftID, bitmap)
         supportFragmentManager
             .beginTransaction()
@@ -83,6 +88,10 @@ class GiftActivity : AppCompatActivity(), GiftDetailFragment.Callbacks,
         giftViewModel.updateKeywords(keywords)
     }
 
+    override fun finishedLoading() {
+        progressBar.setVisibility(View.GONE)
+    }
+
     /**
      * Callback from GiftDetailFragment to go the site linked to the siteButton.
      */
@@ -100,7 +109,6 @@ class GiftActivity : AppCompatActivity(), GiftDetailFragment.Callbacks,
             ).show()
         }
     }
-
 
     /**
      * Companion object that creates a new intent to start this activity.
@@ -140,6 +148,7 @@ class GiftActivity : AppCompatActivity(), GiftDetailFragment.Callbacks,
     }
 
     override fun findGifts() {
+        progressBar.setVisibility(View.VISIBLE)
         val fragment = GiftResultListFragment()
         supportFragmentManager
             .beginTransaction()

@@ -35,11 +35,17 @@ class GiftResultListViewModel : ViewModel() {
      * Returns list of keywords
      */
     fun getKeywords(): List<String> {
-        return giftKeywordsLiveData.value!!
+        return giftKeywordsLiveData.value!!.filter { k: String? -> k != "" }
     }
 
     fun getListings(budget: Array<Float>) {
-        if (budget[0] != Float.MIN_VALUE && budget[1] != Float.MAX_VALUE) {
+        // Check is contains at least one valid keyword
+        Log.d(TAG, getKeywords().toString())
+        Log.d(TAG, getKeywords().isNotEmpty().toString())
+
+        var containsKeyword = getKeywords().isNotEmpty()
+
+        if (containsKeyword && budget[0] != Float.MIN_VALUE && budget[1] != Float.MAX_VALUE) {
             giftListLiveData = EtsyGetter().fetchBudgetActiveListings(
                 giftKeywordsLiveData.value!!,
                 budget[1],
@@ -51,11 +57,11 @@ class GiftResultListViewModel : ViewModel() {
                         listingItems = listingItems.filterNot {
                             it.url.isBlank()
                         }
-                        Log.d(TAG, "Response received - to getListings")
+                        Log.d(TAG, "Response received - to getListings 1 ")
                         return listingItems
                     }
                 })
-        } else {
+        } else if(containsKeyword){
             giftListLiveData = EtsyGetter().fetchNonBudgetedActiveListings(giftKeywordsLiveData.value!!,
                 object : OnEtsyResponse {
                     override fun results(results: EtsyResponse?): List<Listing> {
@@ -64,7 +70,37 @@ class GiftResultListViewModel : ViewModel() {
                         listingItems = listingItems.filterNot {
                             it.url.isBlank()
                         }
-                        Log.d(TAG, "Response received - to getListings")
+                        Log.d(TAG, "Response received - to getListings 2 ")
+                        return listingItems
+                    }
+                })
+        }
+        else if (budget[0] != Float.MIN_VALUE && budget[1] != Float.MAX_VALUE){
+            giftListLiveData = EtsyGetter().fetchBudgetActiveListings(
+                budget[1],
+                budget[0],
+                object : OnEtsyResponse {
+                    override fun results(results: EtsyResponse?): List<Listing> {
+                        var listingItems: List<Listing> = results?.results
+                            ?: mutableListOf()
+                        listingItems = listingItems.filterNot {
+                            it.url.isBlank()
+                        }
+                        Log.d(TAG, "Response received - to getListings 3 ")
+                        return listingItems
+                    }
+                })
+        }
+        else {
+            giftListLiveData = EtsyGetter().fetchRecentActiveListings(
+                object : OnEtsyResponse {
+                    override fun results(results: EtsyResponse?): List<Listing> {
+                        var listingItems: List<Listing> = results?.results
+                            ?: mutableListOf()
+                        listingItems = listingItems.filterNot {
+                            it.url.isBlank()
+                        }
+                        Log.d(TAG, "Response received - to getListings 4 ")
                         return listingItems
                     }
                 })

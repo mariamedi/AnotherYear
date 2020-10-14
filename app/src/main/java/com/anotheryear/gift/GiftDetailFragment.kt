@@ -40,6 +40,7 @@ class GiftDetailFragment : Fragment() {
 
     interface Callbacks {
         fun onSiteSelected(url: String)
+        fun finishedLoading()
     }
 
     private var callbacks: Callbacks? = null
@@ -97,6 +98,7 @@ class GiftDetailFragment : Fragment() {
 
         updateUI()
 
+        callbacks?.finishedLoading()
         return view
     }
 

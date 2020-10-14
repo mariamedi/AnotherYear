@@ -44,6 +44,7 @@ class GiftResultListFragment : Fragment() {
         )
         fun removeKeyword(key:String)
         fun updateKeywords(keywords: ArrayList<Keyword>)
+        fun finishedLoading()
     }
 
     private var callbacks: Callbacks? = null
@@ -179,6 +180,7 @@ class GiftResultListFragment : Fragment() {
         override fun getItemCount() = gifts.size
 
         override fun onBindViewHolder(holder: GiftHolder, position: Int) {
+            callbacks?.finishedLoading()
             Log.d(TAG, "onBindViewHolder() called")
             val gift = gifts[position]
 
@@ -195,7 +197,7 @@ class GiftResultListFragment : Fragment() {
                     else
                         Toast.makeText(
                             activity,
-                            "oopsie poopsie slow down there cowboy", Toast.LENGTH_SHORT
+                            "Slow down your scrolling!", Toast.LENGTH_SHORT
                         ).show()
                 }
             })

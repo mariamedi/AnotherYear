@@ -97,7 +97,7 @@ class GiftViewModel: ViewModel() {
                 return "women"
             }
             else{
-                return "not_specified"
+                return "unisex"
             }
         }
     }

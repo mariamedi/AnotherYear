@@ -16,6 +16,9 @@ interface EtsyApi {
     fun fetchBudgetActiveListings(@Query("tags[]") tags: List<String>,@Query("max_price") max_price: Float, @Query("min_price") min_price: Float): Call<EtsyResponse>
 
     @GET("v2/listings/active?limit=100&api_key=uaymewhj7nol96z4eny0b3id")
+    fun fetchBudgetActiveListings(@Query("max_price") max_price: Float, @Query("min_price") min_price: Float): Call<EtsyResponse>
+
+    @GET("v2/listings/active?limit=100&api_key=uaymewhj7nol96z4eny0b3id")
     fun fetchNonBudgetedActiveListings(@Query("tags[]") tags: List<String>): Call<EtsyResponse>
 
     @GET("v2//listings/{listing_id}?api_key=uaymewhj7nol96z4eny0b3id")
