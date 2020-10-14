@@ -22,7 +22,6 @@ import com.anotheryear.R
 import com.anotheryear.etsyApi.*
 
 private const val TAG = "GiftResultListFragment"
-private const val ARG_KEYWORDS = "keywords"
 
 class GiftResultListFragment : Fragment() {
 
@@ -30,8 +29,15 @@ class GiftResultListFragment : Fragment() {
         ViewModelProviders.of(this).get(GiftResultListViewModel::class.java)
     }
 
+    // Declare local version of ViewModel for holding gift survey info across fragments
+    private val giftViewModel: GiftViewModel by lazy {
+        ViewModelProviders.of(requireActivity()).get(GiftViewModel::class.java)
+    }
+
     interface Callbacks {
         fun onGiftSelected(giftID: Int, bitmap: Bitmap)
+        fun restartFragment()
+        fun removeKeyword(key:String)
     }
 
     private var callbacks: Callbacks? = null
@@ -57,11 +63,10 @@ class GiftResultListFragment : Fragment() {
         Log.d(TAG, "onCreate(Bundle?) called")
         retainInstance = true
 
-        val keywords: Array<String>? = arguments?.getSerializable(ARG_KEYWORDS) as Array<String>?
-        if(keywords != null){
-            Log.d(TAG, "args bundle received keywords")
-            giftResultListViewModel.loadKeywords(keywords)
-        }
+        Log.d(TAG, giftViewModel.getKeywords().toString())
+        giftResultListViewModel.loadKeywords(giftViewModel.getKeywords())
+        giftResultListViewModel.getListings(giftViewModel.getBudget())
+
         val responseHandler = Handler()
         thumbnailDownloader =
             ThumbnailDownloader(responseHandler) { giftHolder, bitmap ->
@@ -91,7 +96,12 @@ class GiftResultListFragment : Fragment() {
         giftResultListViewModel.giftListLiveData.observe(
             viewLifecycleOwner,
             Observer { listingItems ->
-                Log.d(TAG, "Response received: $listingItems")
+                if(listingItems.isEmpty())
+                {
+                    val kwToRemove = giftResultListViewModel.getKeywords()[0]
+                    callbacks?.removeKeyword(kwToRemove)
+                    callbacks?.restartFragment()
+                }
                 updateUI(listingItems)
             })
     }
@@ -103,13 +113,8 @@ class GiftResultListFragment : Fragment() {
     }
 
     companion object {
-        fun newInstance(keywords: Array<String>): GiftResultListFragment {
-            val args = Bundle().apply {
-                putSerializable(ARG_KEYWORDS, keywords) // TODO these are gonna have to be used within the list view model to get the right listings
-            }
-            return GiftResultListFragment().apply {
-                arguments = args
-            }
+        fun newInstance(): GiftResultListFragment {
+            return GiftResultListFragment()
         }
     }
 
@@ -152,8 +157,8 @@ class GiftResultListFragment : Fragment() {
         override fun onBindViewHolder(holder: GiftHolder, position: Int) {
             Log.d(TAG, "onBindViewHolder() called")
             val gift = gifts[position]
-            EtsyGetter().fetchImageListing(gift.listing_id, object : OnEtsyImageResponse {
 
+            EtsyGetter().fetchImageListing(gift.listing_id, object : OnEtsyImageResponse {
                 override fun images(images: EtsyImageResponse?) {
                     var listingItems: List<ListingImage> = images?.results
                         ?: mutableListOf()
@@ -162,7 +167,7 @@ class GiftResultListFragment : Fragment() {
                         it.url_170x135.isBlank()
                     }
                     if (listingItems.count() != 0)
-                        thumbnailDownloader.queueThumbnail(holder, listingItems[0]!!.url_170x135)
+                        thumbnailDownloader.queueThumbnail(holder, listingItems[0].url_170x135)
                     else
                         Toast.makeText(
                             activity,

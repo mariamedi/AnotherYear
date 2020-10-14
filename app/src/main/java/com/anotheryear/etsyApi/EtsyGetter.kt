@@ -38,15 +38,57 @@ class EtsyGetter {
             override fun onFailure(call: Call<EtsyResponse>, t: Throwable) {
                 Log.e(TAG, "Failed to fetch Recent Active Listings Etsy data", t)
             }
+
             override fun onResponse(call: Call<EtsyResponse>, response: Response<EtsyResponse>) {
                 Log.d(TAG, "Response received")
                 val etsyResponse: EtsyResponse? = response.body()
                 var listingItems: List<Listing> = etsyResponse?.results
                     ?: mutableListOf()
                 listingItems = listingItems.filterNot {
-                    it.url?.isBlank()
+                    it.url.isBlank()
                 }
                 responseLiveData.value = listingItems
+            }
+        })
+        return responseLiveData
+    }
+
+    /**
+     * Fetches the active listings on Etsy with the given tags and budget.
+     */
+    fun fetchBudgetActiveListings(tags: List<String>,max_price: Float, min_price: Float,callback: OnEtsyResponse): MutableLiveData<List<Listing>> {
+        val responseLiveData: MutableLiveData<List<Listing>> = MutableLiveData()
+        val etsyRequest: Call<EtsyResponse> =
+            etsyApi.fetchBudgetActiveListings(tags, max_price, min_price)
+
+        etsyRequest.enqueue(object : Callback<EtsyResponse> {
+            override fun onFailure(call: Call<EtsyResponse>, t: Throwable) {
+                Log.e(TAG, "Failed to fetch Recent Active Listings Etsy data", t)
+            }
+
+            override fun onResponse(call: Call<EtsyResponse>, response: Response<EtsyResponse>) {
+                Log.d(TAG, "Response received - budget active listings")
+                responseLiveData.value = callback.results(response.body())
+            }
+        })
+        return responseLiveData
+    }
+
+    /**
+     * Fetches the active listings on Etsy with the given tags.
+     */
+    fun fetchNonBudgetedActiveListings(tags: List<String>, callback: OnEtsyResponse): MutableLiveData<List<Listing>> {
+        val responseLiveData: MutableLiveData<List<Listing>> = MutableLiveData()
+        val etsyRequest: Call<EtsyResponse> = etsyApi.fetchNonBudgetedActiveListings(tags)
+
+        etsyRequest.enqueue(object : Callback<EtsyResponse> {
+            override fun onFailure(call: Call<EtsyResponse>, t: Throwable) {
+                Log.e(TAG, "Failed to fetch Recent Active Listings Etsy data", t)
+            }
+
+            override fun onResponse(call: Call<EtsyResponse>, response: Response<EtsyResponse>) {
+                Log.d(TAG, "Response received - non-budget active listings")
+                responseLiveData.value = callback.results(response.body())
             }
         })
         return responseLiveData
@@ -64,6 +106,7 @@ class EtsyGetter {
             override fun onFailure(call: Call<EtsyResponse>, t: Throwable) {
                 Log.e(TAG, "Failed to fetch Etsy data", t)
             }
+
             override fun onResponse(
                 call: Call<EtsyResponse>,
                 response: Response<EtsyResponse>
@@ -89,9 +132,13 @@ class EtsyGetter {
 
         etsyRequest.enqueue(object : Callback<EtsyImageResponse> {
             override fun onFailure(call: Call<EtsyImageResponse>, t: Throwable) {
-                Log.e(TAG, "Failed to fetch Image Listing Etsy data: " + listingId.toString(), t)
+                Log.e(TAG, "Failed to fetch Image Listing Etsy data: $listingId", t)
             }
-            override fun onResponse(call: Call<EtsyImageResponse>, response: Response<EtsyImageResponse>) {
+
+            override fun onResponse(
+                call: Call<EtsyImageResponse>,
+                response: Response<EtsyImageResponse>
+            ) {
                 callback.images(response.body())
             }
         })

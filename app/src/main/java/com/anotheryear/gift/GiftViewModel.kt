@@ -18,7 +18,20 @@ class GiftViewModel: ViewModel() {
      * Return list of keywords based on interests
      */
     fun getKeywords(): List<String> {
+        keywords["Recipient"] = getRecipient()
         return keywords.values.toList()
+    }
+
+    /**
+     * Returns an array of the min and max budget
+     */
+    fun getBudget(): Array<Float>{
+        return if (noBudget)
+            arrayOf(
+                Float.MIN_VALUE, Float.MAX_VALUE)
+        else{
+            arrayOf(budgetMin, budgetMax)
+        }
     }
 
     /**

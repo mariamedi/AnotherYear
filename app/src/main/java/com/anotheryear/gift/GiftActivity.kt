@@ -21,7 +21,9 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 /**
  * Activity for all Gift Suggestion functionality
  */
-class GiftActivity : AppCompatActivity(), GiftDetailFragment.Callbacks, GiftResultListFragment.Callbacks, SurveyFragment.Callbacks, GenderSurveyFragment.Callbacks, AgeSurveyFragment.Callbacks, InterestsSurveyFragment.Callbacks {
+class GiftActivity : AppCompatActivity(), GiftDetailFragment.Callbacks,
+    GiftResultListFragment.Callbacks, SurveyFragment.Callbacks, GenderSurveyFragment.Callbacks,
+    AgeSurveyFragment.Callbacks, InterestsSurveyFragment.Callbacks {
 
     private var executeNav: Boolean = true
 
@@ -42,13 +44,6 @@ class GiftActivity : AppCompatActivity(), GiftDetailFragment.Callbacks, GiftResu
         if (currentFragment == null) {
             val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigation)
             bottomNavigationView.selectedItemId = R.id.nav_gift
-
-            // TODO change after testing
-            val fragment = GiftResultListFragment()
-            supportFragmentManager
-                .beginTransaction()
-                .add(R.id.gift_fragment_container, fragment)
-                .commit()
         }
     }
 
@@ -62,6 +57,22 @@ class GiftActivity : AppCompatActivity(), GiftDetailFragment.Callbacks, GiftResu
             .replace(R.id.gift_fragment_container, fragment)
             .addToBackStack(null)
             .commit()
+    }
+
+    /**
+     * Callback from GiftResultListFragment to restart the fragment.
+     */
+    override fun restartFragment() {
+        val fragment = GiftResultListFragment()
+        supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.gift_fragment_container, fragment)
+            .addToBackStack(null)
+            .commit()
+    }
+
+    override fun removeKeyword(key: String){
+        giftViewModel.keywords.remove(key)
     }
 
     /**
@@ -122,7 +133,12 @@ class GiftActivity : AppCompatActivity(), GiftDetailFragment.Callbacks, GiftResu
     }
 
     override fun findGifts() {
-        TODO("Not yet implemented")
+        val fragment = GiftResultListFragment()
+        supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.gift_fragment_container, fragment)
+            .addToBackStack(null)
+            .commit()
     }
 
     /**
@@ -131,7 +147,7 @@ class GiftActivity : AppCompatActivity(), GiftDetailFragment.Callbacks, GiftResu
     override fun selectNavIcon(navIcon: String) {
         executeNav = false // make sure the screen switching functionality is disabled
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigation)
-        when(navIcon){
+        when (navIcon) {
             "Gift" -> {
                 bottomNavigationView.selectedItemId = R.id.nav_gift
             }
@@ -175,9 +191,9 @@ class GiftActivity : AppCompatActivity(), GiftDetailFragment.Callbacks, GiftResu
     /**
      * Function that ensure a nav button cannot be clicked if it is already selected
      */
-    private fun enableDisableNavButtons(view: MenuItem){
+    private fun enableDisableNavButtons(view: MenuItem) {
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigation)
-        when(view.itemId) {
+        when (view.itemId) {
             R.id.nav_home -> {
                 view.isEnabled = false
                 bottomNavigationView.menu.getItem(1).isEnabled = true

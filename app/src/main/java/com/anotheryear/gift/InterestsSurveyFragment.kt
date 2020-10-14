@@ -67,7 +67,7 @@ class InterestsSurveyFragment: Fragment() {
         findGiftButton = view.findViewById(R.id.find_gifts_button)
 
         // Set value of edit text based on view model
-        otherEditText.setText(giftViewModel.keywords["Other"]?: "")
+//        otherEditText.setText(giftViewModel.keywords["Other"]?: "")
 
         // Set check boxes to be checked based on view model
         sportsCheckBox.isChecked = giftViewModel.keywords.containsKey("Sports")
@@ -129,9 +129,7 @@ class InterestsSurveyFragment: Fragment() {
         }
 
         otherCheckBox.setOnCheckedChangeListener { _, isChecked ->
-            if(isChecked){
-                giftViewModel.keywords["Other"] = otherEditText.text.toString()
-            } else {
+            if(!isChecked){
                 giftViewModel.keywords.remove("Other")
             }
         }
