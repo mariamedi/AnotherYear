@@ -9,16 +9,13 @@ import retrofit2.http.Url
 
 interface EtsyApi {
 
-    @GET("v2/listings/active?api_key=uaymewhj7nol96z4eny0b3id")
+    @GET("v2/listings/active?limit=100&api_key=uaymewhj7nol96z4eny0b3id")
     fun fetchRecentActiveListings(): Call<EtsyResponse>
 
-    @GET("v2/listings/active?api_key=uaymewhj7nol96z4eny0b3id")
-    fun fetchRecentActiveListings(@Query("max_price") max_price: Float, @Query("min_price") min_price: Float): Call<EtsyResponse>
-
-    @GET("v2/listings/active?api_key=uaymewhj7nol96z4eny0b3id")
+    @GET("v2/listings/active?limit=100&api_key=uaymewhj7nol96z4eny0b3id")
     fun fetchBudgetActiveListings(@Query("tags[]") tags: List<String>,@Query("max_price") max_price: Float, @Query("min_price") min_price: Float): Call<EtsyResponse>
 
-    @GET("v2/listings/active?api_key=uaymewhj7nol96z4eny0b3id")
+    @GET("v2/listings/active?limit=100&api_key=uaymewhj7nol96z4eny0b3id")
     fun fetchNonBudgetedActiveListings(@Query("tags[]") tags: List<String>): Call<EtsyResponse>
 
     @GET("v2//listings/{listing_id}?api_key=uaymewhj7nol96z4eny0b3id")

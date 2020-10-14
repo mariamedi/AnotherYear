@@ -22,6 +22,8 @@ import com.anotheryear.R
 import com.anotheryear.etsyApi.*
 
 private const val TAG = "GiftResultListFragment"
+private const val ARG_KEYWORDS = "keywords"
+private const val ARG_KEYWORD = "keyword"
 
 class GiftResultListFragment : Fragment() {
 
@@ -36,8 +38,12 @@ class GiftResultListFragment : Fragment() {
 
     interface Callbacks {
         fun onGiftSelected(giftID: Int, bitmap: Bitmap)
-        fun restartFragment()
+        fun restartFragment(
+            keywordToRemove: String,
+            keywords: ArrayList<Keyword>
+        )
         fun removeKeyword(key:String)
+        fun updateKeywords(keywords: ArrayList<Keyword>)
     }
 
     private var callbacks: Callbacks? = null
@@ -60,11 +66,18 @@ class GiftResultListFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Log.d(TAG, "onCreate(Bundle?) called")
         retainInstance = true
+        Log.d(TAG, "onCreate(Bundle?) called")
 
-        Log.d(TAG, giftViewModel.getKeywords().toString())
-        giftResultListViewModel.loadKeywords(giftViewModel.getKeywords())
+        val keywords: ArrayList<Keyword>? = arguments?.getParcelableArrayList<Keyword>(ARG_KEYWORDS)
+
+        if (keywords != null) {
+            callbacks?.updateKeywords(keywords)
+            giftResultListViewModel.loadKeywords(keywords)
+        } else {
+            giftResultListViewModel.loadKeywords(giftViewModel.getKeywords())
+        }
+        Log.d(TAG, "Keywords in giftResultsListVM after loading: " + giftResultListViewModel.getKeywords().toString())
         giftResultListViewModel.getListings(giftViewModel.getBudget())
 
         val responseHandler = Handler()
@@ -98,9 +111,11 @@ class GiftResultListFragment : Fragment() {
             Observer { listingItems ->
                 if(listingItems.isEmpty())
                 {
-                    val kwToRemove = giftResultListViewModel.getKeywords()[0]
+                    var kwToRemove = giftResultListViewModel.getKeywords()[0]
+                    Log.d(TAG, kwToRemove)
+
                     callbacks?.removeKeyword(kwToRemove)
-                    callbacks?.restartFragment()
+                    callbacks?.restartFragment(kwToRemove, giftViewModel.getKeywordsArray())
                 }
                 updateUI(listingItems)
             })
@@ -115,6 +130,15 @@ class GiftResultListFragment : Fragment() {
     companion object {
         fun newInstance(): GiftResultListFragment {
             return GiftResultListFragment()
+        }
+        fun newInstance(keywordToRemove: String, keywords: ArrayList<Keyword>): GiftResultListFragment {
+            val args = Bundle().apply{
+                putString(ARG_KEYWORD, keywordToRemove)
+                putParcelableArrayList(ARG_KEYWORDS, keywords)
+            }
+            return GiftResultListFragment().apply {
+                arguments = args
+            }
         }
     }
 

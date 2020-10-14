@@ -91,8 +91,7 @@ class GiftDetailFragment : Fragment() {
         siteButton = view.findViewById(R.id.site_button)
 
         siteButton.setOnClickListener {
-            // TODO do something with ViewModel? Get the url from the listing passed in rather than the id?
-            // TODO Might pass in all the data from the listing through the args
+            Log.d(TAG, "Item URL: " + giftDetailViewModel.giftLiveData.value!!.url)
             callbacks?.onSiteSelected(giftDetailViewModel.giftLiveData.value!!.url)
         }
 
@@ -112,7 +111,6 @@ class GiftDetailFragment : Fragment() {
                     updateUI()
                 }
             })
-        // TODO might need on click site listenter here
     }
 
     private fun updateUI(){

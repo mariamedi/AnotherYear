@@ -62,8 +62,12 @@ class GiftActivity : AppCompatActivity(), GiftDetailFragment.Callbacks,
     /**
      * Callback from GiftResultListFragment to restart the fragment.
      */
-    override fun restartFragment() {
-        val fragment = GiftResultListFragment()
+    override fun restartFragment(
+        keywordToRemove: String,
+        keywords: ArrayList<Keyword>
+    ) {
+        supportFragmentManager.popBackStack()
+        val fragment = GiftResultListFragment.newInstance(keywordToRemove, keywords)
         supportFragmentManager
             .beginTransaction()
             .replace(R.id.gift_fragment_container, fragment)
@@ -75,6 +79,10 @@ class GiftActivity : AppCompatActivity(), GiftDetailFragment.Callbacks,
         giftViewModel.keywords.remove(key)
     }
 
+    override fun updateKeywords(keywords: ArrayList<Keyword>) {
+        giftViewModel.updateKeywords(keywords)
+    }
+
     /**
      * Callback from GiftDetailFragment to go the site linked to the siteButton.
      */
@@ -84,7 +92,6 @@ class GiftActivity : AppCompatActivity(), GiftDetailFragment.Callbacks,
 
         try {
             startActivity(Intent.createChooser(intent, "Launch site"))
-            finish()
             Log.i("Web.", "Launching site")
         } catch (ex: ActivityNotFoundException) {
             Toast.makeText(
