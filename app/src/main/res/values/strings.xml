@@ -27,7 +27,7 @@
     <string name="add_btn">Add</string>
     <string name="cal_birth_month">Birthdays this month</string>
     <string name="home_title">Upcoming Birthdays</string>
-    <string name="email_hint">Birthday person\u0027s email</string>
+    <string name="email_hint">birthday@email.com</string>
     <string name="send_wish_btn">Send Wish!</string>
 
     <!--Personalized wishes-->
@@ -41,19 +41,17 @@
     <string name="PW_generate_wish_button">Generate New Birthday Wish!</string>
     <string name="PW_no_signature">No Signature</string>
     <string name="PW_error">Please fill out all fields</string>
-    <string name="PW_ready">Your birthday wish is ready!</string>
+    <string name="PW_ready">Generated wish message</string>
     <string name="PW_generate_new_wish_button">Generate Different Wish</string>
     <string name="PW_change_settings_button">Change Settings</string>
+    <string name="add_a_picture">Add a picture (optional)</string>
 
     <!--Nav Bar-->
     <string name="NB_Home">Home</string>
     <string name="NB_Calendar">Calendar</string>
     <string name="NB_Wishes">Wishes</string>
     <string name="NB_Gifts">Gifts</string>
-
-
-
-
+    <string name="enter_recipient_s_email">Enter recipient\'s email</string>
     <string name="gift_title">Gift Title</string>
     <string name="gift_price">Gift Price</string>
     <string name="gift_description">Gift Description</string>
