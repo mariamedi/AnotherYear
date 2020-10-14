@@ -31,7 +31,7 @@
     <string name="send_wish_btn">Send Wish!</string>
     <string name="PW_title">Personalized Wishes</string>
     <string name="PW_name_prompt">Name of birthday person</string>
-    <string name="PW_enter_name">Who is receiving this wish? <font color='red'>*</font></string>
+    <string name="PW_enter_name">Who will receive this wish? <font color='red'>*</font></string>
     <string name="PW_relationship">How close are you to this person?</string>
     <string name="PW_your_name">Your signature</string>
     <string name="PW_not_close">Not at all.</string>
