@@ -80,29 +80,44 @@
         app:layout_constraintTop_toBottomOf="@+id/last_name_edit_text"
         />
 
-    <Spinner
-        android:id="@+id/day_spinner"
-        android:layout_width="92dp"
-        android:layout_height="40dp"
+    <RelativeLayout
+        android:id="@+id/spin_lay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rounded_button_lightpurple"
         android:layout_marginStart="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="10dp"
-        android:background="@drawable/rounded_button_lightpurple"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/birthday_text_view"
+        app:layout_constraintStart_toStartOf="parent">
+    <Spinner
+        android:id="@+id/day_spinner"
+        android:paddingStart="5dp"
+        android:paddingLeft="5dp"
+        android:layout_width="92dp"
+        android:layout_height="40dp"
+        tools:ignore="RtlSymmetry,UnusedAttribute"
         />
+    </RelativeLayout>
 
+    <RelativeLayout
+        android:id="@+id/spin_lay2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rounded_button_lightpurple"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintTop_toBottomOf="@+id/birthday_text_view"
+        app:layout_constraintStart_toEndOf="@id/spin_lay">
     <Spinner
         android:id="@+id/month_spinner"
         android:layout_width="135dp"
         android:layout_height="40dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/rounded_button_lightpurple"
-        app:layout_constraintStart_toEndOf="@+id/day_spinner"
-        app:layout_constraintTop_toBottomOf="@+id/birthday_text_view"
-        />
+        android:paddingStart="5dp"
+        android:paddingLeft="5dp"
+        tools:ignore="RtlSymmetry" />
+    </RelativeLayout>
 
     <Button
         android:id="@+id/save_button"
@@ -117,7 +132,7 @@
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/month_spinner"
+        app:layout_constraintTop_toBottomOf="@+id/spin_lay2"
         />
 
     <Button

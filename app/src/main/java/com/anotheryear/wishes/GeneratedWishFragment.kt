@@ -98,6 +98,9 @@ class GeneratedWishFragment : Fragment() {
             try {
                 val bitmap = getScaledBitmap(photoFile!!.path, requireActivity())
                 imageView.setImageBitmap(rotateImage(bitmap, photoFile))
+                imageView.layoutParams.height = 200
+                imageView.layoutParams.width = 200
+                imageView.requestLayout()
                 imageView.visibility = View.VISIBLE
                 photoBitmap = rotateImage(bitmap, photoFile)
             } catch (e: Exception){
@@ -286,6 +289,9 @@ class GeneratedWishFragment : Fragment() {
             requireActivity().revokeUriPermission(photoUri, Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
             val bitmap = getScaledBitmap(photoFile!!.path, requireActivity())
             imageView.setImageBitmap(rotateImage(bitmap, photoFile))
+            imageView.layoutParams.height = resources.getDimension(R.dimen.imageview_height).toInt()
+            imageView.layoutParams.width = resources.getDimension(R.dimen.imageview_width).toInt()
+            imageView.requestLayout()
             imageView.visibility = View.VISIBLE
             photoBitmap = rotateImage(bitmap, photoFile)
         }
