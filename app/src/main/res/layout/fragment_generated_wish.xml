@@ -1,151 +1,162 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#676570">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+    <TextView
+        android:id="@+id/gen_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/PW_title"
+        android:textColor="#EEEEEE"
+        android:textSize="30sp"
+        android:layout_marginStart="15dp"
         android:layout_marginLeft="15dp"
-        android:background="#676570"
-        android:orientation="vertical">
+        android:layout_marginTop="30dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="left"
-            android:layout_marginTop="50dp"
-            android:orientation="horizontal">
+    <TextView
+        android:id="@+id/ready_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:text="@string/PW_ready"
+        android:textColor="#EEEEEE"
+        android:textSize="18sp"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/gen_title"
+        />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+    <TextView
+        android:id="@+id/PW_birthday_wish"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="15dp"
+        android:background="#DFDAF2"
+        android:paddingTop="15dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="15dp"
+        tools:text="nothing"
+        android:textSize="18sp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ready_text"
+        />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="#EEEEEE"
-                    android:textSize="25sp"
-                    android:layout_marginBottom="40dp"
-                    android:text="@string/PW_title"/>
+    <ImageButton
+        android:id="@+id/PW_add_image"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@drawable/rounded_button_lightpurple"
+        android:src="@drawable/ic_photo_camera"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/PW_birthday_wish"
+        tools:ignore="ContentDescription"
+        />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="17sp"
-                    android:textColor="#EEEEEE"
-                    android:layout_marginBottom="20dp"
-                    android:text="@string/PW_ready"/>
+    <ImageView
+        android:id="@+id/PW_show_image"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:background="@android:color/darker_gray"
+        android:cropToPadding="true"
+        android:scaleType="centerInside"
+        android:visibility="invisible"
+        android:layout_marginStart="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintStart_toEndOf="@id/PW_add_image"
+        app:layout_constraintTop_toBottomOf="@id/PW_birthday_wish"
+        tools:ignore="ContentDescription"
+        />
 
-                <TextView
-                    android:id="@+id/PW_birthday_wish"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="17sp"
-                    android:layout_marginRight="15dp"
-                    android:layout_marginBottom="10dp"
-                    android:paddingBottom="20dp"
-                    android:paddingRight="10dp"
-                    android:paddingLeft="10dp"
-                    android:paddingTop="20dp"
-                    android:background="@drawable/rounded_button_lightpurple"
-                    android:text="nothing"/>
+    <Button
+        android:id="@+id/PW_generate_new_wish_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/rounded_button_purple"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:text="@string/PW_generate_new_wish_button"
+        android:textColor="#fff"
+        android:textSize="18sp"
+        android:layout_marginTop="115dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/PW_birthday_wish"
+        />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="left"
-                    android:orientation="horizontal">
+    <Button
+        android:id="@+id/PW_change_settings_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rounded_button_darkpurple"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:text="@string/PW_change_settings_button"
+        android:textColor="#fff"
+        android:textSize="18sp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/PW_generate_new_wish_button"
+        />
 
-                    <ImageButton
-                        android:id="@+id/PW_add_image"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:background="@drawable/rounded_button_lightpurple"
-                        android:src="@drawable/ic_photo_camera" />
+    <EditText
+        android:id="@+id/PW_their_email"
+        android:layout_width="0dp"
+        android:layout_height="45dp"
+        android:background="@drawable/rounded_edittext"
+        android:hint="@string/email_hint"
+        android:paddingStart="10dp"
+        android:paddingEnd="15dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="15dp"
+        android:textSize="18sp"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/PW_change_settings_button"
+        app:layout_constraintEnd_toStartOf="@id/PW_send_wish_button"
+        tools:ignore="Autofill"
+        android:inputType="textEmailAddress"
+        />
 
-                    <ImageView
-                        android:id="@+id/PW_show_image"
-                        android:layout_width="80dp"
-                        android:layout_height="80dp"
-                        android:layout_marginTop="20dp"
-                        android:background="@android:color/darker_gray"
-                        android:cropToPadding="true"
-                        android:scaleType="centerInside"
-                        android:visibility="invisible" />
-
-
-                </LinearLayout>
-
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <Button
-                android:id="@+id/PW_generate_new_wish_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="17sp"
-                android:layout_marginBottom="20dp"
-                android:paddingRight="20dp"
-                android:paddingLeft="20dp"
-                android:textColor="#fff"
-                android:background="@drawable/rounded_button_purple"
-                android:text="@string/PW_generate_new_wish_button" />
-
-            <Button
-                android:id="@+id/PW_change_settings_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="17sp"
-                android:paddingRight="20dp"
-                android:paddingLeft="20dp"
-                android:textColor="#fff"
-                android:background="@drawable/rounded_button_darkpurple"
-                android:text="@string/PW_change_settings_button" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:layout_marginTop="40dp"
-                android:orientation="horizontal">
-
-                <EditText
-                    android:id="@+id/PW_their_email"
-                    android:layout_width="wrap_content"
-                    android:layout_height="45dp"
-                    android:textSize="17sp"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="15dp"
-                    android:background="@drawable/rounded_edittext"
-                    android:hint="Birthday Person's Email"
-                    android:paddingStart="10dp" />
-                <Button
-                    android:id="@+id/PW_send_wish_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="17sp"
-                    android:layout_marginLeft="10dp"
-                    android:paddingRight="10dp"
-                    android:paddingLeft="10dp"
-                    android:textColor="#fff"
-                    android:background="@drawable/rounded_button_darkpurple"
-                    android:text="Send Wish!" />
-
-            </LinearLayout>
-        </LinearLayout>
-
-    </LinearLayout>
-
+    <Button
+        android:id="@+id/PW_send_wish_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingRight="10dp"
+        android:paddingLeft="10dp"
+        android:textColor="#fff"
+        android:background="@drawable/rounded_button_darkpurple"
+        android:text="@string/send_wish_btn"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="19.5dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginRight="20dp"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/PW_their_email"
+        app:layout_constraintTop_toBottomOf="@id/PW_change_settings_button"
+        />
 </androidx.constraintlayout.widget.ConstraintLayout>

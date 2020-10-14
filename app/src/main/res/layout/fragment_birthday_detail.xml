@@ -11,27 +11,14 @@
         android:id="@+id/detail_title_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="30dp"
         android:textColor="#EEEEEE"
-        android:textSize="25sp"
+        android:textSize="30sp"
         android:text="@string/edit_birthday"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-<!--    <TextView-->
-<!--        android:id="@+id/first_name_text_view"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginStart="16dp"-->
-<!--        android:layout_marginLeft="16dp"-->
-<!--        android:layout_marginTop="30dp"-->
-<!--        android:text="@string/birthday_first_name"-->
-<!--        android:textColor="#EEEEEE"-->
-<!--        android:textSize="60px"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/detail_title_text_view" />-->
 
     <EditText
         android:id="@+id/first_name_edit_text"
@@ -39,30 +26,21 @@
         android:layout_height="50dp"
         android:layout_marginStart="20dp"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginEnd="70dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="20dp"
         android:layout_marginRight="70dp"
         android:background="@drawable/rounded_edittext"
         android:hint="@string/birthday_first_name"
         android:paddingLeft="10dp"
         android:paddingRight="15dp"
-        android:textSize="17sp"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/detail_title_text_view" />
-
-<!--    <TextView-->
-<!--        android:id="@+id/last_name_text_view"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginStart="16dp"-->
-<!--        android:layout_marginLeft="16dp"-->
-<!--        android:layout_marginTop="45dp"-->
-<!--        android:text="@string/birthday_last_name"-->
-<!--        android:textColor="#EEEEEE"-->
-<!--        android:textSize="60px"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/first_name_text_view" />-->
+        app:layout_constraintTop_toBottomOf="@+id/detail_title_text_view"
+        android:paddingStart="10dp"
+        android:paddingEnd="15dp"
+        tools:ignore="Autofill"
+        android:inputType="text" />
 
     <EditText
         android:id="@+id/last_name_edit_text"
@@ -70,17 +48,21 @@
         android:layout_height="50dp"
         android:layout_marginStart="20dp"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="35dp"
-        android:layout_marginEnd="70dp"
-        android:layout_marginRight="70dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginRight="20dp"
         android:background="@drawable/rounded_edittext"
         android:hint="@string/birthday_last_name"
         android:paddingLeft="10dp"
-        android:paddingRight="15dp"
-        android:textSize="17sp"
+        android:paddingRight="10dp"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/first_name_edit_text" />
+        app:layout_constraintTop_toBottomOf="@+id/first_name_edit_text"
+        android:paddingEnd="10dp"
+        android:paddingStart="10dp"
+        tools:ignore="Autofill"
+        android:inputType="text" />
 
     <TextView
         android:id="@+id/birthday_text_view"
@@ -91,7 +73,7 @@
         android:layout_marginTop="40dp"
         android:text="@string/birthday"
         android:textColor="#EEEEEE"
-        android:textSize="20sp"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/last_name_edit_text" />
 
@@ -99,8 +81,8 @@
         android:id="@+id/day_spinner"
         android:layout_width="92dp"
         android:layout_height="40dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginLeft="30dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
         android:layout_marginTop="20dp"
         android:background="@drawable/rounded_button_lightpurple"
         app:layout_constraintStart_toStartOf="parent"
@@ -111,7 +93,6 @@
         android:layout_width="135dp"
         android:layout_height="40dp"
         android:layout_marginStart="30dp"
-
         android:layout_marginLeft="30dp"
         android:layout_marginTop="20dp"
         android:background="@drawable/rounded_button_lightpurple"
@@ -128,7 +109,7 @@
         android:paddingRight="20dp"
         android:text="@string/save_button"
         android:textColor="#fff"
-        android:textSize="17sp"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/month_spinner" />
@@ -143,7 +124,7 @@
         android:paddingRight="20dp"
         android:text="@string/discard_button"
         android:textColor="#fff"
-        android:textSize="17sp"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/save_button" />
@@ -158,7 +139,7 @@
         android:paddingRight="20dp"
         android:text="@string/delete_button"
         android:textColor="#fff"
-        android:textSize="17sp"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
