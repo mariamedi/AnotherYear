@@ -30,8 +30,8 @@
                 <category android:name="android.intent.category.BROWSABLE" />
             </intent-filter>
         </activity>
-        <activity android:name=".wishes.WishesActivity"/>
-        <activity android:name=".gift.GiftActivity"/>
+        <activity android:name=".wishes.WishesActivity" android:windowSoftInputMode="adjustPan"/>
+        <activity android:name=".gift.GiftActivity" android:windowSoftInputMode="adjustPan"/>
 
         <provider
             android:name="androidx.core.content.FileProvider"

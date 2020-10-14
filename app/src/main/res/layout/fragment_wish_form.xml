@@ -51,7 +51,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/PW_name_desc"
         tools:ignore="Autofill"
-        android:inputType="text"
+        android:inputType="text|textNoSuggestions"
         />
 
     <TextView
@@ -111,6 +111,21 @@
         app:layout_constraintTop_toBottomOf="@id/PW_simpleSeekBar"
         />
 
+    <TextView
+        android:id="@+id/PW_sign_desc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:text="@string/let_them_know_it_s_from_you"
+        android:textColor="#EEEEEE"
+        android:textSize="18sp"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="50dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/PW_simpleSeekBar"
+        />
+
     <EditText
         android:id="@+id/PW_your_name"
         android:layout_width="fill_parent"
@@ -123,10 +138,10 @@
         android:layout_marginEnd="20dp"
         android:layout_marginStart="20dp"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="55dp"
+        android:layout_marginTop="10dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/PW_simpleSeekBar"
-        android:inputType="text"
+        app:layout_constraintTop_toBottomOf="@id/PW_sign_desc"
+        android:inputType="text|textNoSuggestions"
         tools:ignore="Autofill"
         />
 

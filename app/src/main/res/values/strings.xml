@@ -28,14 +28,14 @@
     <string name="cal_birth_month">Birthdays this month</string>
     <string name="home_title">Upcoming Birthdays</string>
     <string name="email_hint">birthday@email.com</string>
-    <string name="send_wish_btn">Send Wish!</string>
+    <string name="send_wish_btn">Send Wish</string>
 
     <!--Personalized wishes-->
     <string name="PW_title">Personalized Wishes</string>
     <string name="PW_name_prompt">Name of birthday person</string>
     <string name="PW_enter_name">Who is receiving this wish?</string>
     <string name="PW_relationship">How close are you to this person?</string>
-    <string name="PW_your_name">Your signature for the wish</string>
+    <string name="PW_your_name">Your signature</string>
     <string name="PW_not_close">Not at all.</string>
     <string name="PW_very_close">Really close!</string>
     <string name="PW_generate_wish_button">Generate New Birthday Wish!</string>
@@ -56,5 +56,6 @@
     <string name="gift_price">Gift Price</string>
     <string name="gift_description">Gift Description</string>
     <string name="gift_site">Go to Site</string>
+    <string name="let_them_know_it_s_from_you">Let them know it\'s from you!</string>
 
 </resources>
