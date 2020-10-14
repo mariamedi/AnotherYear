@@ -41,7 +41,7 @@
         android:id="@+id/home_add_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
         android:text="@string/add_btn"
         android:background="@drawable/rounded_button_purple"

@@ -10,7 +10,6 @@ import android.content.pm.ResolveInfo
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
-import android.os.Environment
 import android.provider.MediaStore
 import android.text.Editable
 import android.text.TextWatcher
@@ -46,6 +45,8 @@ class GeneratedWishFragment : Fragment() {
     // vars needed for camera intent
     private var photoUri: Uri? = null
     private var photoFile: File? = null
+
+    private var photoBitmap: Bitmap? = null
 
     /**
      * Callback interface to access and send data to the WishesActivity
@@ -89,11 +90,7 @@ class GeneratedWishFragment : Fragment() {
         }
         // create the URI if there isn't one
         if(photoUri == null) {
-            photoUri = FileProvider.getUriForFile(
-                requireActivity(),
-                "com.anotheryear.fileprovider",
-                photoFile!!
-            )
+            photoUri = FileProvider.getUriForFile(requireActivity(), "com.anotheryear.fileprovider", photoFile!!)
         }
 
         // if we are trying to update an image from an existing file, do it
@@ -102,6 +99,7 @@ class GeneratedWishFragment : Fragment() {
                 val bitmap = getScaledBitmap(photoFile!!.path, requireActivity())
                 imageView.setImageBitmap(rotateImage(bitmap, photoFile))
                 imageView.visibility = View.VISIBLE
+                photoBitmap = rotateImage(bitmap, photoFile)
             } catch (e: Exception){
 
             }
@@ -144,47 +142,56 @@ class GeneratedWishFragment : Fragment() {
 
         // listener for send wish button
         sendWish.setOnClickListener{
-          requireActivity().revokeUriPermission(photoUri, Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
-           val bitmap = getScaledBitmap(photoFile!!.path, requireActivity())
+          sendEmail(birthdayWish.text.toString())
         }
 
         return view
     }
 
-    private fun sendEmail(wish: String?, uri: Uri) {
+    /**
+     * Function that triggers the SEND action so that users can email a wish to someone
+     */
+    private fun sendEmail(wish: String?) {
+        if (birthEmail.text.toString().isNotEmpty()) {
+            Log.d("Email", "Sending email")
 
-
-        if (!birthEmail.text.toString().isEmpty()) {
-            val msg = wish
-            Log.i("Email", "Sending email")
-
-            val TO = arrayOf(birthEmail.getText().toString())
             val emailIntent = Intent(Intent.ACTION_SEND)
             emailIntent.data = Uri.parse("mailto:")
             emailIntent.type = "text/plain"
+            emailIntent.putExtra(Intent.EXTRA_EMAIL, arrayOf(birthEmail.text.toString()))
+            emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Happy Birthday " + wishViewModel!!.theirName +"!")
+            emailIntent.putExtra(Intent.EXTRA_TEXT, wish)
 
-            emailIntent.putExtra(Intent.EXTRA_EMAIL, TO)
-            emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Happy Birthday!")
-            emailIntent.putExtra(Intent.EXTRA_TEXT, msg)
-            emailIntent.putExtra(Intent.EXTRA_STREAM, uri)
-            emailIntent.setType("image/png");
+            // if there is a picture to send, send it
+            if (photoBitmap != null) {
+                val file = File(context!!.applicationContext.filesDir, "happybirthday.png")
+                try {
+                    val fileCreated = file.createNewFile()
+                    if (fileCreated) {
+                        // write the bitmap to that file
+                        val outputStream = FileOutputStream(file)
+                        photoBitmap!!.compress(Bitmap.CompressFormat.PNG, 100, outputStream)
+                        outputStream.close()
+                    }
+                } catch (ex: Exception) {
+                    Log.d("SAVE FAILED", "could not save file")
+                }
 
+                // then attach the file to the intent
+                emailIntent.type = "image/png"
+                emailIntent.putExtra(Intent.EXTRA_STREAM, FileProvider.getUriForFile(requireActivity(), "com.anotheryear.fileprovider", file))
+                emailIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+            }
             try {
                 startActivity(Intent.createChooser(emailIntent, "Send mail..."))
-                activity?.finish()
-                Log.i("Email.", "Sending email")
-            } catch (ex: ActivityNotFoundException) {
-                Toast.makeText(
-                    activity,
-                    "There is no email client installed.", Toast.LENGTH_SHORT
-                ).show()
+                Log.d("Email.", "Sending email")
+            }
+            catch (ex: ActivityNotFoundException) {
+                Toast.makeText(activity, "There is no email client installed.", Toast.LENGTH_SHORT).show()
             }
         }
-        else{
-            Toast.makeText(
-                activity,
-                "Enter email.", Toast.LENGTH_SHORT
-            ).show()
+        else {
+            Toast.makeText(activity, "Enter an email address.", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -280,6 +287,7 @@ class GeneratedWishFragment : Fragment() {
             val bitmap = getScaledBitmap(photoFile!!.path, requireActivity())
             imageView.setImageBitmap(rotateImage(bitmap, photoFile))
             imageView.visibility = View.VISIBLE
+            photoBitmap = rotateImage(bitmap, photoFile)
         }
     }
 

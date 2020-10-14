@@ -235,7 +235,7 @@ class CalendarFragment : Fragment() {
          * Overrides the onCreateViewHolder method to make a view holder for the Birthday List
          */
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) : BirthdayHolder {
-            val view = layoutInflater.inflate(R.layout.list_item_birthday, parent, false)
+            val view = layoutInflater.inflate(R.layout.list_item_birthday_small, parent, false)
             Log.d(TAG, "onCreateViewHolder() called")
 
             return BirthdayHolder(view)
