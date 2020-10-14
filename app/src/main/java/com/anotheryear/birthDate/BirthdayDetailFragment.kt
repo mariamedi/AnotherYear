@@ -185,8 +185,16 @@ class BirthdayDetailFragment : Fragment() {
         }
 
         saveButton.setOnClickListener {
-            birthdayDetailViewModel.saveBirthday(birthday)
-            callbacks?.detailAction("Birthday Saved!")
+            // Only save if first name is not blank
+            if(birthday.firstName == ""){
+                Toast.makeText(requireContext(),
+                    "Please input a first name to save this birthday",
+                    Toast.LENGTH_SHORT).show()
+            }
+            else{
+                birthdayDetailViewModel.saveBirthday(birthday)
+                callbacks?.detailAction("Birthday Saved!")
+            }
         }
 
         discardButton.setOnClickListener {
