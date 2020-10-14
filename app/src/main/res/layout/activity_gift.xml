@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#676570">
@@ -16,8 +17,9 @@
 
         <ProgressBar
             android:id="@+id/progress_Bar"
-            style="?android:attr/progressBarStyle"
-            android:layout_width="match_parent"
+            style="?android:attr/progressBarStyleLarge"
+            android:indeterminateTint="#8271BD"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:indeterminate="true"
             android:visibility="gone"
@@ -25,7 +27,8 @@
             android:minWidth="200dp"
             android:minHeight="50dp"
             android:layout_gravity="center"
-            android:progress="0" />
+            android:progress="0"
+            tools:ignore="UnusedAttribute" />
 
     </FrameLayout>
 

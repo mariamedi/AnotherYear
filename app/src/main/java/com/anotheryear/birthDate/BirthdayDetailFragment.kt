@@ -146,9 +146,9 @@ class BirthdayDetailFragment : Fragment() {
         }
 
         // Create array adapter for month drop down
-        ArrayAdapter.createFromResource(requireContext(), R.array.Months, android.R.layout.simple_spinner_item)
+        ArrayAdapter.createFromResource(requireContext(), R.array.Months, R.layout.spinner_item)
             .also { adapter ->
-                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                adapter.setDropDownViewResource(R.layout.spinner_item)
                 monthDropDown.adapter = adapter
         }
 
@@ -157,7 +157,7 @@ class BirthdayDetailFragment : Fragment() {
             override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
 
                 // Create new adapter to update day drop down with new day range
-                dayDropDown.adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item,
+                dayDropDown.adapter = ArrayAdapter(requireContext(), R.layout.spinner_item,
                     MONTH_DAYS[position])
 
                 // Since day is reset to 1, set selection for day drop down to original day unless
