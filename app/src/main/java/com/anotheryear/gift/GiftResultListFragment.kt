@@ -199,7 +199,7 @@ class GiftResultListFragment : Fragment() {
                     else
                         Toast.makeText(
                             activity,
-                            "Slow down your scrolling!", Toast.LENGTH_SHORT
+                            "Slow down your scrolling!", Toast.LENGTH_LONG
                         ).show()
                 }
             })

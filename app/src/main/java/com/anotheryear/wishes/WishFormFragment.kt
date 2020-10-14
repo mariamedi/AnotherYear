@@ -92,7 +92,7 @@ class WishFormFragment : Fragment() {
                 Toast.makeText(
                     activity,
                     R.string.PW_error,
-                    Toast.LENGTH_SHORT).show()
+                    Toast.LENGTH_LONG).show()
             }
         }
 

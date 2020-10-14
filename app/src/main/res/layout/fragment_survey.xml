@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="#676570"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:ignore="HardcodedText,UnusedAttribute">
+    tools:ignore="HardcodedText">
 
     <TextView
         android:id="@+id/survey_text_view"
@@ -28,7 +28,7 @@
         android:layout_marginStart="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="20dp"
-        android:text="Budget Range"
+        android:text="@string/budget_range"
         android:textColor="#EEEEEE"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -109,7 +109,7 @@
         app:layout_constraintHorizontal_bias="0.51"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/budget_min_edit_text"
-        />
+        tools:ignore="UnusedAttribute" />
 
     <Button
         android:id="@+id/next_button"
