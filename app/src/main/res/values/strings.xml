@@ -57,5 +57,7 @@
     <string name="gift_description">Gift Description</string>
     <string name="gift_site">Go to Site</string>
     <string name="let_them_know_it_s_from_you">Let them know it\'s from you!</string>
+    <string name="gift_results">Gift Results</string>
+    <string name="gift_details">Gift Details</string>
 
 </resources>
