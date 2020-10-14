@@ -2,8 +2,6 @@ package com.anotheryear.wishes
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
-import com.anotheryear.BirthdayRepository
-import com.anotheryear.R
 
 private const val TAG =  "PersonalWishVM"
 
@@ -16,7 +14,7 @@ class WishesViewModel : ViewModel() {
      * Log that a PersonalWish ViewModel instance was created
      */
     init{
-        Log.d(TAG, "ViewModel instance created")
+        Log.d(TAG, "WishesViewModel instance created")
     }
 
     //important information that will be saved in the VM
@@ -84,13 +82,13 @@ class WishesViewModel : ViewModel() {
         val index = validIndex()
 
         //choose from appropriate list
-        when(range){
-            1->currentWish += wishes1.get(index)
-            2->currentWish += wishes2.get(index)
-            3->currentWish += wishes3.get(index)
-            4->currentWish += wishes4.get(index)
+        currentWish += when(range){
+            1-> wishes1[index]
+            2-> wishes2[index]
+            3-> wishes3[index]
+            4-> wishes4[index]
             else->{ //assume they are not close
-                currentWish += wishes1.get(index)
+                wishes1[index]
             }
         }
 
