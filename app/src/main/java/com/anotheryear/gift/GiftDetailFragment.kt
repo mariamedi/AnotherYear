@@ -37,6 +37,7 @@ class GiftDetailFragment : Fragment() {
     interface Callbacks {
         fun onSiteSelected(url: String)
         fun finishedLoading()
+        fun selectNavIcon(navIcon: String)
     }
 
     private var callbacks: Callbacks? = null
@@ -122,6 +123,7 @@ class GiftDetailFragment : Fragment() {
     override fun onStart() {
         super.onStart()
         Log.d(TAG, "Started GiftDetailFragment")
+        callbacks?.selectNavIcon("Gift")
     }
 
     override fun onAttach(context: Context) {

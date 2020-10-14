@@ -40,7 +40,7 @@
         android:paddingStart="10dp"
         android:paddingEnd="15dp"
         tools:ignore="Autofill"
-        android:inputType="text"
+        android:inputType="text|textNoSuggestions"
         />
 
     <EditText
@@ -63,7 +63,7 @@
         android:paddingEnd="10dp"
         android:paddingStart="10dp"
         tools:ignore="Autofill"
-        android:inputType="text"
+        android:inputType="text|textNoSuggestions"
         />
 
     <TextView

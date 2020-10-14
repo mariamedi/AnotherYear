@@ -46,6 +46,7 @@ class GiftResultListFragment : Fragment() {
         fun removeKeyword(key:String)
         fun updateKeywords(keywords: ArrayList<Keyword>)
         fun finishedLoading()
+        fun selectNavIcon(navIcon: String)
     }
 
     private var callbacks: Callbacks? = null
@@ -212,6 +213,7 @@ class GiftResultListFragment : Fragment() {
     override fun onStart() {
         super.onStart()
         Log.d(TAG, "onStart() called")
+        callbacks?.selectNavIcon("Gift")
     }
 
     override fun onResume() {
