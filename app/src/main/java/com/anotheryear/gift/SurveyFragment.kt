@@ -71,10 +71,14 @@ class SurveyFragment : Fragment() {
         }
 
         nextButton.setOnClickListener {
-            if (!noBudgetCheckBox.isChecked && (minBudgetEditText.text.toString().toFloat() > maxBudgetEditText.text.toString().toFloat())) {
-                Toast.makeText(requireContext(), "The left value must be less than the right value", Toast.LENGTH_LONG).show()
-            } else {
-                callbacks?.proceedToGender()
+            try {
+                if (!noBudgetCheckBox.isChecked && (minBudgetEditText.text.toString().toFloat() > maxBudgetEditText.text.toString().toFloat())) {
+                    Toast.makeText(requireContext(), "The left value must be less than the right value", Toast.LENGTH_LONG).show()
+                } else {
+                    callbacks?.proceedToGender()
+                }
+            } catch (e: Exception){
+                Toast.makeText(requireContext(), "Invalid budget inputted", Toast.LENGTH_LONG).show()
             }
         }
 
