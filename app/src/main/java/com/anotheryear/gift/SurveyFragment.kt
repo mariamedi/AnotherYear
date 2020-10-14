@@ -58,6 +58,15 @@ class SurveyFragment : Fragment() {
 
         noBudgetCheckBox.setOnCheckedChangeListener { _, isChecked ->
             giftViewModel.noBudget = isChecked
+
+            // disabling budget edit texts when it is clicked
+            if (isChecked) {
+                minBudgetEditText.isEnabled = false
+                maxBudgetEditText.isEnabled = false
+            } else {
+                minBudgetEditText.isEnabled = true
+                maxBudgetEditText.isEnabled = true
+            }
         }
 
         nextButton.setOnClickListener {
