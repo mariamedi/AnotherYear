@@ -16,9 +16,9 @@ class GiftViewModelTest {
 
     @Test
     fun listsKeywords() {
-        val map = hashMapOf<String, String>("Art" to "Art", "Other" to "Video Games")
+        val map = hashMapOf<String, String>("Art" to "Art", "Recipient" to "unisex", "Other" to "Video Games")
         subject.keywords = map
-        assertEquals(listOf("Art", "Video Games"), subject.getKeywords())
+        assertEquals(listOf("Art", "unisex", "Video Games"), subject.getKeywords())
     }
 
     @Test
@@ -37,6 +37,6 @@ class GiftViewModelTest {
 
         subject.age = ""
         subject.gender = ""
-        assertEquals("not_specified", subject.getRecipient())
+        assertEquals("unisex", subject.getRecipient())
     }
 }
