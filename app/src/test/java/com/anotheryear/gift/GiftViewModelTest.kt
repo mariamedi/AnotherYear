@@ -15,10 +15,23 @@ class GiftViewModelTest {
     }
 
     @Test
-    fun listsKeywords() {
-        val map = hashMapOf<String, String>("Art" to "Art", "Recipient" to "unisex", "Other" to "Video Games")
+    fun getKeywords_listOfKeywords_returnAll() {
+        val map = hashMapOf("Art" to "Art", "Electronics" to "Electronics")
         subject.keywords = map
-        assertEquals(listOf("Art", "unisex", "Video Games"), subject.getKeywords())
+
+        val expected = listOf("Art", "unisex", "Electronics").sorted()
+
+        assertEquals(expected, subject.getKeywords().sorted())
+    }
+
+    @Test
+    fun getKeywordsArray_arrayListOfKeywords_returnAllAsKeywordArray() {
+        val map = hashMapOf("Art" to "Art", "Recipient" to "unisex", "Electronics" to "Electronics")
+        subject.keywords = map
+
+        val expected = arrayListOf(Keyword("Electronics"), Keyword("Art"), Keyword("unisex"))
+
+        assertEquals(expected, subject.getKeywordsArray())
     }
 
     @Test
@@ -38,5 +51,39 @@ class GiftViewModelTest {
         subject.age = ""
         subject.gender = ""
         assertEquals("unisex", subject.getRecipient())
+    }
+
+    @Suppress("DEPRECATION")
+    @Test
+    fun getBudget_noBudget_returnDefault(){
+        subject.noBudget = true
+        val expected = arrayOf(Float.MIN_VALUE, Float.MAX_VALUE)
+
+        assertEquals(expected, subject.getBudget())
+    }
+
+    @Suppress("DEPRECATION")
+    @Test
+    fun getBudget_hasBudget_returnBudget(){
+        subject.noBudget = false
+        subject.budgetMin = 30f
+        subject.budgetMax = 100f
+
+        val expected = arrayOf(30f, 100f)
+
+        assertEquals(expected, subject.getBudget())
+    }
+
+    @Test
+    fun updateKeywords_keywordArray_updatedKeywordHashmap(){
+        // Original keywords
+        val originalKeywords = hashMapOf("Art" to "Art", "Electronics" to "Electronics")
+        subject.keywords = originalKeywords
+        val newKeywords = arrayListOf(Keyword("unisex"), Keyword("Electronics"))
+
+        subject.updateKeywords(newKeywords)
+
+        val expectedKeywords =  hashMapOf("Electronics" to "Electronics")
+        assertEquals(expectedKeywords, subject.keywords)
     }
 }

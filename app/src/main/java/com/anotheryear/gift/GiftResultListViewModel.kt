@@ -10,7 +10,7 @@ private const val TAG = "GiftResultListViewModel"
 
 class GiftResultListViewModel : ViewModel() {
 
-    private val giftKeywordsLiveData = MutableLiveData<List<String>>()
+    val giftKeywordsLiveData = MutableLiveData<List<String>>()
     var giftListLiveData: LiveData<List<Listing>> = MutableLiveData<List<Listing>>()
 
     /**
