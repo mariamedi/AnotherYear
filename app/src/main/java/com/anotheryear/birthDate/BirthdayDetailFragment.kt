@@ -166,7 +166,8 @@ class BirthdayDetailFragment : Fragment() {
                     birthday.birthdate = Date(birthday.birthdate.year, position, birthday.birthdate.date)
                     dayDropDown.setSelection(birthday.birthdate.date - 1)
                 } else {
-                    birthday.birthdate = Date(birthday.birthdate.year, position, 1)
+                    birthday.birthdate = Date(birthday.birthdate.year, position, MONTH_DAYS[position].size - 1)
+                    dayDropDown.setSelection(MONTH_DAYS[position].size - 1)
                 }
             }
 
