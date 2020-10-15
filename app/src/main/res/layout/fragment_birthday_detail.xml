@@ -137,7 +137,7 @@
 
     <Spinner
         android:id="@+id/month_spinner"
-        android:layout_width="150dp"
+        android:layout_width="165dp"
         android:layout_height="40dp"
         android:paddingStart="5dp"
         android:paddingLeft="5dp"
