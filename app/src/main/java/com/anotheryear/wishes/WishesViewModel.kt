@@ -14,7 +14,7 @@ class WishesViewModel : ViewModel() {
      * Log that a PersonalWish ViewModel instance was created
      */
     init{
-        Log.d(TAG, "WishesViewModel instance created")
+//        Log.d(TAG, "WishesViewModel instance created")
     }
 
     //important information that will be saved in the VM
