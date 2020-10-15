@@ -167,10 +167,11 @@ class GeneratedWishFragment : Fragment() {
 
             // if there is a picture to send, send it
             if (photoBitmap != null) {
-                val file = File(context!!.applicationContext.filesDir, "happybirthday.png")
+                val file = File(context!!.applicationContext.filesDir, "happybirthday_" + UUID.randomUUID() + ".png")
                 try {
                     val fileCreated = file.createNewFile()
                     if (fileCreated) {
+                        Log.d(TAG, "gotere")
                         // write the bitmap to that file
                         val outputStream = FileOutputStream(file)
                         photoBitmap!!.compress(Bitmap.CompressFormat.PNG, 100, outputStream)
