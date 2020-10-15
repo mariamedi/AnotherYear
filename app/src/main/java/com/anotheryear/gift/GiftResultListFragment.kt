@@ -197,10 +197,14 @@ class GiftResultListFragment : Fragment() {
                     if (listingItems.count() != 0)
                         thumbnailDownloader.queueThumbnail(holder, listingItems[0].url_170x135)
                     else
-                        Toast.makeText(
-                            activity,
-                            "Slow down your scrolling!", Toast.LENGTH_LONG
-                        ).show()
+                        try {
+                            Toast.makeText(
+                                activity,
+                                "Slow down your scrolling!", Toast.LENGTH_LONG
+                            ).show()
+                        } catch (e: Exception){
+
+                        }
                 }
             })
             holder.apply { holder.bind(gift) }
