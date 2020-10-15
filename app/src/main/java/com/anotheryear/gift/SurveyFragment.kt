@@ -96,18 +96,25 @@ class SurveyFragment : Fragment() {
             override fun beforeTextChanged(sequence: CharSequence?, start: Int, count: Int, after: Int) {
             }
 
-            override fun onTextChanged(sequence: CharSequence?, start: Int, before: Int, count: Int) {
+            override fun onTextChanged(
+                sequence: CharSequence?,
+                start: Int,
+                before: Int,
+                count: Int
+            ) {
 
                 var text = sequence.toString()
 
-                if(text == "")
+                if (text == "")
                     text = "0"
 
-                if(budgetPart == "Min"){
-                    giftViewModel.budgetMin = text.toFloat()
-                }
-                else{
-                    giftViewModel.budgetMax = text.toFloat()
+                try {
+                    if (budgetPart == "Min") {
+                        giftViewModel.budgetMin = text.toFloat()
+                    } else {
+                        giftViewModel.budgetMax = text.toFloat()
+                    }
+                } catch (e: Exception) {
                 }
             }
 
